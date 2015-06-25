@@ -1,0 +1,2910 @@
+                         R FAQ (translated in Korean)
+
+Frequently Asked Questions on R
+
+Version 3.2.2015-06-08
+
+Kurt Hornik
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Notes from the maintainer, Chel Hee Lee <chl948@mail.usask.ca>
+
+The first Korean translation of this document was completed by Chel Hee Lee
+with the version of R-2.8.1 (21-DEC-2008). Since then, the translation has been
+updated along with the changes with the English documentation. The current work
+shown in this page is based on Revision: 68580 (3.3.0 Under development
+(unstable)), updated on Wed Jun 24 09:40:31 CST 2015. Comments and corrections
+via email to Chel Hee Lee is of course most welcome.
+
+Continuous efforts have been made by the following contributors:
+
+  • Chel Hee Lee <chl948@mail.usask.ca>, University of Saskatchewan, Saskatoon,
+    Saskatchewan, Canada, 2008–2015
+  • Edward Kang <ewkang@hotmail.com>, Sydney Area, Australia, 2015
+  • Heather Kim <heatherkimca@gmail.com>, University of Mantioba, Winnipeg,
+    Manitoba, Canada, 2013
+
+Note that your name may not be found because of incomplete record keeping. If
+you were overlooked, please let the maintainer know and the list will be
+updated. Please also contact the mainter of this document in order to
+voluntarily participate in or offer your help with this work.
+
+주의: 현재 이 문서는 기존의 작업내용을 새로이 갱신하는 중입니다. 따라서, 번역이
+되어 있지 않거나, 읽기에 불완전한 문장, 혹은 오역된 내용이 있을 수 있으며, 버전
+이 뒤쳐진 문서의 내용이 존재합니다. 본 문서에 대한 이러한 문제점들을 수정하고
+개발버전과 일치하는 내용(하루 또는 이틀 정도의 차이)을 가진 문서를 만들기 위하
+여 꾸준한 수정과 변경 작업이 이루어지고 있습니다. 본 메시지는 내용의 정확성과
+개발버전과의 일치에 대한 검토가 모두 완료되었을 때 삭제될 예정입니다.
+
+Table of Contents
+
+  • 1 소개
+      □ 1.1 법률적 사항(Legalese)
+      □ 1.2 이 문서를 얻는 방법
+      □ 1.3 이 문서를 인용하는 방법
+      □ 1.4 표기법(Notation)
+      □ 1.5 피드백(Feedback)
+  • 2 R 기초
+      □ 2.1 R이란 무엇인가요?
+      □ 2.2 R은 어떤 플랫폼에서 사용가능한가요?
+      □ 2.3 현재 배포된 R의 버전은 무엇인가요?
+      □ 2.4 어떻게 R을 얻을 수 있나요?
+      □ 2.5 R의 설치는 어떻게 하나요?
+          ☆ 2.5.1 어떻게 R을 설치하나요? (유닉스와 같은 환경)
+          ☆ 2.5.2 어떻게 R을 설치하나요? (윈도우즈 환경)
+          ☆ 2.5.3 어떻게 R을 설치하나요? (Mac)
+      □ 2.6 R을 유닉스와 같은 환경에서 사용할 수 있도록 바이너리 파일이 제공되
+        나요?
+      □ 2.7 R에 관련한 어떤 문서가 존재하나요?
+      □ 2.8 R을 인용하는 방법
+      □ 2.9 R과 관련하여 어떤 메일링 리스트들이 있나요?
+      □ 2.10 CRAN이란 무엇인가요?
+      □ 2.11 R을 상업적 용도로 사용할 수 있나요?
+      □ 2.12 왜 R이라고 이름을 짓게 되었나요?
+      □ 2.13 R 재단(Foundation)은 무엇을 말하나요?
+      □ 2.14 R-Forge는 무엇인가요?
+  • 3 R과 S
+      □ 3.1 S란 무엇인가요?
+      □ 3.2 S-PLUS란 무엇인가요?
+      □ 3.3 R과 S 사이에 다른 점이 있나요?
+          ☆ 3.3.1 렉시컬 스코핑(lexical scoping)
+          ☆ 3.3.2 개발에 영향을 준 모델들(models)
+          ☆ 3.3.3 그 밖에
+      □ 3.4 R은 할 수 있지만 S-PLUS는 할 수 없는 것이 있나요?
+      □ 3.5 R-plus란 무엇인가요?
+  • 4 R 웹인터페이스(Web Interfaces)
+  • 5 R 애드온 패키지(Add-On Packages)
+      □ 5.1 어떤 애드온 패키지들이 존재하나요?
+          ☆ 5.1.1 R에서 사용할 수 있는 애드온 패키지
+          ☆ 5.1.2 CRAN으로부터 얻을 수 있는 애드온 패키지
+          ☆ 5.1.3 Omegahat으로부터 얻을 수 있는 애드온 패키지
+          ☆ 5.1.4 Bioconductor로부터 얻을 수 있는 애드온 패키지
+          ☆ 5.1.5 다른 애드온 패키지
+      □ 5.2 애드온 패키지는 어떻게 설치하나요?
+      □ 5.3 애드온 패키지는 어떻게 사용하나요?
+      □ 5.4 애드온 패키지는 어떻게 제거할 수 있나요?
+      □ 5.5 R 패키지는 어떻게 작성하나요?
+      □ 5.6 어떻게 R에 기여할 수 있나요?
+  • 6 R과 이맥스(Emacs)
+      □ 6.1 이맥스에서 R을 사용할 수 있나요?
+      □ 6.2 이맥스 내부로부터 R을 실행해야 하나요?
+      □ 6.3 이맥스 내부로부터 R 디버깅하기
+  • 7 R 기타사항들(Miscellanea)
+      □ 7.1 리스트의 구성요소를 어떻게 NULL로 설정하나요?
+      □ 7.2 작업공간을 어떻게 저장할 수 있나요?
+      □ 7.3 작업공간을 어떻게 정리할 수 있나요?
+      □ 7.4 eval()과 D()를 어떻게 사용해야 하나요?
+      □ 7.5 왜 행렬의 차원정보가 손실되나요?
+      □ 7.6 자동로딩(autoloading)은 어떻게 작동하는 것인가요?
+      □ 7.7 옵션을 어떻게 설정해야 하나요?
+      □ 7.8 윈도우즈에서 파일명을 어떻게 사용해야 하나요?
+      □ 7.9 플랏팅을 할 때 왜 색상배정에서 에러가 생기나요?
+      □ 7.10 어떻게 요인을 숫자로 변환할 수 있을까요?
+      □ 7.11 R에서 트렐리스(Trellis)를 사용할 수 있나요?
+      □ 7.12 인클로징과 부모환경이란 무엇인가요?
+      □ 7.13 플롯의 라벨에 포함된 객체의 값을 어떻게 변경하나요?
+      □ 7.14 유효한 이름(valid names)이란 무엇인가요?
+      □ 7.15 R에서 GAM 모형을 사용할 수 있나요?
+      □ 7.16 파일을 source() 할 때 왜 결과물이 출력되지 않나요?
+      □ 7.17 사용자 정의 함수내에서 outer()가 왜 이상하게 작동하나요?
+      □ 7.18 anova()로부터 나온 결과는 왜 모델 내에 주어진 요인들의 순서에 따라
+        달라지나요?
+      □ 7.19 배치모드에서 PNG 그래픽을 어떻게 생성하나요?
+      □ 7.20 명령어 기반의 편집기능은 어떻게 사용하나요?
+      □ 7.21 문자열을 어떻게 변수로 바꿀 수 있나요?
+      □ 7.22 왜 lattice/treliis 그래픽이 작동하지 않나요?
+      □ 7.23 데이터 프레임의 행들을 어떻게 정렬하나요?
+      □ 7.24 왜 help.start() 검색엔진이 작동하지 않나요?
+      □ 7.25 R을 업데이트하고 나면 왜 .Rprofile이 더 이상 작동하지 않나요?
+      □ 7.26 모든 메소드들은 어디로 가게 되나요?
+      □ 7.27 축의 라벨을 어떻게 회전시킬 수 있나요?
+      □ 7.28 read.table()의 사용이 왜 비효율적인가요?
+      □ 7.29 패키지와 라이브러리의 다른 점은 무엇인가요?
+      □ 7.30 패키지를 설치하였지만 함수가 존재하지 않습니다
+      □ 7.31 왜 R은 이 숫자들이 서로 같다고 하지 않는 것인가요?
+      □ 7.32 시간이 오래 걸리는 시뮬레이션을 수행할 때 어떻게 해야 에러를 찾을
+        수 있거나 무시할 수 있나요?
+      □ 7.33 음수의 거듭제곱이 왜 틀리나요?
+      □ 7.34 어떻게 해야 반복문의 매 과정으로부터 생성되는 결과를 각각의 다른
+        파일에 저장할 수 있나요?
+      □ 7.35 lmer()을 사용할 때 왜 p-값을 찾을 수 없나요?
+      □ 7.36 Why are there unwanted borders, lines or grid-like artifacts when
+        viewing a plot saved to a PS or PDF file?
+      □ 7.37 문자열 내부에서 왜 백슬래쉬가 이상하게 작동하나요?
+      □ 7.38 에러바 또는 신뢰구간은 어떻게 표시할 수 있나요?
+      □ 7.39 두 개의 y-축을 가진 플롯을 어떻게 생성하나요?
+      □ 7.40 함수의 소스코드에 어떻게 접근할 수 있나요?
+      □ 7.41 절편이 없는 선형모형을 적합한 뒤 summary()를 이용하면 R^2의 추정치
+        가 왜 이상하게 나오나요?
+      □ 7.42 Why is R apparently not releasing memory?
+  • 8 R 프로그래밍(Programming)
+      □ 8.1 summary 메소드를 어떻게 작성해야 하나요?
+      □ 8.2 동적으로 로드된 코드를 어떻게 디버그 할 수 있나요?
+      □ 8.3 디버깅을 할 때 어떻게 R 객체들을 점검할 수 있나요?
+      □ 8.4 어떻게 해야 컴파일 플래그를 변경할 수 있나요?
+      □ 8.5 어떻게 S4 메소드를 디버그 할 수 있나요?
+  • 9 R 버그(Bugs)
+      □ 9.1 버그가 무엇인가요?
+      □ 9.2 버그를 보고하는 방법
+  • 10 감사의 말씀(Acknowledgements)
+
+R FAQ (translated in Korean)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1 소개
+
+이 문서는 R에 관하여 가장 많이 자주 물어보는 질문들에 대해서 정리한 문서입니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1.1 법률적 사항(Legalese)
+
+이 문서(영문)에 대한 저작권은 © 1998–2015 Kurt Hornik에게 있습니다 (한국어 번역
+본은 Chel Hee Lee © 2009–2015에 있습니다).
+
+본 문서는 자유소프트웨어(free software)이므로, 자유소프트웨어 재단 (Free
+Software Foundation)에 의해서 배포되는 GNU 일반공중라이센스 (General Public
+License) 버전 2 또는 그 이후의 버전들을 통하여 수정 및 재배포를 할 수 있습니다.
+
+이 문서가 사용자에게 유용하길 바라는 희망에서 배포되고 있습니다. 그러나, 어떤
+상업적 형태(MERCHANTABILITY)로서의 보증 및 특수한 목적에 적합(FITNESS FOR A
+PARTICULAR PURPOSES)등 어떠한 형태의 보증을 하지 않습니다. 보다 자세한 사항들은
+GNU 일반공증라이센스를 참조하시길 부탁드립니다.
+
+GNU 일반공증라이센스의 사본들을 아래의 주소로부터 찾으실 수 있습니다.
+
+http://www.R-project.org/Licenses/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1.2 이 문서를 얻는 방법
+
+가장 최신 버전의 문서는 항상 아래의 주소에서 확인이 가능합니다.
+
+http://CRAN.R-project.org/doc/FAQ/
+
+plain ASCII text, GNU info, HTML, PDF, 으로 변환되어진 문서형식을 가진 버전들을
+얻을 수 있습니다. 또한, 이렇게 다양한 형식의 문서들을 생성하기 위해 사용된
+Texinfo source 를 얻을 수 있습니다. 이것은 GNU Texinfo system를 사용합니다.
+
+그외에도 R FAQ 문서를 CRAN 사이트 (see CRAN이란 무엇인가요? 참조)의 하위디렉토
+리 doc/FAQ에서 찾을 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1.3 이 문서를 인용하는 방법
+
+퍼블리케이션 (publication)에서 본 FAQ 문서를 인용하고자 할 때에는 Hornik
+(2015), “The R FAQ” 이라고 해주시고, 위에서 언급한 공식적인 URL과 ISBN {No
+value for ‘FAQ_ISBN’}을 기재해 주세요.
+
+@Misc{,
+  author        = {Kurt Hornik},
+  title         = {{R} {FAQ}},
+  year          = {2015},
+  url           = {http://CRAN.R-project.org/doc/FAQ/R-FAQ.html}
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1.4 표기법(Notation)
+
+이 문서에서는 거의 대부분이 표준에 가까운 표기법을 사용합니다. 예를들면, ‘R>’은
+R 프롬프트(prompt)를 나타내고, ‘$’는 쉘프롬프트(shell prompt)를 의미합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1.5 피드백(Feedback)
+
+본 문서에 대한 피드백을 Kurt.Hornik@R-project.org로 보내주신다면 더할 나위 없이
+감사드리겠습니다 (한국어 문서에 대한 피드백은 chl948@mail.usask.ca으로 보내주시
+길 부탁드립니다).
+
+특히, 다음의 내용에 대해서 알아주셨으면 합니다. 이 문서의 작성자 (및 번역자
+Chel Hee Lee)는 Windows 또는 Macintosh 시스템들을 가지고 있지 않습니다. 따라서,
+Windows와 Mac OS X와 관련된 특별한 내용들에 대해서는 “R for Windows FAQ” 와 “R
+for Mac OS X FAQ”을 참고 해주세요. 만약 Macintosh와 Windows 시스템들에 관련된
+정보라고 할지라도, 이 문서내에 곡 포함되어야 한다고 생각되시면 꼭 알려주시기를
+부탁드립니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2 R 기초
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1 R이란 무엇인가요?
+
+R은 통계 계산 (statistical computation)과 그래픽 (graphics)를 위한 시스템입니
+다. 이것은 언어(language), 그래픽을 사용하는 실행환경 (run-time environment),
+디버거(debugger), 특정시스템 함수들에 대한 접근, 그리고 스크립트 파일들에 저장
+되어 있는 프로그램들을 실행시키는 요소들로 구성되어 있습니다.
+
+R의 디자인은 Becker, Chambers & Wilks의 S (see S란 무엇인가요?)와 Sussman의
+Scheme으로부터 크게 영향을 받았습니다. 결과적으로 보이는 언어는 S의 외형과 매우
+흡사하지만, 근본적인 구현방법과 시맨틱스(sematics)는 Scheme으로부터 유래되었습
+니다. 더 많은 내용을 알고 싶으시다면 See R과 S 사이에 다른 점이 있나요?를 참고
+하시길 바랍니다.
+
+R의 핵심은 인터프리트된 컴퓨터 언어 (interpreted computer language)입니다. 이것
+은 분기(branching), 루핑(Looping) 그리고 함수(functions)를 이용한 모듈(modular)
+프로그래밍을 가능하게 합니다. R에서 사용자가 사용하는 함수들의 대부분은 R로 작
+성되었습니다. 또한, 사용자가 효율성(efficiency)를 위한 목적으로 C, C++, 또는
+FORTRAN과 같은 언어로 작성된 프로시져들에 인터페이싱(interface)하는 것이 가능합
+니다. R 배포판 (distribution)은 방대한 양의 통계적 프로시져(statistical
+procedure)들을 위한 기능(functionalities)들을 포함하고 있습니다. 이들중에는 선
+형 및 일반화 선형 모델 (linear and generalized linear models), 비선형모델
+(nonlinear regression model), 시계열분석 (time series analysis), 전통적인 모수
+및 비모수 테스트 (classical parametric and nonparametric tests), 클러스터링
+(clustering)과 평활화 (smoothing)이 있습니다. 또한 매우 다양한 종류의 데이터 시
+각적 표현들을 생성할 수 있는 매우 유연한 그래픽 환경을 제공해주는 방대한 양의
+함수들의 집합이 있습니다. 특수한 목적을 달성하기 위해서 개발된 애드온 패키지
+(“add-on packages”)로 알려져 있는 부가적인 모듈들 역시 이용이 가능합니다. (이들
+에 대해서 더 알고 싶으시면 see R 애드온 패키지(Add-On Packages)를 참고해주세
+요).
+
+최초의 R은 Ross Ihaka와 Robert Gentleman가 New Zealand의 Auckland 에 있는
+University of Auckland의 통계학과에 재직중일 당시 작성되었습니다. 그 이후, 많은
+사용자들이 코드를 제공하고 버그를 리포팅 함으로서 R에 기여 해왔습니다.
+
+1997년 중반 이래로 “R Core Team”이라는 이름의 그룹에 의해서 R의 소스 코드 아카
+이브를 수정 및 관리되어지고 있습니다. 이 그룹은 Doug Bates, John Chambers,
+Peter Dalgaard, Seth Falcon, Robert Gentleman, Kurt Hornik, Stefano Iacus, Ross
+Ihaka, Friedrich Leisch, Uwe Ligges, Thomas Lumley, Martin Maechler, Duncan
+Murdoch, Paul Murrell, Martyn Plummer, Brian Ripley, Deepayan Sarkar, Duncan
+Temple Lang, Luke Tierney, Simon Urbanek 으로 구성되어 있습니다.
+
+R은 홈페이지 http://www.R-project.org/를 가지고 있습니다. GNU copyleft를 기반으
+로 배포되는 free software입니다. 이는 “GNU S”라고 불리는 GNU 공식 프로젝트의 일
+부입니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.2 R은 어떤 플랫폼에서 사용가능한가요?
+
+R은 Unix, Windows와 Mac 계열의 환경에서 개발되어져 왔습니다. R 1.7.1 이후로는
+Mac OS Classic 에 대한 지원이 종료되었습니다.
+
+현 버전의 R은 보편적인 유닉스와 같은 (http://en.wikipedia.org/wiki/Unix-like)
+플랫폼을 기반으로 개발되고 설정됩니다. cpu-linux-gnu for the i386, amd64,
+alpha, arm/armel, hppa, ia64, m68k, mips/mipsel, powerpc, s390 and sparc CPUs
+(e.g., http://buildd.debian.org/build.php?&pkg=r-base), i386-hurd-gnu,
+cpu-kfreebsd-gnu for i386 and amd64, powerpc-apple-darwin, mips-sgi-irix,
+rs6000-ibm-aix, 그리고 sparc-sun-solaris이 이에 해당합니다.
+
+혹시 다른 플랫폼을 알고 계시다면, 저희에게 알려주십시요.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.3 현재 배포된 R의 버전은 무엇인가요?
+
+현재 발표된 (released) 버전은 3.2.1입니다. ‘major.minor.patchlevel’의 형식을 가
+지는 번호체계(numbering scheme)에 기초하여, R은 두 개발버전 (development
+version)들과 현재 발표된 버전의 일부를 수정한 ’r-patched’라는 이름의 패치된 버
+전이 있으며, 다음 단계의 마이너(minor) 버전 또는 결과적으로는 주버전(major)이
+될 ‘r-devel’라는 이름으로 발표된 R이 있습니다. 패치 버전 (r-patched)은 대개 버
+그 수정을 한 것입니다. 새로운 기능 및 형상들은 일반적으로 r-devel 에서 소개됩니
+다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.4 어떻게 R을 얻을 수 있나요?
+
+R 원시코드 (sources), 바이너리 (binaries), 그리고 문서들(documentation)은 CRAN
+(“Comprehensive R Archive Network”)을 통하여 얻을 수 있습니다. (CRAN이란 무엇인
+가요?을 살펴보세요).
+
+원시코드 (sources)는 또한 R 서브버전 저장소 (subversion repository)인 https://
+svn.R-project.org/R/를 통하여 얻을 수 있습니다. 그러나, 익명 rsync (그리고 CVS)
+를 사용할 수 없습니다.
+
+개발자 버전의 R인 r-devel 과 r-patched 파일들이 Tarballs 형식으로 압축되어 ftp:
+//ftp.stat.math.ethz.ch/Software/R/ 에 매일 업데이트 됩니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.5 R의 설치는 어떻게 하나요?
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.5.1 어떻게 R을 설치하나요? (유닉스와 같은 환경)
+
+만약 R이 이미 설치되어 있다면, 쉘 프롬프트(shell prompt)에서 R이라고 입력을 함
+으로서 실행할 수 있습니다 (물론, 실행가능한 파일이 경로에 올바르게 위치해 있다
+는 가정하에서 입니다).
+
+만약 사용자의 플랫폼에 바이너리(binaries)가 사용가능하다면 (R을 유닉스와 같은
+환경에서 사용할 수 있도록 바이너리 파일이 제공되나요? 섹션을 살펴보세요), 이와
+함께 제공되는 지시사항들을 따른다면 이들을 사용할 수 있습니다.
+
+그렇지 않다면, R을 직접 컴파일하여 설치하여야 합니다. 일반적인 Unix와 같은 플랫
+폼(R은 어떤 플랫폼에서 사용가능한가요?를 참고해주세요)에서 이 과정을 수행하는
+것은 매우 쉽쉽니다. R의 배포판과 함께 제공되는 INSTALL 파일은 간단한 설치지침을
+포함하고 있으면 “R Installation and Administration”라는 가이드는 설치와 관련한
+자세한 내용들이 잘 문서화 되어 있습니다 (‘What documentation exists for R?’을
+참고하세요).
+
+참고로 R을 빌드(build)하기 위해서는 C 컴파일러(compiler) 외에도 FORTRAN 컴파일
+러 혹은 아마도 f2c라는 것이 필요할 수도 있습니다.
+
+가장 간단한 방법은 R 원시코드(source code)의 압축을 풀고, 압축이 풀어 생성된 디
+렉토리로 이동한 후, (쉘 프롬프트상에서) 다음과 같은 명령어를 입력하는 것입니다.
+
+$ ./configure
+$ make
+
+만약 명령어들이 성공적으로 수행된다면, R 바이너리와 쉘 스크립트로 작성된 사용자
+가 이용이 가능한 R이라는 이름을 가진 파일이 생성되고, 이는 bin 디렉토리에 복사
+되어 질 것입니다. 사용자는 이 스크립트를 실행시키고자 하는 위치로 스크립트를 복
+사해 넣기만 하면 됩니다. 예를들면, /usr/local/bin 디렉토리입니다. 또한, 텍스트
+로만 구성된 도움말 페이지 뿐만아니라 HTML, LaTeX 버전의 문서들도 함께 설치됩니
+다.
+
+doc/manual에 놓여있는 refman.dvi (R object reference index) 혹은 R-exts.dvi (“R
+Extension Writers Guide”)와 같은 R 매뉴얼들의 DVI 버전을 생성하기 위해서는 make
+dvi를 이용해보세요. 이러한 파일들은 xdvi 또는 dvips와 같은 표준 프로그램들을 이
+용하여 미리 보거나 프린트를 할 수 있습니다. 또한, make pdf의 사용은 매뉴얼들을
+PDF (Portable Document Format)의 형식으로 생성하게 해줍니다. 이들은 Arobat을 이
+용하여 볼 수 있습니다. GNU Texinfo 시스템에 의하여 작성된 매뉴얼들 (본 한국어
+매뉴얼 역시 GNU Texinfo 시스템을 이용하여 작성되었습니다) 은 또한 Emacs 또는 독
+립적인 GNU Info 와 함께 온라인으로 읽을 수 읽을 수 있도록 info 파일들로 변환할
+수 있습니다. 이들을 생성하기 위해서는 make info를 이용하시길 바랍니다. (단, 이
+경우에는 Makeinfo 의 버전이 4.5 이상이 요구됩니다).
+
+마지막으로 R 시스템이 정상적으로 작동하는지 확인하기 위해서 make check를 이용해
+보세요.
+
+make install을 이용하여 “system-wide”(시스템 전체에서 사용이 가능한) 설치를 수
+행할 수도 있습니다. 기본적으로 이것은 다음의 디렉토리에 설치됩니다.
+
+${prefix}/bin
+
+    사용자가 직접 이용하는 쉘 스크립트
+
+${prefix}/man/man1
+
+    man 페이지
+
+${prefix}/lib/R
+
+    위의 내용을 제외한 나머지 모두 (라이브러리, 온라인 도움말, …)이 이곳에 설치
+    됩니다. 이것을 설치된 시스템의 “R Home Directory”(R 홈디렉토리, R_HOME)이라
+    고 합니다.
+
+위에서 prefix는 환경설정을 하는 동안에 결정되어 지며 (일반적으로 /usr/local/입
+니다), 아래에 보이는 것과 같이 configure에 옵션을 이용하여 설치시에 정할 수도
+있습니다.
+
+$ ./configure --prefix=/where/you/want/R/to/go
+
+(즉, R의 실행파일들은 /where/you/want/R/to/go/bin에 설치될 것입니다).
+
+DVI, info, PDF 버전의 매뉴얼들을 설치하기 위해서는 make install-dvi, make
+install-info, make install-pdf을 각각 실행시키세요.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.5.2 어떻게 R을 설치하나요? (윈도우즈 환경)
+
+CRAN 사이트의 bin/windows 디렉토리는 ix86 과 x86_64 칩상에서 돌아가는 Windows
+2000 과 그 이후 의 버전들 (64비트 포함)에서 돌아갈 수 있는 R base 배포판과 방대
+한 양의 애드온(add-on) 패키지들에 대한 바이너리들을 포함하고 있습니다. Windows
+버전의 R은 Robert Gentleman과 Guido Masarotto에 의해서 만들어졌으며, 현재는
+Duncan Murdoch와 Brian D. Ripley에 의해서 개발 및 유지보수가 되고 있습니다.
+
+대부분의 경우, Windows 설치 프로그램 (installer)은 이용하기에 가장 쉬운 도구일
+것입니다.
+
+보다 더 자세한 사항에 대해서는 “R for Windows FAQ”를 참고하세요.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.5.3 어떻게 R을 설치하나요? (Mac)
+
+CRAN 사이트내의 bin/macosx 디렉토리는 R.dmg라는 이름의 디스크 이미지가 표준
+Apple 인스톨러 패키지를 포함하고 있습니다. 이것을 다운로드 받아 실행시키면, 설
+치프로그램은 비개발자 배포판non-developer release)을 설치하게 될 것입니다.RAqua
+는 네이브(naive) Mac OS X Darwin 버전의 R과 R.app Mac OS X GUI를 지칭합니다.
+bin/macosx/powerpc/contrib/x.y 디렉토리 내에는, R의 “x.y” 릴리즈에 대응되는
+RAqua 와 함께 사용될 (Mac OS X 의 powerpc 버전을 위하여) 미리 빌드된 바이너리
+패키지들이 있을 것입니다. 이러한 패키지들의 설치는 R.app GUI에 있는 “Package”
+메뉴를 통하여 가능합니다. Mac OS X 에 대한 이러한 R 포트 (port) 는 Stefano
+Iacus에 의하여 유지 보수 됩니다. 더 자세한 사항에 대해서는 “R for Mac OS X FAQ
+를 참고하길 바랍니다.
+
+R 의 r-patched 와 r-devel 버전들은 http://r.research.att.com 에서 Apple 인스톨
+러 패키지 형식으로 찾을 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.6 R을 유닉스와 같은 환경에서 사용할 수 있도록 바이너리 파일이 제공되나요?
+
+CRAN 사이트의 bin/linux 디렉터리는 다음과 같은 패키지들을 담고있습니다.
+
+              CPU           Versions          Provider
+    Debian i386/amd64 squeeze/wheezy       Johannes Ranke
+           armel      wheezy               Johannes Ranke
+    Ubuntu i386/amd64 lucid/precise/trusty Michael Rutter
+
+Dirk Eddelbuettel에 의해 유지보수되는 데비안(Debian) 패지들은 오랜 시간에 걸쳐
+데비안 배포판의 일부분이 되어가고 있으며, 데비안 패키지 관리도구인 APT 를 통하
+여 쉽게 엑세스 될 수 있습니다. R 기본 환경 및 추천 패키지들을 설치하기 위해서는
+apt-get install r-base r-recommended을 입력하면 됩니다. 만약, 원시코드(source)
+로부터 R 패키지를 빌드하고자 한다면, 이에 필요한 도구들을 설치하기 위해서
+apt-get install r-base-dev이라고 입력하면 됩니다. 최소한 stable(안정적인 버전
+의) 데비안에 적용이 될 수 있는 “backport”라고 불리우는 R 패키지들은 Johannes
+Ranke에 의하여 제공되며, CRAN으로부터 받을 수 있습니다. R 데비안 패키지들에 대
+한 사항들과 백포트(backport)를 설치하는 하는 방법에 대해서는 http://
+CRAN.R-project.org/bin/linux/debian/README 를 살펴보시길 바랍니다. 이는 데비안
+으로부터 파생된 다른 배포판에서도 안정적으로 작동될 것입니다. 우분투를 위한 네
+이티브 백포트 (native backports)는 Michael Rutter에 의해서 제공됩니다.
+
+Fedora(페도라)를 위한 R 바이너리들은 Tom “Spot” Callaway에 의해서 유지보수되며,
+페도라 배포판의 일부로서 제공되며 RPM 설치 및 업데이트 관리프로그램인 yum을 통
+하여 엑세스 할 수 있습니다. 페도라 R RPM 은 사용자와 개발자에게 필요한 모든 구
+성요소들을 다 함께 설치해주는 메타패키지(“meta-package”)인데, 이는 R-core와
+R-devel으로 구분되어집니다. 또한, 독립적인 (standalone) R math library
+(libRmath와 libRmath-devel)를 설치할 수 있으며, R 패키지들을 선택하여 설치하는
+기능 역시 포함하고 있습니다. Enterprise Linux (EPEL) 프로젝트 (http://
+fedoraproject.org/wiki/EPEL)를 위한 추가적인 패키지들은 RedHat Enterprise Linux
+와 이와 호환되는 배포판들을 위한 Fedora RPM의 포트를 제공합니다. 새로운 버전의
+R이 배포될때, 페도라 RPM 에서 새버전을 사용하기 위해서는 최대 2주까지 지연될 가
+능성이 있습니다. 이는 반드시 페도라내에 지정된 검증프로세스 (statuory Fedora
+review process)를 반드시 거쳐야 하기 때문입니다.
+
+See http://CRAN.R-project.org/bin/linux/suse/README.html for information about
+RPMs for openSUSE.
+
+No other binary distributions are currently publically available via CRAN.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.7 R에 관련한 어떤 문서가 존재하나요?
+
+R에서 사용할 수 있는 대부분의 함수들과 변수들에 대해서는 온라인 문서가 있으며,
+이들은 R 프롬프트에서 help(name) (또는 ?name)이라고 입력함으로서 스크린을 통하
+여 확인할 수 있습니다. 여기에서 name은 도움을 받고자 하는 주제를 의미합니다.
+(단항과 이항 연산자 (unary and binary operators), 그리고 분기문(control-flow)과
+같은 특수한 형태의 경우에는 검색어를 입력할때 따옴표를 함께 넣어주어야 할 수도
+있습니다).
+
+본 문서 또한 HTML과 PDF 형식으로 온라인으로 읽을 수 있는 하나의 참고메뉴얼
+(reference manual)이며, LaTeX를 통하여 출력할 수도 있습니다. R의 설치는 어떻게
+하나요?를 참고하시길 바랍니다. 가장 최신버전의 HTML 버전은 항상 http://
+stat.ethz.ch/R-manual/에서 확인해 보실수 있습니다.
+
+일부 버전들에 대한 참고매뉴얼 (R reference manual)들은 Network Theory Ltd http:
+//www.network-theory.co.uk/R/base/에서 구매할 수 있습니다. 매뉴얼 한 부가 판매
+될 때마다, 출판사는 R Foundation (see R 재단(Foundation)은 무엇을 말하나요?)에
+USD 10 (미국돈으로 10달러)를 기부합니다.
+
+R은 다음과 같은 매뉴얼들과 함께 배포되고 있습니다.
+
+  • “An Introduction to R” (R-intro) 는 데이터의 유형, 프로그래밍 구성요소들,
+    통계 모델링과 그래픽스에 대한 정보를 포함하고 있습니다. 이 문서는 Bill
+    Venables과 David Smith가 작성한 “Notes on S-Plus”라는 문서를 토대로 하고 있
+    습니다.
+  • “Writing R Extensions” (R-exts) 는 R 애드온(add-on) 패키지의 작성절차, R 문
+    서 작성요령, R과 다른 언어들과의 인터페이스, 그리고 API에 대해서 기술하고
+    있습니다.
+  • “R Data Import/Export” (R-data) 는 데이터 입출력에 대한 가이드입니다.
+  • “The R Language Definition” (R-lang), 는 “Kernighan & Ritchie of R”이라는
+    문서의 최초 버전이기도 하며, 이밸류에이션(evaluation, 평가, 파싱(parsing,
+    구문해석), 객체지향 프로그래밍 (object oriented programming), 연산
+    (computing) 등의 내용을 다루고 있습니다.
+  • “R Installation and Administration” (R-admin).
+  • “R Internals” (R-ints) R의 내부구조(internal structure)에 대한 가이드입니다
+    (R-2.4.0에서 추가되었습니다).
+
+R과 관련된 문헌(publications)들에 대한 정보는 BibTeX 형식으로 아래의 주소에서
+찾아 볼 수있습니다.
+
+http://www.R-project.org/doc/bib/R.bib
+
+R 코어팀 멤버들에 의해서 씌여진 책들은 아래와 같습니다.
+
+    John M. Chambers (2008), “Software for Data Analysis: Programming with R”.
+    Springer, New York, ISBN 978-0-387-75935-7, http://statweb.stanford.edu/
+    ~jmc4/Rbook/.
+
+    Peter Dalgaard (2008), “Introductory Statistics with R”, 2nd edition.
+    Springer, ISBN 978-0-387-79053-4, http://www.biostat.ku.dk/~pd/ISwR.html.
+
+    Robert Gentleman (2008), “R Programming for Bioinformatics”. Chapman & Hall
+    /CRC, Boca Raton, FL, ISBN 978-1-420-06367-7, http://www.bioconductor.org/
+    pub/RBioinf/.
+
+    Stefano M. Iacus (2008), “Simulation and Inference for Stochastic
+    Differential Equations: With R Examples”. Springer, New York, ISBN
+    978-0-387-75838-1.
+
+    Deepayan Sarkar (2007), “Lattice: Multivariate Data Visualization with R”.
+    Springer, New York, ISBN 978-0-387-75968-5.
+
+    W. John Braun and Duncan J. Murdoch (2007), “A First Course in Statistical
+    Programming with R”. Cambridge University Press, Cambridge, ISBN
+    978-0521872652.
+
+    P. Murrell (2005), “R Graphics”, Chapman & Hall/CRC, ISBN: 1-584-88486-X,
+    http://www.stat.auckland.ac.nz/~paul/RGraphics/rgraphics.html.
+
+    William N. Venables and Brian D. Ripley (2002), “Modern Applied Statistics
+    with S” (4th edition). Springer, ISBN 0-387-95457-0, http://
+    www.stats.ox.ac.uk/pub/MASS4/.
+
+    Jose C. Pinheiro and Douglas M. Bates (2000), “Mixed-Effects Models in S
+    and S-Plus”. Springer, ISBN 0-387-98957-0.
+
+마지막으로, 최근의 것은 아니지만, Ross와 Robert가 R을 디자인하고 구현하면서 겪
+은 경험이 다음의 문서에 기록되어 있습니다. Ihaka & Gentleman (1996), “R: A
+Language for Data Analysis and Graphics”, Journal of Computational and
+Graphical Statistics, 5, 299–314.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.8 R을 인용하는 방법
+
+R을 참고자료로서 인용하고자 한다면, 아래의 BibTeX를 이용하시면 됩니다.
+
+@Manual{,
+  title        = {R: A Language and Environment for Statistical
+                  Computing},
+  author       = {{R Core Team}},
+  organization = {R Foundation for Statistical Computing},
+  address      = {Vienna, Austria},
+  year         = 2015,
+  url          = {http://www.R-project.org}
+}
+
+R과 R 패키지들에 대한 BibTeX 항목들또는 인용정보들은 citation()을 통하여 얻을
+수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.9 R과 관련하여 어떤 메일링 리스트들이 있나요?
+
+이러한 서비스를 제공해 준 Martin Maechler에게 감사를 드립니다. 네가지 종류의 메
+일링 리스트가 있습니다.
+
+R-announce
+
+    는 R의 개발과 새로운 코드의 유용성에 관한 주요 공지사항들을 위한
+    (moderated) 리스트입니다.
+
+R-packages
+
+    는 새롭게 개발되거나 주요기능들이 강화된 패키지들의 유용성에 대한 공지사항
+    들을 위한 (moderated) 리스트입니다.
+
+R-help
+
+    은 R을 사용하면서 겪는 문제들과 이들에 대한 해법들을 논의하는 목적으로 사용
+    되는 주된 메일링 리스트입니다. R의 개발과 새로운 코드들의 유용성에 관하여
+    ‘R-announce’와 ‘R-packages’에서 다루지 않은 공지사항들을 포함하기도 하며, R
+    의 원시코드와 문서에 대한 강화된 기능 및 패치들에 대한 내용을 다루기도 합니
+    다. S와 S-PLUS와의 호환성과 비교에 대한 내용도 있으며, 좋은 예제들과 벤치마
+    크들을 포스팅할 목적으로도 사용합니다.
+
+R-devel
+
+    는 R의 코드개발 (code development)에 관한 질문들과 논의를 위한 리스트입니
+    다. R의 미래에 대한 논의, 새로운 기능에 대한 제안, 그리고 새로운 버전에 대
+    한 테스트를 목적으로 이용될 수 있습니다. 이 리스트는 R의 개발에 적극적인 자
+    세 (active position)을 유지하는 사람을 위한 것입니다.
+
+위에서 나열한 어떠한 종류의 메일링 리스트에 어떤 내용을 보내기 전에 반드시
+posting guide(포스팅 가이드)를 읽어보시길 바랍니다.
+
+R-help 는 본래 R을 이용하여 본인의 문제를 해결하고자 하지만 프로그래밍에 대한
+지식이 부족한 분들을 위해서 개설되었다는 것을 아셨으면 합니다. 따라서, 프로그래
+머가 아닌 사람들이 이해하기 어려운 질문들 (즉, C 혹은 C++ 과 연관된 내용)은
+R-devel을 이용하시길 부탁드립니다.
+
+이러한 메일링 리스트들에 대한 구독 및 보관된 자료들에 대한 열람은 http://
+stat.ethz.ch/mailman/listinfo/을 통하여 손쉽게 하실 수 있습니다. 이는
+R-help-request@lists.R-project.org에 이메일을 보낼 때 subject(제목)이 아닌 body
+(본문)에 ‘subscribe(구독)’ (또는 ‘unsubscribe(구독해지)’라고 이메일을 보냄으로
+서 이용하실 수 있습니다.
+
+R-help 메일링 리스트를 구독하는 모든 이들에게 메시지를 보내기 위해서는
+R-help@lists.R-project.org로 이메일을 보내주세요. 다른 메일링 리스트들의 구독
+및 포스팅 요령은 r-help와 동일합니다. ‘R-help’ 대신에 ‘R-announce’,
+‘R-packages’, ‘R-devel’ 이라고만 변경해주시면 됩니다. R-announce과 R-packages는
+R-help에 이르는 과정이라는 점을 아시길 바랍니다. 만약 R-help를 구독하고 있지 않
+다면 둘 중 어느 하나는 구독을 해야합니다.
+
+사용자가 R 코어 개발자들에게 개별적으로 이메일을 보내기 보다는 R-help에 메일을
+보내주시길 부탁드립니다 (코어 멤버들 역시 메일링을 사용하고 있습니다). 이러한
+부탁을 하는 이유는 코어 개발자들이 지속적으로 R을 향상시키는데 있어서 많은 시간
+을 줄여주기도 할 뿐더러, 질문자가 가장 빠른 시간내에 답변을 받을 수 있기 때문입
+니다.
+
+버그리포트를 할 때에는 버그를 정확하게 재구현할 수 있도록 코드를 함께 올려주시
+면 매우 도움이 됩니다. 또한, 이러한 버그를 보고할 때 사용자가 어떤 시스템과 어
+떤 버전의 R 을 사용하는지 알려주시길 부탁드립니다. 더 자세한 사항들에 대해서는
+R 버그(Bugs)를 살펴보세요.
+
+R 메일링 리스트들에 대한 좀 더 많은 정보를 알고 싶으시다면 http://
+www.R-project.org/mail.html을 살펴보시길 바랍니다.
+
+코멘트와 리포트들을 R-core@lists.R-project.org을 통하여 R 코어팀에 보내주실 수
+있습니다.
+
+R project의 메일링 리스트들의 대부분은 또한 NNTP 뉴스리더를 이용하는 웹브라우저
+를 이용하여 읽을 수 있는 Gmane 또는 RSS 피드를 통해서 이용할 수 있습니다. 사용
+가능한 메일링 리스트들에 대해서는 http://dir.gmane.org/index.php?prefix=
+gmane.comp.lang.r.에서 확인하시길 바라며, RSS 피드에 대한 더 자세한 사항들은
+http://www.gmane.org/rss.php에서 확인부탁드립니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.10 CRAN이란 무엇인가요?
+
+“Comprehensive R Archive Network” (CRAN)은 R 배포판, 기여된 확장 프로그램들
+(즉, 패키지들), R과 관련된 문서들, 그리고 바이너리들로 구성되어 있는 동일한 자
+료들을 전달하는 사이트들의 모음을 의미합니다.
+
+다음의 URL로부터 오스트리아(Austria) 빈(Wien) Wirtschaftsuniversit에서 CRAN 마
+스터 사이트를 찾을 수 있습니다.
+
+    http://CRAN.R-project.org/
+
+데일리 미러(daily mirrors)들은 URL에서 찾을 수 있습니다.
+
+    http://cran.at.R-project.org/           (Wirtschaftsuniversität Wien,
+                                            Austria)
+    http://cran.au.R-project.org/           (University of Melbourne,
+                                            Australia)
+    http://cran.br.R-project.org/           (Universidade Federal do Paraná,
+                                            Brazil)
+    http://cran.ch.R-project.org/           (ETH Zürich, Switzerland)
+    http://cran.dk.R-project.org/           (dotsrc.org, Aalborg, Denmark)
+    http://cran.es.R-project.org/           (Spanish National Research Network,
+                                            Madrid, Spain)
+    http://cran.pt.R-project.org/           (Universidade do Porto, Portugal)
+    http://cran.uk.R-project.org/           (U of Bristol, United Kingdom)
+
+미러들의 모든 목록에 대해서는 http://CRAN.R-project.org/mirrors.html 를 참고해
+주세요. 네트워크 부담을 줄이기 위해서 현재 접속하고 계신 위치에서 가장 가까운
+위치에 있는 CRAN 사이트를 이용해주세요.
+
+CRAN으로부터 R의 가장 최신 공식 릴리즈, R의 데일리 스냅샷 (현재 소스트리의 복사
+본), gzip과 bzip으로 압축된 tar 파일들, 추가적으로 기여된 코드들, Linux, Mac OS
+Classic, Mac OS X, 그리고 MS Windows와 같은 다양한 운영체제를 위하여 미리 빌드
+된 바이너리들을 얻을 수 있습니다. CRAN은 또한 R 문서들, 메일링 리스트들, 그리고
+버그트랙킹 시스템에 접근할 수 있도록 해줍니다.
+
+Please always use the URL of the master site when referring to CRAN.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.11 R을 상업적 용도로 사용할 수 있나요?
+
+R은 GNU General Public License (GPL), version 2하에 배포됩니다.만약, 어떤 특정
+한 상황에서 R을 사용하는 것이 합법적인가에 대한 의구심이 생길 경우, 반드시 전문
+법률상담가와 상의하시길 바랍니다. 우리는 법적 조언을 줄 수 있는 그 어떠한 위치
+에 있지 않습니다.
+
+R Core Team은 R 을 상업적 목적 (즉, 비지니스 혹은 컨설팅)으로도 사용할 수 있다
+고 생각합니다. 모든 오픈소스의 라이센스들과 같이 GPL은 패키지들의 모든 그리고
+어떠한 (all and any) 용도로 사용되는 것을 허용합니다. 이것은 오로지 R 혹은 R 코
+드의 일부분을 포함하는 프로그램의 배포를 제한하는 것입니다. Open Source
+Definition의 제 6항 (clause 6) “No Discrimination Against Fields of Endeavor”에
+서 명확하게 나타납니다.
+
+    The license must not restrict anyone from making use of the program in a
+    specific field of endeavor. For example, it may not restrict the program
+    from being used in a business, or from being used for genetic research.
+
+이는 또한 GPL 제 0항 (clause 0)에서도 아래와 같이 (일부분만) 언급되어 있습니다.
+
+    모든 추천(recommended) 패키지들을 포함하여 대부분의 애드온(add-on) 패키지들
+    은 이러한 방법으로서 상업적으로도 이용이 될 수 있음을 명시하고 있습니다. 몇
+    개의 패키지들은 “non-commercial use”(비상업용적 용도)로서 제한됩니다. 이 경
+    우 사용자는 반드시 저작권자에게 상업적 용도로의 활용여부를 문의하거나 법률
+    상담가로부터의 조언을 찾아야 합니다.
+
+Most add-on packages, including all recommended ones, also explicitly allow
+commercial use in this way. A few packages are restricted to “non-commercial
+use”; you should contact the author to clarify whether these may be used or
+seek the advice of your legal counsel.
+
+이 섹션에 언급된 모든 논의는 법적조언이 아닙니다. R Core Team은 어떠한 경우에도
+법적조언을 제공하지 않습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.12 왜 R이라고 이름을 짓게 되었나요?
+
+R이라는 이름은 R을 최초로 개발한 두 개발자인 Robert Gentleman과 Ross Ihaka의 이
+름에서 기인하기도 하며, 동시에 Bell 연구소의 ’S’ 라는 언어에서 영감을 받기도 하
+였습니다 (see S란 무엇인가요? 섹션을 참고하세요).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.13 R 재단(Foundation)은 무엇을 말하나요?
+
+The R Foundation은 공익(public interest)을 위한 비영리단체(not for profit
+organization)입니다. 이 단체는 R project와 통계계산 (statistical computing)에
+연관된 기술들을 지원하고, R 개발 커뮤니티(development community)를 지원하거나
+함께 일하고 싶어하는 개인, 기관 및 영리추구의 사업체(commercial enterprises)들
+에게 기준(reference point)을 제공하며, R 소프트웨어와 문서에 대한 저작권을 관리
+및 유지하기 위하여 R Core Team 멤버들에 의하여 설립되었습니다. http://
+www.R-project.org/foundation/에서 더 많은 정보를 찾을 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.14 R-Forge는 무엇인가요?
+
+R-Forge (http://R-Forge.R-project.org/)는 R 패키지, R 관련 소프트웨어, 그리고
+다양한 프로젝트들의 개발을 위한 중요한 기반(central platform)을 제공합니다. SVN
+에 최적화된 손쉬운 접근, 매일 빌드되고 체크되는 패키지들, 메일링 리스트, 버그
+트래킹, 메시지 보드/포럼공간, 사이트 호스팅, 영구파일 저장공간, 안정적인 백업,
+그리고 웹기반의 관리 기능등을 제공하는 GForge를 기초로 운영됩니다. R-Forge 웹페
+이지와 Stefan Theußl and Achim Zeileis (2009), “Collaborative software
+development using R-Forge”, The R Journal, 1(1):9–14 로부터 더 많은 내용을 얻을
+수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3 R과 S
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.1 S란 무엇인가요?
+
+S는 데이터 분석과 그래픽스를 위한 하이레벨 언어 (high level language)이며 환경
+입니다. 1998년에 Association for Computing Machinery (ACM)는 1998년에 S언어의
+주요설계자인 John M. Chambers에게 아래와 같이 치하하며 Software System Award를
+수여하였습니다.
+
+    the S system, which has forever altered the way people analyze, visualize,
+    and manipulate data …
+
+    S 언어의 발전은 John Chambers와 공동저자들에 의하여 쓰여진 네권의 책들에 잘
+    설명되어 있습니다. 이들은 또한 S에 대한 주요 참고문헌이기도 합니다.
+
+The evolution of the S language is characterized by four books by John Chambers
+and coauthors, which are also the primary references for S.
+
+  • Richard A. Becker and John M. Chambers (1984), “S. An Interactive
+    Environment for Data Analysis and Graphics,” Monterey: Wadsworth and Brooks
+    /Cole.
+
+    이 책은 “Brown Book”(브라운 북)이라고도 알려져 있으며, 역사적 관심으로서입
+    니다.
+
+  • Richard A. Becker, John M. Chambers and Allan R. Wilks (1988), “The New S
+    Language,” London: Chapman & Hall.
+
+    이 책은 “Blue Book”(블루 북)이라고도 하며, S 버전 2로 알려진 것이 무엇인지
+    를 소개합니다.
+
+  • John M. Chambers and Trevor J. Hastie (1992), “Statistical Models in S,”
+    London: Chapman & Hall.
+
+    이 책은 White Book라고도 하며, S에서 통계모델링(statistical modeling)의 기
+    능을 수행하기 위한 구조들이 추가되어진 S 버전 3로 알려진 것을 소개합니다.
+
+  • John M. Chambers (1998), “Programming with Data,” New York: Springer, ISBN
+    0-387-98503-4 (http://cm.bell-labs.com/cm/ms/departments/sia/Sbook/).
+
+    “Green Book”(그린 북)은 프로그래밍 프로세스의 매 단계마다 유용성을 향상시킬
+    수 있도록 John Chambers에 의하여 설계된 S의 주요수정사항들이 있는 S 버전 4
+    를 설명합니다.
+
+더 자세한 내용은 http://cm.bell-labs.com/cm/ms/departments/sia/S/history.html
+에서 “Stages in the Evolution of S”를 살펴보시길 바랍니다.
+
+CMU에 있는 S Repository에 가시면 사용자들이 제공한 매우 방대한 양의 S코드들을
+있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.2 S-PLUS란 무엇인가요?
+
+S-PLUS is a value-added version of S currently sold by TIBCO Software Inc as
+‘TIBCO Spotfire S+’. See http://en.wikipedia.org/wiki/S-PLUS for more
+information.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.3 R과 S 사이에 다른 점이 있나요?
+
+S는 현재 세가지 종류의 구현체 또는 “engines”(엔진)을 가진 언어로서 여길 수 있습
+니다. 이는 “old S engine” (S version 3; S-Plus 3.x 그리고 4.x), “new S engine”
+(S version 4; S-Plus 5.x 혹은 그 이후의 버전), 그리고 R입니다. 이러한 내용을 바
+탕으로 보면, “R과 S 사이의 다른점”에 대한 질문은 S언어를 이용하여 구현된 R의 세
+부사항들을 묻는것과 같습니다. 즉, R의 엔진과 S의 엔진 사이에 다른 점의 다른 점
+입니다.
+
+For the remainder of this section, “S” refers to the S engines and not the S
+language.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.3.1 렉시컬 스코핑(lexical scoping)
+
+S언어를 이용한 다른 구현체들과는 다르게 R은 내포된 함수 정의들(nested function
+definitions)이 렉시컬 스코프(lexically scoped)된 평가모델(evaluation model)을
+사용합니다. 이것은 Scheme의 평가모델과 유사합니다.
+
+이 차이점은 함수(function)내에서 free(자유)변수들이 발생할때 분명해집니다. 자유
+변수들은 함수의 인자목록에서 사용된 형식인자(formal argument)도 아니고, 함수의
+본체에서 이들에 할당함으로서 생성된 지역변수(local variables)도 아닙니다. S에서
+는 자유변수들은 C와 유사하게 전역변수(global variable)들의 묶음에 의해서 결정되
+어 집니다. (C에서는 지역적 범위와 전역적 범위만이 있습니다). R에서 이들은 함수
+가 생성되어진 환경(environment)에 의해서 결정되어집니다.
+
+다음의 함수를 보십시오:
+
+cube <- function(n) {
+  sq <- function() n * n
+  n * sq()
+}
+
+S에서, sq()는 변수 n이 전역적으로 정의되지 않는 이상은 이에 대해서 알지 못합니
+다:
+
+S> cube(2)
+Error in sq():  Object "n" not found
+Dumped
+S> n <- 3
+S> cube(2)
+[1] 18
+
+R에서는 cube()가 실행되었을때 생성된 “environment”(환경)이 살펴지게 됩니다:
+
+R> cube(2)
+[1] 8
+
+실제로 다루어 볼 수 있는 흥미로운 문제로서, (연속)분포에서 샘플의 크기 n으로부
+터 r 번째의 order statistic (순서통계량)의 밀도함수를 구하는 함수를 작성해본다
+고 가정해 봅니다. 단순한 방법으로 우리는 분포의 cdf와 pdf 모두를 explicit
+arguments(명시적 인자들)로 사용해야 합니다. (이는 Luke Tierney에 의하여 작성된
+다양한 포스팅으로부터 뽑아낸 예제입니다).
+
+call()에 대한 S-PLUS 문서는 기본적으로 다음과 같이 하도록 안내합니다.
+
+dorder <- function(n, r, pfun, dfun) {
+  f <- function(x) NULL
+  con <- round(exp(lgamma(n + 1) - lgamma(r) - lgamma(n - r + 1)))
+  PF <- call(substitute(pfun), as.name("x"))
+  DF <- call(substitute(dfun), as.name("x"))
+  f[[length(f)]] <-
+    call("*", con,
+         call("*", call("^", PF, r - 1),
+              call("*", call("^", call("-", 1, PF), n - r),
+                   DF)))
+  f
+}
+
+Rather tricky, isn’t it? The code uses the fact that in S, 이 코드는 S에서는 함
+수들이 마지막 인자와 같이 함수의 본체의 특정한 방식(mode)의 목록들이라는 사실을
+이용하고 있습니다. 이러한 방식은 R에서 작동하지 않습니다 (누군가는 여기에서 사
+용된 아이디어를 성공적으로 구현할 수도 있을것입니다).
+
+substitute()의 사용빈도가 매우 높으며 S와 R 모두 작동하는 것처럼 보이는 버전은
+다음과 같습니다.
+
+dorder <- function(n, r, pfun, dfun) {
+  con <- round(exp(lgamma(n + 1) - lgamma(r) - lgamma(n - r + 1)))
+  eval(substitute(function(x) K * PF(x)^a * (1 - PF(x))^b * DF(x),
+                  list(PF = substitute(pfun), DF = substitute(dfun),
+                       a = r - 1, b = n - r, K = con)))
+}
+
+(S에서는 eval()이 필요하지 않습니다).
+
+그러나, R에서는 다음과 같은 더욱 쉬운 해결책이 있습니다:
+
+dorder <- function(n, r, pfun, dfun) {
+  con <- round(exp(lgamma(n + 1) - lgamma(r) - lgamma(n - r + 1)))
+  function(x) {
+    con * pfun(x)^(r - 1) * (1 - pfun(x))^(n - r) * dfun(x)
+  }
+}
+
+이것은 “natural(자연스러운)” 구현 같이 보이며, 귀환된 함수(returned function)내
+에 있는 자유변수(free variable)들이 환경을 규정한 내부에서 찾아질 수 있기 때문
+에 잘 실행됩니다 (이것을 렉시컬 스코프(lexical scope)라고 합니다).
+
+꼭 알아야 할 것은 함수 closure라는 것입니다. 즉, 함수를 평가하기 위하여 필요한
+모든 variable binding(변수 바인딩)들 있는 본체를 의미합니다. 위의 버전의 경우,
+값을 지닌 함수내의 자유변수들은 변경되지 않았기 때문에 S에서 이를 사용할 수 있
+을 뿐아니라, 만약 클로저 작동 (closure operation)을 함수 MC()로 이끌어 내고자
+한다면 (클로져를 만들기 위해서) 다음과 같이 할 수 있습니다.
+
+dorder <- function(n, r, pfun, dfun) {
+  con <- round(exp(lgamma(n + 1) - lgamma(r) - lgamma(n - r + 1)))
+  MC(function(x) {
+       con * pfun(x)^(r - 1) * (1 - pfun(x))^(n - r) * dfun(x)
+     },
+     list(con = con, pfun = pfun, dfun = dfun, r = r, n = n))
+}
+
+적절한 클로져 연산자(closure operator)의 정의가 주어진다면 이것은 R과 S에서 모
+두 작동하며 substitute/eval을 활용한 것 (혹은 기본 스코핑 규칙(default scoping
+rule)을 평가 프레임(evaluation frame)에 대한 명시적 접근(explicit access)을 이
+용하여 무효화 하는 해결책, 물론 R과 S 모두 가능한) 보다 말끔한 해결책이라고 할
+수 있습니다.
+
+R에서는 MC()는 단순히 아래와 같습니다.
+
+MC <- function(f, env) f
+
+(lexical scope!), a version for S is
+
+MC <- function(f, env = NULL) {
+  env <- as.list(env)
+  if (mode(f) != "function")
+    stop(paste("not a function:", f))
+  if (length(env) > 0 && any(names(env) == ""))
+    stop(paste("not all arguments are named:", env))
+  fargs <- if(length(f) > 1) f[1:(length(f) - 1)] else NULL
+  fargs <- c(fargs, env)
+  if (any(duplicated(names(fargs))))
+    stop(paste("duplicated arguments:", paste(names(fargs)),
+         collapse = ", "))
+  fbody <- f[length(f)]
+  cf <- c(fargs, fbody)
+  mode(cf) <- "function"
+  return(cf)
+}
+
+유사하게 대부분의 최적화 (optimization 또는 zero-finding) 루틴(rountine)들은 최
+적화 되어야 할 일부 인자들이 필요하며, 데이터에 의존하지만 최적화와 관련해서는
+영향을 미치지 않는 다른 인자들을 가집니다. 이것은 R 스코핑 규칙(scoping rules)
+을 이용하면 단순하게 같은 환경내에서 필요한 정의들만을 가지고 함수를 만들게 되
+면 나머지는 스코핑이 알아서 처리하게 되므로 매우 간단한 문제입니다. S를 이용한
+한가지 방법은 별도의 인자(extra parameter)를 함수와 이러한 별도의 인자들이 넘겨
+지게 될 옵티마이저(optimizer)에 추가하는 것이지만, 이는 오로지 옵티마이저가 지
+원될 경우에만 가능합니다.
+
+중첩된 구조의 렉시컬 스코프를 따르는 함수들(nested lexically scoped functions)
+은 함수 클로져 (function closure)의 사용과 지역적 상태(local state)를 유지하는
+것을 허용합니다. (Abelson과 Sussman으로부터 가져온) 간단한 예는 R 프롬프트에서
+demo("scoping")이라고 입력함으로서 확인해 볼 수 있습니다. 이에 대한 더 많은 정
+보는 표준 R 참고자료인 “R: A Language for Data Analysis and Graphics” (see R에
+관련한 어떤 문서가 존재하나요?)과 Robert Gentleman and Ross Ihaka (2000),
+“Lexical Scope and Statistical Computing”, Journal of Computational and
+Graphical Statistics, 9, 491–508. 으로부터 찾아 볼 수 있습니다.
+
+중첩된 구조의 렉시컬 스코프를 따르는 함수들 (nested lexically scoped functions)
+은 더 중요한 다른 점을 의미합니다. S는 모든 객체들을 디렉토리의 어딘가에 (보통
+은 현재 디렉토리내에 .Data의 형식으로) 각각 다른 파일들로 저장하는 반면, R은 그
+러하지 않습니다. R의 모든 객체들은 내부적으로 저장됩니다. R이 실행되었을때, R은
+메모리(memory)의 한 조각을 붙잡고 이를 객체를 저장하는데 사용합니다. R은 이러한
+메모리 사용을 위한 메모리 관리기능(memory management)을 수행하고, 필요한 만큼의
+크기를 늘이고 줄이게 됩니다. 심볼과 값들간의 바인딩(symbol/value pairs)에 관련
+된 모든 “환경(environments)”를 외부에서 유지하는 것은 거의 가능하지 않기 때문에
+모든 것을 메모리내에서 관리할 필요가 있습니다. 이러한 차이 또한 R이 S보다 빠른
+것 처럼 보이게 합니다.
+
+다소 불편한 점이 있다면 R이 크래쉬(crash)되면 현재 세션에서 작업하는 모든 것을
+잃게 됩니다. 메모리를 저장하고 복원하는 “images”(이미지라는 것은 R의 내부 메모
+리에 항시 저장되는 함수들과 데이터를 의미합니다)의 크기가 크다면 다소 느릴 수
+있습니다. S에서는 이와 같은 일이 발생하지 않습니다. 그 이유는 모든것이 디스크
+파일의 형식으로 저장되기 때문입니다 (누군가는 S 개발자들이 렉시컬 스코프을 위한
+공간을 제공하는 것이 지속적인 저장방식을 사용하는 것보다 더 많은 비용이 들것이
+라고 느꼈을 것이라고 추측할 수도 있습니다). 그래서, 중요한 작업을 할때에는 가능
+한 크래쉬(crash)들로부터 보호하기 위해서 자주 저장하는 것을 생각해 볼 수 있습니
+다 (작업공간을 어떻게 저장할 수 있나요?를 살펴보세요). 또 다른 방법으로는 세션
+(session)을 기록(logging)하거나, source()를 이용하여 읽어들일 수 있는 텍스트 파
+일에 저장된 R 명령어들을 가지는 것입니다.
+
+    Note: 만약 R을 Emacs내에서 실행한다면 (R과 이맥스(Emacs)을 살펴보세요), 인
+    터랙션버퍼(interaction buffer)안의 내용들(contents)를 파일에 저장하고 이들
+    을 ess-transcript-mode를 이용하여 쉽게 조작할 수 있으며, 사용된 모든 함수와
+    데이터들의 원시복제(source copy)를 저장할 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.3.2 개발에 영향을 준 모델들(models)
+
+모델링 코드(modeling code)에는 아래와 같이 몇가지 다른 점들을 볼 수 있습니다.
+
+  • S에서는 y를 x^3을 이용하여 회귀(regress)하기 위해서는 lm(y ~ x^3)를 사용하
+    는 반면, R에서는 수치벡터의 자승부분을 I()를 이용하여 따로 보호처리를 해야
+    합니다. 즉, lm(y ~ I(x^3))이라고 사용해야 합니다.
+  • 일반선형화모델 페밀리 객체들(glm family objects)는 R과 S에서 다르게 구현되
+    어 있습니다. 같은 기능을 이용할 수 있으나, 구성요소들은 서로 다른 이름들을
+    가지고 있습니다.
+  • na.action이라는 옵션은 "na.omit"이라는 값으로 R에서는 기본적으로 설정되어
+    있으나, S에서는 그렇지 않습니다.
+  • 항 객체(terms objects)들은 다른 방식으로 저장됩니다. S에서는 항 객체(terms
+    objects)은 속성(attributes)와 함께 이용된 표현식(expression)이지만, R에서는
+    속성과 함께 이용된 formula (공식 또는 포뮬러)입니다. 속성들은 같은 이름들을
+    가지고 있으나 대부분 다르게 저장됩니다.
+  • 마지막으로 절편(intercept)가 없는 모델을 정의하기 위해서 R에서는 y ~ x + 0
+    이라는 표현은 y ~ x - 1의 또 다른 표현입니다. 아무런 파라미터들(parameters)
+    를 없는 모델을 y ~ 0로 표현할 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.3.3 그 밖에
+
+렉시컬 스코핑(lexical scoping)과 이것의 의미를 떠나서, R은 Blue와 White 책에 있
+는 S 랭귀지 정의(language definition)을 가능하면 많이 본땄기 때문에 결과적으로
+는 S를 이용한 “implementation”(구현물)입니다. S의 작동방식(behaviour)가 “not
+clean”(깔끔하지 못하다고) 고려되는 부분들에 있어서는 의도적인 다른 점들을 가지
+고 있습니다. 일반적 방침은 R은 S와 가능하면 호환될 수 있게 함과 동시에 사용자가
+프로그래밍 에러를 찾을수 있게 도와주도록 하는 것입니다.
+
+몇 가지 알려진 다른 점들을 아래에 설명하였습니다.
+
+  • R에서는 만약 x가 리스트(list)라면 x[i] <- NULL과 x[[i]] <- NULL이라고 하는
+    것은 x로부터 지정된 구성요소들을 삭제합니다. 이들중 첫번째 표현은 no-op인
+    곳에서는 S에서 사용할 수 없습니다. (x[i] <- list(NULL)을 이용하여 NULL이라
+    는 구성요소를 지정할 수 있습니다).
+  • S에서, .Data 디렉토리 내에서 .First와 .Last라는 이름을 가진 함수들은 세션의
+    가장 처음과 마지막에서 실행되기 때문에 커스터마이징(customizing)을 위한 목
+    적으로 사용될 수 있습니다.
+
+    R에서 스타트업(startup) 메카니즘은 다음과 같습니다. 만약 명령어 라인에
+    --no-environ이 주어지지 않았다면, R은 환경변수들(environment variables)들을
+    설정하기 위한 사이트와 사용자 파일들(site and user files)으르 찾습니다. 그
+    리고 나서, 명령어 라인에 --no-site-file이 주어지지 않았다면, 사이트-와이드
+    스타트업 프로파일 (site-wide startup profile)을 탐색합니다. 이 코드는 패키
+    지 base에 로드되어 있습니다. 그리고 나서, --no-init-file이 주어지지 않았다
+    면 R은 사용자 프로파일 파일(user profile file)을 탐색하고 이를 사용자의 작
+    업공간(user workspace)로 읽어(source)들입니다. 그런 후에, 만약
+    --no-restore-data 또는 --no-restore가 지정되지 않는 이상 .RData에 사용자 작
+    업공간의 저장된 이미지가 있다면 이를 불러옵니다. 그런 다음, 함수 .First()가
+    검색경로(serach path)위에 있다면 실행됩니다. 마지막으로 패키지 base 내에 있
+    는 함수 .First.sys가 실해됩니다. R 세션을 종료할 때, 만약 .Last가 검색경로
+    에서 찾아진다면 이를 실행한 뒤에 .Last.sys가 실행됩니다. 만약 필요하다면 함
+    수들 .First()와 .Last()들은 적절한 스타트업 프로파일에 정의되어야 합니다.
+    더 구체적인 내용은 .First와 .Last에 대한 도움말을 참고하세요.
+
+  • R에서는 T와 F는 단순히 TRUE와 FALSE로 정해지는 변수들이지만, S에서는 예약어
+    (reserved words)가 아니기 때문에 사용자에 의해서 덮어씌여질 수 있습니다.
+    (이는 "T"와 "F"라는 요인의 수준들을 이용할 때 유용합니다). 그러므로, 코드를
+    작성할 때 TRUE와 FALSE를 항상 이용해야만 합니다.
+  • R에서, dyn.load()는 오로지 공유된 객체들(shared objects)만을 불러옵니다. 예
+    를들면, R CMD SHLIB에 의해 생성된 것들입니다.
+  • R에서 attach()는 현재의 리스트들과 데이터프레임들만을 결합하는데 이용되지만
+    디렉토리에는 적용되지 않습니다. (실제로는 attach()는 save()에 의하여 생성된
+    R 데이터 파일들을 결합하는데, 이는 S에서 디렉토리를 결합하는 것과 유사합니
+    다). 또한 위치 1(position 1)에서는 결합할 수 없습니다.
+  • R에서는 카테고리 (categories)라는 개념은 존재하지 않으며, S에서 더 이상 사
+    용을 하지 않기 때문에 앞으로도 존재하지 않을 것입니다. 대신에 요인
+    (factors)를 이용하시길 바랍니다.
+  • R에서는 For() 루프는 필요하지 않으므로 지원되지 않습니다.
+  • R에서는 assign()은 S에서 인자 where=를 사용하는 것과는 달리 인자 envir=를
+    이용합니다.
+  • 난수발생기(random number generators)가 다르며, 시드(seeds)의 길이가 다릅니
+    다.
+  • R은 정수형 객체를 C로 패스할 때 S가 long *를 사용하는 것과 달리 int *를 이
+    용합니다.
+  • R은 단정도 (single precision) 저장모드 (storage mode). 그러나, 0.65.1부터는
+    C/FORTRAN 서브루틴에 접속하는(interface) 단정도가 있습니다.
+  • 기본적으로 ls()는 R에서 현재의 환경(current environment)에 있는 객체들의 이
+    름을 반환하지만, S는 전역환경(global environment)에 있는 객체들의 이름을 반
+    환합니다. 예를들면,
+
+    x <- 1; fun <- function() {y <- 1; ls()}
+
+    fun()은 R에서는 "y"를 반환하고 S에서는 "x" 그리고 전역환경(global
+    environment)에 있는 다른 객체들을 함께 반환합니다.
+
+  • R은 0의 크기를 가진 행렬 (zero-extent matrices)와 배열 (즉, dim 속성벡터
+    (attribute vector)의 일부 구성요소가 0이 될 수 있습니다)를 허용합니다. 이것
+    은 비어있는 부분집합 (empty subset)에 대한 특별한 테스트들의 필요성을 도움
+    을 주기 때문에 유용한 기능이라고 여겨져 왔습니다. 만약, x가 행렬이며, x
+    [,FALSE]는 NULL이 아니라, 아무런 행을 가지지 않는 “행렬”입니다. 그러므로,
+    이러한 객체들은 is.null()을 이용하는 것이 아니라 length()가 0인지를 확인해
+    야 합니다 (R과 S 둘 다 작동합니다).
+  • 벡터의 구성요소에 이름이 있는 벡터(named vector)들은 R에서는 벡터로 여겨지
+    지만, S에서는 그렇지 않습니다 (즉, is.vector(c(a=1:3))은 S에서 FALSE이지만,
+    R에서는 TRUE입니다).
+  • R에서는 데이터프레임은 행렬로 여겨지지 않습니다 (즉, 만약에 DF가 데이터 프
+    레임이라면, is.matrix(DF)의 결과는 R에서는 FALSE이지만 S에서는 TRUE입니다).
+  • R에서는 기본적으로 순서가 없는 경우(unordered case)에는 treatment contrast
+    를 사용하는 반면 S는 Helmert 대조를 사용합니다. 이것은 treatment contrast가
+    더 자연스럽다는 의견이 반영된 다른 점입니다.
+  • R에서는 우변(right hand side)에 해당하는 치환함수의 인자는 ‘value’라고 반드
+    시 이름지어져야 합니다. 즉, f(a) <- b는 a <- "f<-"(a, value = b)처럼 평가됩
+    니다. S는 명칭에 관계없이 항상 마지막 인자를 취합니다.
+  • S에서는 substitute()는 주어진 표현(expression)으로부터 대체에 이용될 이름들
+    을 검색합니다: 매칭호출(matching call)의 실제적(actual) 인자와 기본
+    (default) 인자, 그리고 이의 순서에 따른 지역적 프레임(local frame). R은 변
+    수가 평가되지 않았다면, “promise”를 사용하기 위한 특별한 규칙과 함께 지역적
+    프레임 내를 살펴보게 됩니다. 지역적 프레임은 할당(assignment)이 일어나기 전
+    에 실제적 인자 (actual argument) 또는 디폴트 표현(default expression)으로
+    초기화 되기 때문에 이는 보통 S와 일치하게 됩니다.
+  • S에서는 for() 루프내의 인덱스 변수(index variable)은 루프내에서 지역적으로
+    이용됩니다. R에서는 for()문이 실행되어진 곳의 환경(environment)에 지역적입
+    니다.
+  • S에서는 tapply(simplify=TRUE)는 R이 1-차원 배열(dimnames이라고 이름을 가질
+    수도 있는)을 반환하는 벡터를 반환하게 됩니다.
+  • S(-PLUS)에서는 C 로케일이 사용되는 반면 R은 현재 운영체제의 로케일이 문자들
+    이 알파벳인지 어떻게 분류되는지를 결정하기 위해서 사용됩니다. 이것은 R 객체
+    에 유효한 이름들(예를들면, 엑센트가 있는 문자들도 R에서는 허용될 수도 있습
+    니다), 정렬의 순서와 비교 ("aA" < "Bb"가 참 또는 거짓인지를 결정)에 영향을
+    줍니다. 1.2.0 버전부터는 로케일은 Sys.setlocale()함수를 이용하여 R내부에서
+    재설정될 수 있습니다.
+  • S에서는 missing(arg)는 만약 arg가 실제적으로 수정이 되면 TRUE로 남아있게 되
+    나, R에서는 그렇지 않습니다.
+  • 버전 1.3.0 부터는 data.frame은 (행의) 이름을 생성할때 I()를 분해합니다.
+  • R에서는 문자열 "NA"는 문자형 변수에서 결측값(missing value)로 처리되지 않습
+    니다. 결측을 의미하는 문자값(missing character value)를 생성하기 위해서는
+    as.character(NA)를 활용하세요.
+  • R은 함수호출에서 중복되는 형식인자(formal argument)를 허용하지 않습니다.
+  • S에서는 dump(), dput(), 그리고 deparse()는 같은 코드에 근본적으로 다른 인터
+    페이스입니다. R에서는 버전 2.0.0부터 같은 control 인자가 이용될 때에만 참
+    (true)이지만, 기본적으로 그렇지는 않습니다. 기본적으로는 dump()는 색체를 재
+    생산하기 위한 평가를 하는 코드를 작성하는 반면, dput()과 deparse()는 기본적
+    으로 읽기가 가능한 구문분석이 되지 않은 코드(deparsed code)를 생성하기 위한
+    옵션들입니다.
+  • R에서는 문자벡터 인덱스(character vector index)를 이용하여 [와 함께 벡터,
+    행렬, 배열, 또는 데이터프레임을 인덱싱하는 것은 오로지 정확한 매치(exact
+    matches)들만을 찾습니다 (그러나, [[와 $는 부분매치를 허용합니다).
+  • S는 두개의 인자를 가지는 atan이 있으나, atan2는 없습니다. S에서 atan(x1,
+    x2)라고 호출을 하는 것은 R에서 atan2(x1, x2)라고 하는 것과 같습니다. 그러
+    나, S의 코드 atan(x=a, y=b)는 R에서 atan2(y=a, x=b)이기 때문에 x와 y가 서로
+    바뀌어 있음을 아셔야 합니다. (R은 위치인수(positional arguments)와 함께 사
+    용되는 2개의 인자를 가지는 atan에 대하여 문서가 없이 지원을 했었으나, 이는
+    더이상의 혼란을 피하기 위하여 제거되었습니다).
+  • 분수와 지수부분이 없는 숫자형 상수들은 inS-PLUS 6.x 또는 그 이후버전에서는
+    정수로 처리하지만, R에서는 이를 더블(double)로 처리합니다.
+
+의도하지 않았지만, R에서 잘못된 코드 또는 누락된 부분으로 인한 다른 점 또한 있
+을 수 있습니다. 개발자들은 사용자가 찾게 되는 어떠한 결점들에 대하여 (사용자가
+찾은 다른 점들에 대해서 충분하게 문서화된 보고서의 형태로서) 듣는것을 매우 감사
+히 여깁니다. 물론, 스스로가 변경을 해 본뒤에 이 변경이 확실하게 작동하는가를 확
+인해준다면 더욱 유용합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.4 R은 할 수 있지만 S-PLUS는 할 수 없는 것이 있나요?
+
+R에서 할 수 있는 거의 모든 것들은 약간의 노력만으로 S-PLUS로 포트할 수 있는 소
+스 코드들이 있기때문에 S-PLUS에서 하지 못하는 것을 R에서 할 수 있지는 않을 것입
+니다 (그러나, 렉시컬 스코핑을 이용하는 것은 상당히 문제를 단순화 시킬 수도 있습
+니다).
+
+R은 S-PLUS에서는 없는 몇가지 그래픽 기능들을 제공합니다. 라인(line)의 종류를 다
+루는데 더 나은 처리, (팔레트를 통한) 더 편리한 색상 관리, 색의 감마 보정, 그리
+고 가장 중요한 것은 TeX와 같은 입력을 이용하여 플랏 텍스트에 수학적 주석을 나타
+내는 것등입니다. 이러한 기능들을 볼 수 있는 좋은 예제들을 plotmath 도움말을 살
+펴보시길 바랍니다. 더 자세한 내용들은 Paul Murrell and Ross Ihaka (2000), “An
+Approach to Providing Mathematical Annotation in Plots”, Journal of
+Computational and Graphical Statistics, 9, 582–599 에서 찾아 볼 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.5 R-plus란 무엇인가요?
+
+매우 오랜 기간동안 다음과 같은 것들은 존재하지 않았습니다.
+
+XLSolutions Corporation은 R 플러스라고 읽는 R+라는 상업용 버전을 현재 베타 테스
+팅 하고 있습니다.
+
+REvolution Computing은 R에 기초를 둔 기업용 통계시스템(enterprise-class
+statistical analysis system), 전문가용, 상업용, 그리고 규제된 환경 배치에 적합
+한 REvolution R을 선보였습니다.
+
+커머셜 버전의 R에 대해서는 http://en.wikipedia.org/wiki/R_programming_language#
+Commercialized_versions_of_R 를 참고하십시오.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4 R 웹인터페이스(Web Interfaces)
+
+Rweb은 Jeff Banfield에 의해 개발되고 유지되고 있습니다. Rweb Home Page는 다음과
+같은 세가지 버전의 Rweb을 제공합니다 — 결과물과 그래프를 반환해주는 간단한 텍스
+트 입력 방식, 여러 개의 창을 제공하며 좀 더 보기에 좋은 JavaScript 버전, 그리고
+R 언어에 대한 지식이 요구되지 않고 기초 통계 과목들에 유요한 포인트와 클릭만으
+로 이루어진 버전들입니다. 만약 URL이 제공되어 있다면, 모든 Rweb 버전들은 웹에서
+접근이 가능한 데이터들을 분석할 수 있습니다.
+
+다른 버전들의 Rweb에 대한 자세한 설명과 Rweb이 어떻게 작동하는지에 대한 개요는
+Journal of Statistical Software (http://www.jstatsoft.org/v04/i01/)에서 출간된
+“Rweb: Web-based Statistical Analysis”에 설명되어 있습니다.
+
+Ulf Bartel has developed R-Online, a simple on-line programming environment for
+R which intends to make the first steps in statistical programming with R
+(especially with time series) as easy as possible. There is no need for a local
+installation since the only requirement for the user is a JavaScript capable
+browser. See http://www.osvisions.com/r_online/ for more information.
+
+Rcgi는 MJ Ray에서 만들어진 CGI WWW 인터페이스입니다. 이는 HTML 작성자가 CGI 스
+크립들을 쓰지 않고도 데이터 셋을 로드하는 것부터 사용자가 대부분의 명령어들을
+입력하며, 사용자의 입력과 코드를 섞어 사용할 수 있는 “embedded code”을 사용할
+수 있었습니다. PostScript 또는 GIF 형식들의 그래픽적 결과물이 가능했으며, 실행
+된 코드는 사용자가 수정할 수 있도록 보여졌습니다. 그러나, 이 프로젝트가 아직도
+진행중인지는 확실하지 않습니다. 현재 Mai Zhou에 의한 수정된 버전의 Rcgi (실제로
+는 (bitmap) 그래픽스가 있는 것과 없는 것 두가지가 존재합니다)가 있으며, 본래의
+코드는 http://www.ms.uky.edu/~statweb/에서 찾아 볼 수 있습니다.
+
+There are many additional examples of web interfaces to R which basically allow
+to submit R code to a remote server, see for example the collection of links
+available from http://biostat.mc.vanderbilt.edu/twiki/bin/view/Main/
+StatCompCourse.
+
+David Firth는 CRAN으로부터 얻을 수 있는 R 애드온 패키지인 CGIwithR을 작성하였습
+니다. 이것은 웹서버에 대한 CGI 인터페이스를 통하여 R script들을 실행할 수 있도
+록 하는 다소 간단한 R 익스텐션(extension)을 제공하며, GET과 POST 메소드들을 이
+용한 데이터의 서브미션 또한 가능합니다. 기본적으로 Linux의 Apache를 사용하여 쉽
+게 설치되고 R을 지원하는 모든 플랫폼과 인스톨러가 필요한 보안 권한(necessary
+security permissions)들을 모두 가지고 있는 있는 웹서버에서 작동을 해야 합니다.
+이는 the Journal of Statistical Software (http://www.jstatsoft.org/v08/i10/)에
+출판된 David의 논문 “CGIwithR: Facilities for Processing Web Forms Using R”에
+있습니다. 현재 이 패키지는 Duncan Temple Lang에 의하여 관리되고 있으며, 웹페이
+지는 http://www.omegahat.org/CGIwithR/입니다.
+
+Jeff Horner은 Apache 2(그리고 이후버전)내의 R 인터프리터(interpreter)를 보관하
+는 R/Apache 융합 프로젝트(Integration project)를 진행하고 있습니다. 튜토리얼과
+프레젠테이션은 프로젝트 웹페이지 http://biostat.mc.vanderbilt.edu/twiki/bin/
+view/Main/RApacheProject에서 이용가능합니다.
+
+Rserve는 Simon Urbanek에 의해 활발히 개발되는 프로젝트입니다. 이는 다른 프로그
+램들이 R의 기능들을 사용할 수 있도록 허용하는 TCP/IP 서버를 구현하는 것입니다.
+Java와 C++ (TCP/IP socket들을 지원하는 다른 언어로도 쓰여질 수 있습니다) 클라이
+언트들은 웹사이트로부터 얻을 수 있습니다.
+
+R 웹인터페이스를 제공하는데 PHP를 사용한 두 개의 프로젝트가 있습니다. Steve
+Chen에 의해서 개발되는 R_PHP_Online(이 프로젝트가 아직 진행중인지는 불분명합니
+다)는 위의 Rcgi와 Rweb과 다소 비슷합니다. R-php는 Alfredo Pontillo와 Angelo
+Mineo에 의해 활발히 개발중이며, R 코드 입력이 필요하지 않은 미리 정의된 특수한
+분석도구들이 제공됩니다.
+
+webbioc은 “여러가지 Bioconductor 패키지들을 이용하여 마이크로어레이 분석
+(microarray analysis)을 수행하는 통합적인 웹 인터페이스”이며, 마치 공유되어 있
+은 컴퓨팅 자원(computing resources)와 같이 로컬사이트(local site)에서 설치될 수
+있도록 설계되었습니다.
+
+Rwui는 R 스크립트를 사용할 수 있도록 사용자 기반의 웹인터페이스를 생성해주는 웹
+어플리케이션입니다. 웹 인터페이스에 대한 모든 코드가 자동으로 생성됩니다. 사용
+자가 추가적인 스크립트 작업을 하거나 새로운 스크립팅 기술들을 배울 필요가 없습
+니다.
+
+Henrik Bengtsson에 의해서 개발된 R.rsp패키지는 “R server Pages”를 소개합니다.
+Java Server 페이지들과 유사하게, Rserver Pasge는 페이지가 요구되었을 때 평가된
+R코드가 포함된 HTML 페이지입니다. 이 패키지는 Tcl로 구현된 내부 클로스 플랫폼
+HTTP 서버(internal cross-platform HTTP server)를 포함하고 있어, 웹 기반의 사용
+자 인터페이스를 포함하게 해주는 좋은 프레임워크를 제공합니다. 크로스 플랫폼
+(cross-platform)에 대한 지원과 쉬운 설치 이점이 있는 Rapache와 함께 사용하는
+brew의 사용과 유사합니다.
+
+Jeffrey Horner의 Rook 패키지는 Ruby의 Rack project의 많은 부분을 가져와 사용하
+는 웹서버 인터페이스를 제공합니다.
+
+마지막으로 Concerto는 the Psychometrics Centre of Cambridge University에서 개발
+된 사용이 쉬운 오픈소스 웹 인터페이스 입니다. 이는 Computerized Adaptive Test를
+디자인하고 작동하는 온라인 플랫폼과 같이 디자인 되었으나, 일반적인 목적의 R 웹
+인터페이스로도 사용할 수 있습니다. 이는 프로그래밍이나 웹디자인의 기초 지식이
+없는 R 사용자들이 융통성 있고 강력한 온라인 어플리케이션과 웹사이트, 그리고 심
+리측정 테스트(psychometrics tests)들을 빠르게 개발해 줄 수 있도록 해줍니다. 신
+뢰성(reliability), 보안성(security), 그리고 성능(performance)를 최대화 하기 위
+하여 Concerto는 MySQL 서버 (데이터의 교환과 저장), Rstudio (R코드의 디자인, 테
+스트, 그리고 파일관리), CKEditor (HTML Layer 디자인), 그리고 PHP와 같은 인기있
+고 신뢰할 수 있는 오픈소스들로 구성되어 있습니다.
+
+더 많은 정보를 http://rwiki.sciviews.org/doku.php?id=faq-r#web_interfaces 에서
+찾을 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5 R 애드온 패키지(Add-On Packages)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.1 어떤 애드온 패키지들이 존재하나요?
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.1.1 R에서 사용할 수 있는 애드온 패키지
+
+R은 다음과 같은 패키지들과 함께 배포됩니다.
+
+base
+
+    Base R 함수들 (그리고 R 2.0.0 전의 데이터셋들).
+
+compiler
+
+    (R 2.13.0에서 더해진) R 바이트 코드 컴파일러(byte code compiler).
+
+datasets
+
+    (R 2.0.0에서 더해진) Base R 데이터셋들.
+
+grDevices
+
+    (R 2.0.0에 더해진) base와 grid 그래픽스를 위한 그래픽 장치들.
+
+graphics
+
+    base 그래픽스를 위한 R 함수들.
+
+grid
+
+    그래픽스 레이아웃 성능을 재작성하고 인터랙션을 위한 일부 지원이 추가됨.
+
+methods
+
+    그린북에 설명되어 있는 것과 같이 R 객체들에 대하여 형식적으로 정의된 메소드
+    들과 클래스들, 그리고 다른 프로그래밍 툴들.
+
+parallel
+
+    포킹(forking), 소켓(sockets), 그리고 (R 2.14.0에 더해진) 난수생성
+    (random-number generation) 기능을 포함한 병렬 연산(parallel computation)을
+    지원.
+
+splines
+
+    리그레션 스플라인(regression spline)함수들과 클래스들.
+
+stats
+
+    R 통계관련 함수들.
+
+stats4
+
+    S4 클래스들을 이용한 통계 함수들.
+
+tcltk
+
+    Tcl/Tk GUI 구성요소들에 인터페이스와 랭귀지 바인딩 (interface and language
+    bindings).
+
+tools
+
+    패키지 개발과 관리를 위한 도구들.
+
+utils
+
+    R utility functions.
+
+“base packages”(베이스 패키지)은 R 1.9.0에서 크게 재구성되었습니다. 이전의 base
+는 base, graphics, stats, utils의 네가지로 나뉘어졌습니다. ctest, eda, modreg,
+mva, nls, stepfun, ts는 stats로 병합되었으며, lqs는 추천패키지인 MASS로 다시 옮
+겨지고, 패키지 mle는 stats4로 이동되었습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.1.2 CRAN으로부터 얻을 수 있는 애드온 패키지
+
+CRAN의 src/contrib 디렉토리는 R의 모든 바이너리 배포에 포함되어질 recommended
+(추천) 패키지들을 포함하여 방대한 양의 애드온 패키지들을 포함하고 있습니다.
+
+KernSmooth
+
+    1995년에 M. P. Wand와 M. C. Jones에 의해 쓰여진 책 “Kernel Smoothing”을 바
+    탕으로 한 Kernel smoothing(커널스무딩 또는 커널평활법)을 위한 함수들(그리고
+    밀도추정)을 포함합니다.
+
+MASS
+
+    Venables 와 Ripley의 핵심 패키지 “Modern Applied Statistics with S”으로부터
+    의 함수와 데이터셋들을 포함합니다 (2.10.0 이전의 R 버전들을 위한 VR번들에
+    포함되어 있습니다).
+
+Matrix
+
+    (R 2.9.0 또는 이후 버전에 권장되는) 행렬 패키지입니다.
+
+boot
+
+    1997년에 Cambridge University Press로부터 출판된 A. C. Davison과 D. V.
+    Hinkley에 의해 쓰여진 “Bootstrap Methods and Their Applications”이라는 책으
+    로부터 부츠트랩핑(bootstrapping)에 이용된 함수들과 데이터셋들을 포함하고 있
+    습니다.
+
+class
+
+    (k-nearest neighbor와 LVQ 같은) 클래시피케이션에 사용되는 함수들을 포함하고
+    있습니다 (2.10.0 이전의 R 버전들에는 VR 번들내에 포함되어 있었습니다).
+
+cluster
+
+    클러스터 분석(cluster analysis)를 위한 함수들이 포함되어 있습니다.
+
+codetools
+
+    (R 2.5.0 또는 그 이후의 버전들에 추천되는) 코드 분석 도구들이 포함되어 있습
+    니다.
+
+foreign
+
+    Minitab, S, SAS, SPSS, Stata, Systat등과 같은 통계 소프트웨어에 의해 저장된
+    데이터르르 읽고 쓰는데 필요한 함수들이 포함되어 있습니다.
+
+lattice
+
+    트렐리스(Trellis) 그래픽 함수들의 구현체인 라띠스(lattice) 그래픽스가 포함
+    되어 있습니다.
+
+mgcv
+
+    GCV 또는 UBRE을 이용한 multiple soomthing parameter selection을 포함한 GAM
+    그리고 다른 generalized ridge regression 문제들을 위한 루틴들이 포함되어 있
+    습니다.
+
+nlme
+
+    가우시안(Gaussian) 선형과 비선형의 혼합 모델들(linear and nonlinear
+    mixed-effects models)을 적합하고 비교하는 함수들이 포함되어 있습니다.
+
+nnet
+
+    Single hideen perceptrons (“feed-forward neural networks”)와 다항로그선형모
+    델(multinomial log-linear models)을 위한 소프트웨어입니다 (2.10.0 이전의 R
+    버전들에서는 VR 번들내에 포함되어 있었습니다).
+
+rpart
+
+    재귀적 파티셔닝(recursive partioning)과 회귀나무(regression trees)를 수행하
+    는 함수들이 포함되어 있습니다.
+
+spatial
+
+    W. Venables와 B. Ripley에 의하여 씌여진 “Modern Applied Statistics with S”
+    으로부터 크리깅과 포인트 패턴분석 (kriging and point pattern analysis)를 위
+    한 함수들이 포함되어 있습니다 (2.10.0 이전의 R 버전들에서는 VR 번들내에 포
+    함되어 있었습니다).
+
+survival
+
+    벌점가능성 함수(penalized likelihood)함수를 포함한 생존분석(survival
+    analysis)에 필요한 함수들을 포함하고 있습니다.
+
+더 많은 정보를 정보를 CRAN contributed packages page에서 찾을 수 있습니다.
+
+많은 패키지들이 주제별로 검색이 가능하고 특정 주제에 대한 모든 패키지들을 자동
+적으로 설치할 수 있는 도구를 제공해주는 CRAN Task Views내에 정리되어 있습니다.
+
+Windows에서 특수하게 빌드되어지지 않거나, 추가적인 소프트웨어를 필요로 하거나,
+또는 Windows에 제삼의 라이브러리를 구입해야하는 일부 CRAN패키지들은 Windows 바
+이너리 패키지의 형태로 이용할 수 없습니다. 그럼에도 불구하고, 이러한 패키지들의
+일부는 Brian D. Ripley에 의하여 친절하게 제공되어지는 “CRAN extras” 저장소
+http://www.stats.ox.ac.uk/pub/RWin/로부터 얻을 수 있습니다. 이 저장소는 Windows
+를 위한 최근의 R 버전들을 위한 기본저장소입니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.1.3 Omegahat으로부터 얻을 수 있는 애드온 패키지
+
+Omega Project for Statistical Computing은 웹기반의 소프트웨어에 특별한 주안점을
+두고 있는 통계 어플리케이션, Java, Java 버츄얼 머신, 그리고 분산 컴퓨팅
+(distributed computing)을 위한 다양한 오픈소스 소프트웨어를 제공하고 있습니다. 
+CRAN 스타일의 R 패키지 저장소는 http://www.omegahat.org/R/를 통하여 이용할 수
+있습니다. Omega project로부터 가능한 대부분의 R 패키지들에 대한 정보는 http://
+www.omegahat.org/에서 찾을 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.1.4 Bioconductor로부터 얻을 수 있는 애드온 패키지
+
+Bioconductor는 오픈소스이며 게놈 데이터의 분석과 이해를 위한 오픈 개발 소프트웨
+어 프로젝트입니다. 대부분의 Bioconductor 구성요소들은 R 애드온 패키지들과 같이
+배포됩니다. 대부분의 Bioconductor software packages들은 주로 DNA 마이크로어레이
+(microarray) 데이터 분석에 주력하였습니다. 프로젝트가 점점 발전하게 되면서,
+SAGE, sqeuence, 또는 SNP 데이터와 같은 모든 종류의 게놈 데이터 분석을 포함한 소
+프트웨어 패키지들의 기능적 범위가 넓어지게 되었습니다. 게다가 메타데이터
+(annotation, CDF, 그리고 probe)들과 실험데이터(experiment data) 패키지들도 존재
+합니다. 이용 가능한 패키지들과 BioC View를 통한 완전한 분류체계를 위해서는
+http://www.bioconductor.org/download/를 살펴보세요.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.1.5 다른 애드온 패키지
+
+더 많은 패키지들을 위에서 언급된 세가지 기본 저장소 (CRAN, Bioconductor 그리고
+Omegahat) 외에서도 찾을 수 있습니다. 특히, R-Forge는 CRAN 스타일의 저장소 http:
+//R-Forge.R-project.org/를 제공합니다.
+
+더 많은 코드들이 R-help 메일링 리스트에 올라오고 있으며, 메일링 리스트 보관소로
+부터 이들을 확인할 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.2 애드온 패키지는 어떻게 설치하나요?
+
+(Unix와 같은 환경에서만 사용할 수 있습니다) CRAN의 애드온 패키지들은 실제로 한
+개 이상의 패키지들은 포함하는 “bundles”(번들)과 같이 pkg_version.tar.gz의 이름
+을 가진 gzip으로 압축된 tar 파일로 제공되어집니다. path를 그러한 패키지 파일에
+대한 경로라고 가정합니다. 만약 tar와 gzip을 사용가능하다면, 라이브러리 검색경로
+(library search path)내 첫번째 디렉토리에서 갈려져 나오는 라이브러리 트리
+(library tree)에 설치하고자 한다면 쉘프롬프트에서 아래와 같이 입력해 보세요.
+(검색경로가 어떻게 결정되는지에 대한 자세한 사항은 .libPahts()에 대한 도움말 페
+이지를 살펴보시길 바랍니다).
+
+$ R CMD INSTALL path/pkg_version.tar.gz
+
+여기에서 lib는 설치를 하고자 하는 라이브러리 트리(library tree)에 대한 경로를
+의미합니다.
+
+To install to another tree (e.g., your private one), use
+
+$ R CMD INSTALL -l lib path/pkg_version.tar.gz
+
+where lib gives the path to the library tree to install to.
+
+만약 CRAN과 같은 저장소들에 접근할 수 있다면, 더욱 더 편리하게 사용자는 R 내에
+서 패키지들을 설치하고 이들을 자동으로 업데이트 할 수 있습니다. 이에 대한 더 많
+은 정보들을 available.packages()의 도움말 페이지로부터 찾을 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.3 애드온 패키지는 어떻게 사용하나요?
+
+사용자의 시스템에 이용이 가능한 추가적인 패키지들을 확인하기 위해서는 R 프롬프
+트에 아래와 같이 입력해보세요.
+
+library()
+
+at the R prompt.
+
+다음과 같은 결과를 생성해 줄 것입니다.
+
+    ┌───────────────────────────────────────────────────────────────────────┐
+    │Packages in `/home/me/lib/R':                                          │
+    │                                                                       │
+    │mystuff       My own R functions, nicely packaged but not documented   │
+    │                                                                       │
+    │Packages in `/usr/local/lib/R/library':                                │
+    │                                                                       │
+    │KernSmooth    Functions for kernel smoothing for Wand & Jones (1995)   │
+    │MASS          Main Package of Venables and Ripley's MASS               │
+    │Matrix        Sparse and Dense Matrix Classes and Methods              │
+    │base          The R Base package                                       │
+    │boot          Bootstrap R (S-Plus) Functions (Canty)                   │
+    │class         Functions for Classification                             │
+    │cluster       Functions for clustering (by Rousseeuw et al.)           │
+    │codetools     Code Analysis Tools for R                                │
+    │datasets      The R Datasets Package                                   │
+    │foreign       Read Data Stored by Minitab, S, SAS, SPSS, Stata, Systat,│
+    │              dBase, ...                                               │
+    │grDevices     The R Graphics Devices and Support for Colours and Fonts │
+    │graphics      The R Graphics Package                                   │
+    │grid          The Grid Graphics Package                                │
+    │lattice       Lattice Graphics                                         │
+    │methods       Formal Methods and Classes                               │
+    │mgcv          GAMs with GCV/AIC/REML smoothness estimation and GAMMs   │
+    │              by PQL                                                   │
+    │nlme          Linear and Nonlinear Mixed Effects Models                │
+    │nnet          Feed-forward Neural Networks and Multinomial Log-Linear  │
+    │              Models                                                   │
+    │rpart         Recursive Partitioning                                   │
+    │spatial       Functions for Kriging and Point Pattern Analysis         │
+    │splines       Regression Spline Functions and Classes                  │
+    │stats         The R Stats Package                                      │
+    │stats4        Statistical functions using S4 Classes                   │
+    │survival      Survival analysis, including penalised likelihood        │
+    │tcltk         Tcl/Tk Interface                                         │
+    │tools         Tools for Package Development                            │
+    │utils         The R Utils Package                                      │
+    └───────────────────────────────────────────────────────────────────────┘
+
+설치된 패키지 pkg를 다음과 같은 방법으로 로드할 수 있습니다.
+
+library(pkg)
+
+어떤 함수들이 해당 패키지들로부터 제공되는지 아래에 나열된 명령어들 중 하나를
+입력해봄으로서 확인할 수 있습니다.
+
+library(help = pkg)
+help(package = pkg)
+
+사용자는 다음과 같은 방법으로 패키지 pkg를 로드하거나 언로드 할 수 있습니다.
+
+detach("package:pkg", unload = TRUE)
+
+(여기에서 unload=TRUE는 네임스페이스가 있는 패키지들에만 필요합니다. ?unload를
+살펴보세요).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.4 애드온 패키지는 어떻게 제거할 수 있나요?
+
+Use
+
+$ R CMD REMOVE pkg_1 … pkg_n
+
+만약, R_LIBS가 설정되어 null이 아니면, R_LIBS내에 주어진 첫번째 디렉토리부터 갈
+려나오는 라이브러리 트리로부터 pkg_1, …, pkg_n을 제거합니다. 그렇지 않다면 디폴
+트 라이브러리로부터 제거됩니다. (1.3.0 이전의 R 버전들은 기본적으로 디폴트 라이
+브러리로부터 제거되었습니다).
+
+라이브러리 lib으로부터 제거하기 위해서는 아래와 같이 입력하세요.
+
+$ R CMD REMOVE -l lib pkg_1 … pkg_n
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.5 R 패키지는 어떻게 작성하나요?
+
+패키지는 DESCRIPTION을 포함하는 서브디렉토리와 R, data, demo, exec, inst, inst,
+man, po, src, 그리고 tests라는 서브디렉토리들로 구성되어 있습니다 (이들 중 몇가
+지는 빠질 수도 있습니다). 패키지 서브디렉토리느느 또한 INDEX, NAMESPACE,
+configure, cleanup, LICENSE, LICENCE, COPYING, 그리고 NEWS 파일들을 포함할 수도
+있습니다.
+
+더 자세한 사항은 Writing R Extensions 문서의 “Creating R packages” 섹션을 살펴
+보세요. 이 매뉴얼은 R 배포에 포함되어 있으며 see R에 관련한 어떤 문서가 존재하
+나요?, 패키지의 구조, 설정(configure)과 클린업(cleanup) 메카니즘, 그리고 패키지
+의 확인(checking)과 구축(building)에 대한 정보를 제공합니다.
+
+디렉토리들을 지정하고, 데이터와 코드를 저장하며, R함수들과 데이터세들에 대한 도
+움말 파일들의 구조를 생성하는데 사용되는 함수 package.skeleton()가 R 버전 1.3.0
+에서 추가되었습니다.
+
+See CRAN이란 무엇인가요?, CRAN에 패키지를 업로드하는 방법에 대해서.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.6 어떻게 R에 기여할 수 있나요?
+
+R은 활발히 개발중이므로, 버그가 생길 수 있는 위험이 항상 존재합니다. 또한 개발
+자들은 R을 실행할 수 있는 모든 가능한 기계들에 대하여 접근하지 못합니다. 따라
+서, 이들을 이요하면서 문제들에 대해서 알려주는 것은 대단히 큰 가치를 가지고 있
+습니다.
+
+R Developer Page는 더도 아니고 덜도 아니게 R 통게시스템을 위한 아이디어들과 플
+랜들을 위한 중간 저장소와 같이 이용됩니다. 여기에는 TODO 목록, RFC, 다양한 기록
+들, 아이디어 목록, 그리고 SVN miscelanea등이 포함되어 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6 R과 이맥스(Emacs)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6.1 이맥스에서 R을 사용할 수 있나요?
+
+통계 프로그램들과 통계 프로세스들 간의 기본 인터페이스를 제공하는 ESS (“Emacs
+Speaks Statistics”) 라고 불리는 패키지가 있습니다. 이는 통계 프로그래밍과 데이
+터 분석간의 쌍방향 소통을 위한 지원을 제공하는 것이 목적입니다. 지원되는 언어는
+R, S 3/4, 그리고 S-Plus 3.x/4.x/5.x/6.x/7.x 와 같은 S 계열의 언어들(dialects),
+XLispStat, ViSta와 같은 LispStat계열의 언어들, SAS, Stata, 그리고 BUGS가 있습니
+다.
+
+ESS는 버그 수정과 S/S-PLUS 버전 3만을 지원하는 GNU Emacs 확장에 대하나 필요성에
+의해서 발달하였습니다. 현재의 개발자들은 XEmacs, R, S4, 그리고 MS Windows에 대
+한 지원을 갈망했습니다. 게다가, R, Stata, 그리고 SAS를 위한 개발되어질 새로운
+방식과 사용자 인터페이스에 대해서 표준 이맥스 사용법을 따르는 두개의 그룹모두를
+도움으로서 인터페이스와 프레임워크를 하나로 통합하는 것이 사용자와 개발자 모두
+에게 도움이 된다고 느꼈습니다. 그 결과로 일반적인 도구를 이용하는 것보다 통계
+프로그래밍과 데이터 분석에 대한 능률이 증가되게 되었습니다.
+
+R에 대한 지원은 R 소스코드를 편집하는데 필요한 코드 (구문적 띄어쓰기, 소스코드
+의 하이라이팅, 코드의 부분적 평가, 코드의 로딩과 오류 체크, 그리고 소스코드 수
+정 관리)과 문서화 (구문적 띄어쓰기, 소스코드의 하이라이팅, 실행 중인 ESS 프로세
+스에 예제 보내기, 그리고 미리보기), Emacs 내에서 R 프로세스와의 소통 (명령어 라
+인 편집, 검색이 가능한 명령어 히스토리, R 개체와 파일명에 대한 명령어 완성기능,
+객체와 검색목록들에 대한 빠른 엑세스, 트랜스크립트 레코딩, 그리고 도움말과의 인
+터페이스), 그리고 기록의 조작 (레코딩과 트랜스크립트 파일들의 저장, 저장된 트랜
+스크립트의 편집과 조작, 트랜스크립 파일로부터의 명령어에 대한 재평가)를 포함합
+니다.
+
+가장 안정적인 버전의 ESS은 CRAN 또는 ESS web page를 통하여 얻을 수 있습니다. 
+HTML 버전의 문서는 http://stat.ethz.ch/ESS/로부터 찾을 수 있습니다.
+
+ESS는 자세한 설치 사항들고 함께 주어집니다.
+
+ESS에 대한 도움이 필요하다면 ESS-help@stat.math.ethz.ch로 이메일을 보내시길 바
+랍니다.
+
+ESS에 대한 버그 리포트 또는 제안사항들을 ESS-bugs@stat.math.ethz.ch로 보내주세
+요. 이를 위한 가장 쉬운 방법은 Emacs안에서 M-x ess-submit-bug-report을 입력하거
+나, [ESS] 또는 [iESS] 풀다운 메뉴를 이용하는 것입니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6.2 이맥스 내부로부터 R을 실행해야 하나요?
+
+네, 물론입니다. Inferior R 모드는 readline/history 메카니즘, 객체이름 완성, 폰
+트락모드 (Font Lock mode)를 이용한 인터랙션 버퍼(interaction buffer)의 구문강조
+기능, 또한 R도움말로의 편리한 인터페이스를 제공합니다.
+
+물론, 이는 Emacs를 이용하여 R 소스를 편집하기 위한 메카니즘과도 잘 합쳐집니다.
+Emacs 버퍼에 코드를 작성하고, 전체 또는 부분을 실행하기 위해 R로 보낼 수 있습니
+다. 이것은 데이터 분석과 프로그래밍에 도움이 됩니다. 프로그램과 데이터의 변경에
+대한 기록을 잘 유지하고 또한 이전 버전의 코드들을 다시 복구하기 위하여 버전관리
+시스템(revision control system)과도 통합할 수 있습니다.
+
+추가로, 이는 트랜스크립트 모드(transcript mode)의 사용을 통하여 오류 복구(error
+recovery)에 이용될 수도 있는 세션의 기록을 보관하도록 허용합니다.
+
+Inferior R 프로세스를 위하여 명령어 라인 인자들을 지정하기 위해서는 C-u M-x R을
+이용하여 R을 시작하세요.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6.3 이맥스 내부로부터 R 디버깅하기
+
+“from within Emacs”(이맥스 안쪽에서) R을 디버그하기 위해서는, 몇 가지 가능성들
+이 있습니다. 권장되어지는 디버거 GDB가 있는 Emacs GUD (Grand Unified Debugger)
+라이브러리를 사용하기 위해서는 M-x gdb를 입력하고 R binary에 인자로서 경로를 줍
+니다. gdb 프롬프트에서 R_HOME과 필요하다면 다른 환경변수들 (즉, set env R_HOME
+/path/to/R을 이용하여, 그러나 아래도 살펴보세요)를 설정하고, 요구되어지는 인자
+들과 함께 바이너리를 시작합니다 (즉, run --quiet).
+
+만약 ESS를 가지고 있다면, -d gdb 인자와 함께 inferior R 프로세스를 실행하기 위
+해서 C-u M-x R RET - d SPC g d b RET를 할 수 있습니다.
+
+세 번째 옵션은 ESS(M-x R)를 통해 inferior R 프로세스를 시작하고나서 디버그 할
+프로그램 R 바이너리 (전체경로의 이름을 사용함으로서)를 주는 GUD (M-x gdb)를 시
+작합니다. 현재 실행되고있는 R 프로세스의 프로세스 번호를 찾기 위해서 프로그램
+ps를 사용하고, 그 프로세스에 부착하기 위해서 gdb 내에서 attach 명령을 이용합니
+다. 이렇게 하는 하나의 장점은 사용자가 *R*과 *gud-gdb*이라는 분리된 창을 가진다
+는 것입니다. *R* 창에서는 객체명완성 (object-name completion)과 같이 우리가 알
+고 사랑하는 모든 ESS 기능들이 있습니다.
+
+Emacs 내에서 디버깅을 위하여 GUD 모드를 사용할 떄, 코드가 들어있는 디렉토리를
+현재의 작업디렉토리로 사용하고 이로부터 R 바이너리에 심볼릭 링크(symbolic link)
+를 만드는 것이 가장 편리하다는 것을 아마도 알게 될 수도 있습니다. 그렇게 하면
+다음의 예제에서 보이는 바와 같이 .gdbinit는 코드와 함께 디렉토리 안에 계속 있
+고, 소스에 대한 환경과 검색경로들을 설정하는데 사용될 수 있습니다.
+
+set env R_HOME /opt/R
+set env R_PAPERSIZE letter
+set env R_PRINTCMD lpr
+dir /opt/R/src/appl
+dir /opt/R/src/main
+dir /opt/R/src/nmath
+dir /opt/R/src/unix
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7 R 기타사항들(Miscellanea)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.1 리스트의 구성요소를 어떻게 NULL로 설정하나요?
+
+You can use
+
+x[i] <- list(NULL)
+
+이렇게 하는 것은 리스트 x의 i번째 구성요소를 NULL로 지정하게 해줍니다. 동일한
+방식이 구성요소의 이름을 이용할 때도 적용됩니다. 그러나, x[i] 또는 x[[i]]를
+NULL의 값을 대입하지는 마시길 바랍니다. 그 이유는 이러한 대입은 해당 구성요소
+자체를 리스트로부터 삭제합니다.
+
+행렬 x의 행의 이름들을 없애기 위해서는 rownames(x) <- NULL를 하세요. 이러한 방
+법은 열의 이름들을 없애는데에도 유사하게 적용됩니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.2 작업공간을 어떻게 저장할 수 있나요?
+
+save.image() 함수는 사용자의 .GlobalEnv에 있는 객체들을 .RData의 형식으로 R의
+스타트업 디렉토리에 저장합니다. (이것은 q("yes")라고 하는 것과 동일합니다).
+save.image(file)을 이용하여 다른 이름으로 저장하는 할 수도 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.3 작업공간을 어떻게 정리할 수 있나요?
+
+현재 활성화 되어있는 프로그래밍 환경 (주로 .GlobalEnv를 의미함)에 있는 모든 객
+체를 지우려고 한다면 다음과 같이 하면 됩니다.
+
+rm(list = ls(all = TRUE))
+
+(만약 all = TRUE을 사용하지 않는다면, ‘.’으로 시작하지 않는 객체들만이 삭제됩니
+다.)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.4 eval()과 D()를 어떻게 사용해야 하나요?
+
+만약 eval(print(x), envir = e) 또는 D(x^2, "x")를 실행하고자 한다면 예상치 않은
+결과가 나타날 것입니다. 전자는 x를 찾을 수 없다고 하거나, 잘못된 x의 값을 출력
+할 것입니다. 후자는 만약 x가 존재한다면 0값을 돌려줄 수 있으며, 그렇지 않다면
+에러를 보여줄 것입니다.
+
+두가지 경우 모두 다 불러들어온 환경 내에서 첫번째 인자가 평가되기 때문입니다.
+객체의 모드가 반드시 "expression" 또는 "call"이어야 하고 그 결과가 평가되거나
+미분된 것입니다. 이를 해결하기 위해서는 아래와 같이 반드시 첫번째 인자를 큰 따
+옴표로 묶어줘야 한다는것입니다.
+
+R> D(expression(x^2), "x")
+2 * x
+
+이렇게 하는 것이 처음에는 다소 이상해 보일 수 있으나, 이것은 논리적으로인 것 뿐
+입니다. 직관적으로 작동하는 방식은 구현하기 쉬울 수도 있지만, 인자로서 변수를
+포함하는 표현식 또는 호출하는 함수의 결과는 문제를 야기합니다. 예를들면, 다음과
+같은 경우들입니다.
+
+D2 <- function(e, n) D(D(e, n), n)
+
+or
+
+g <- function(y) eval(substitute(y), sys.frame(sys.parent(n = 2)))
+g(a * b)
+
+더 많은 예제들을 deriv()의 도움말 페이지를 통하여 확인할 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.5 왜 행렬의 차원정보가 손실되나요?
+
+하나의 열이나 행으로 이루어진 행렬은 서브스크립팅 연산(subscripting operation)
+에 의해 생성됩니다. 예를들면 row <- mat[2,]과 같습니다. 이는 기본적으로 벡터로
+변환됩니다. 이와 유사하게 2 x 3 x 1 x 4이라는 차원을 가고 있는 배열을 서브스크
+립팅에 의해서 생성되어진다고 하면, 불필요한 차원을 삭제되어 2 x 3 x 4이라는 차
+원을 가진 배열로 강제변환이 되게 됩니다. 많은 논의를 거쳐 이는 feature로 결정되
+었습니다.
+
+이러한 경우를 방지하기 위해는 서브스크립팅을 할 때 drop=FALSE를 사용해보세요.
+
+rowmatrix <- mat[2, , drop = FALSE]  # creates a row matrix
+colmatrix <- mat[, 2, drop = FALSE]  # creates a column matrix
+a <- b[1, 1, 1, drop = FALSE]        # creates a 1 x 1 x 1 array
+
+drop = FALSE 옵션은 프로그래밍을 할 때에 디펜시브하게(defensively) 사용되어야만
+합니다. 예를들어, 다음과 같은 표현에서 index의 길이가 1 이라면 행렬이 아닌 벡터
+를 반환하므로 에러를 불러일으킬 것입니다.
+
+somerows <- mat[index, ]
+
+will return a vector rather than a matrix if index happens to have length 1,
+causing errors later in the code. It should probably be rewritten as
+
+somerows <- mat[index, , drop = FALSE]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.6 자동로딩(autoloading)은 어떻게 작동하는 것인가요?
+
+R은 .AutoloadEnv이라고 불리는 특별한 환경(environment)가 있습니다. name과 pkg가
+객체의 이름과 이를 포함하는 패키지를 건네주는 문자열(string)인 곳에서 autoload
+(name, pkg)를 이용하여 이 환경내에 정보를 저장하게 됩니다. R이 name을 평가하려
+고 할때, 이에 해당하는 패키지 pkg를 로드하고 새로운 패키지의 환경내에서 name을
+재 평가합니다.
+
+이러한 메카니즘을 이용하여 R은 만약 패키지가 로드되었더라도 (아직) 메모리를 차
+지않는 것과 같이 작동하도록 합니다.
+
+매우 좋은 예제들이 autoload() 도움말에 있으므로 살펴보시길 바랍니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.7 옵션을 어떻게 설정해야 하나요?
+
+함수 options()는 R이 연산을 수행하고 이의 결과를 보여주는데 방법들에 있어서 영
+향을 미치는 다양한 전역(global) 옵션들을 설정하고 확인하도록 해줍니다. .Options
+의 값은 이러한 옵션들의 현재 값을 가지고 있으나, 만약 당신이 미쳐버리고 싶지 않
+다면 (unless you want to drive yourself crazy) 가급적이면 이를 “read-only”(읽기
+전용)으로 두고, 직접적으로 조절하지 마시길 바랍니다.
+
+예를들어, 아래의 예를 살펴보세요.
+
+test1 <- function(x = pi, dig = 3) {
+  oo <- options(digits = dig); on.exit(options(oo));
+  cat(.Options$digits, x, "\n")
+}
+test2 <- function(x = pi, dig = 3) {
+  .Options$digits <- dig
+  cat(.Options$digits, x, "\n")
+}
+
+위의 예제로부터 우리는 아래의 결과를 얻을 것입니다.
+
+R> test1()
+3 3.14
+R> test2()
+3 3.141593
+
+실제로 쓰여지는 것은 .Options가 가지고 있는 global(전역)값이며, options(OPT=
+VAL)을 이용하여 이를 정확하게 업데이트 합니다. .GlobalEnv 또는 함수환경
+(function frame, 즉 frame)내에 있는 .Options내의 로컬카피(local copies)들은 조
+용히 무시될 것입니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.8 윈도우즈에서 파일명을 어떻게 사용해야 하나요?
+
+R은 C-스타일의 문자열조작(string handling)을 이용하기 때문에, ‘\’를 이스케이프
+문자(escape character)와 같이 처리하게 됩니다. 예를들면 ‘\n’은 개행문자
+(newline)을 입력하기 위해서 사용합니다. ‘\’이라는 문자가 정말로 필요할 때는 또
+다른 ‘\’을 이용하여 함께 사용해야 합니다.
+
+따라서, "c:\\data\\money.dat"와 같은 파일명을 작성하게 됩니다. 또한 ‘\’를 ‘/’로
+변경하여 "c:/data/money.dat"와 같이 사용할 수도 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.9 플랏팅을 할 때 왜 색상배정에서 에러가 생기나요?
+
+X11 장치를 이용할 때 demo("image")와 같이 플랏팅(plotting) 할때 “Error: color
+allocation error” (오류: 색상 할당 에러입니다)라는 메시지들 보게 될 때가 있습니
+다. 이것은 X의 문제이며 R과 간접적으로 관련이 있는 것입니다. 이것은 R을 실행하
+기 전에 어플리케이션들이 가능한 모든 색상들을 사용했을 때 발생하게 됩니다. (얼
+마나 많은 색상의 사용이 가능한지는 X의 설정에 따라 다릅니다; 때때로 오로지 256
+색상만이 사용될 수도 있습니다).
+
+“eating” color (먹는 색, 즉 보여지지 않는 색)으로 악명이 높은 어플리케이션은
+Netscape입니다. 만약 Netscape를 실행할때 이러한 문제가 발생한다면, 기본 컬러맵
+(default colormap)을 이용하는 -no-install 또는 특정컬러맵(private colormap)을
+이용하는 -install 옵션을 이용하여 재시작을 시도해보세요.
+
+X11()의 기본값인 "pseudo"를 사용하기 대신에 "pseudo.cube"로 설정할 수도 있습니
+다. 더 많은 내용에 대해서는 X11() 도움말 페이지를 참고해주세요.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.10 어떻게 요인을 숫자로 변환할 수 있을까요?
+
+R로 수치형 데이터를 읽어 들일때 (일반적으로 파일을 읽을때), 이들은 요인형
+(factor)로 인식되어 읽어지는 경우가 있습니다. 만약 f가 이러한 요인형 객체라면,
+아래와 같이 한다면 수치형으로 다시 돌려주게 됩니다.
+
+as.numeric(as.character(f))
+
+좀 더 효율적이지만, 기억하기는 어려운 방법으로는 아래와 같이 합니다.
+
+as.numeric(levels(f))[as.integer(f)]
+
+어떠한 경우라도 주어진 작업에 대해서 as.numeric() 또는 그 비슷한 것들을 호출하
+지 마시길 바랍니다 (그 이유는 as.numeric() 또는 unclass()는 내부코드들을 보여줄
+것이기 때문입니다).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.11 R에서 트렐리스(Trellis)를 사용할 수 있나요?
+
+추천 패키지인 lattice는 베이스 패키지인 grid에 기초를 두고 있습니다. 이 패키지
+는 대부분의 트렐리스(Trellis) 명령어와 호환되는 그래픽 기능을 제공하고 있습니
+다.
+
+사용자가 원하는 것들 중 적어도 몇 가지는 가능한 coplot()과 dotchart()를 살펴보
+세요. R에서 제공하는 pairs()는 꽤 일반적이며, splom()의 대부분의 기능을 제공하
+고 있습니다. 또한, R의 기본적인 플랏 메소드는 플랏의 영상비(aspect ratio)를 지
+정 (및 장치의 크기에 따라 수정)할 수 있는 인자를 가지고 있습니다.
+
+(단어 “Trellis”라는 단어가 상표(trademark)와 같이 사용되기 때문에, R에서는 이
+단어를 사용하지 않습니다. R과 같은 것들에 대해서는 “lattice”라는 단어를 사용합
+니다).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.12 인클로징과 부모환경이란 무엇인가요?
+
+함수내에서 당신은 아마도 두 개의 추가적인 환경들에 있는 변수들에 접근하고 싶을
+수도 있습니다. 하나는 (“enclosing(인클로징)”)이라는 환경내에 정의된 함수이고,
+다른 하나는 (“parent(패런트)”)로부터 실행된 환경입니다.
+
+만약 명령어 라인에서 함수를 생성하거나 패키지내에서 로드를 하였다면, 이것의 인
+클로징 환경은 글로벌 작업공간(global workspace)입니다. 만약 f()라는 함수를 g()
+라는 또 다른 함수내에서 정의를 했다면, 이것의 인클로징 환경은 g()내에 있는 환경
+입니다. 함수에 대한 인클로징 환경은 함수가 생설될때 고정됩니다. 함수 f()에 대한
+인클로징 환경은 envrionment(f)를 이용하여 찾을 수 있습니다.
+
+반면에 “parent(패런트)”환경은 함수를 실행할 때 정의되어 집니다. 만약 명령어 라
+인에서 lm()를 실행하면, 이것의 패런트 환경은 글로벌 작업공간(global workspace)
+가 됩니다. 만약 함수 f()에서 이것이 실행된다면 이의 패런트 환경은 f()내에 있는
+환경이 됩니다. parent.frame() 또는 sys.frame(sys.parent())를 이용하여 함수의 실
+행에 대한 패런트 환경을 찾을 수 있습니다.
+
+여지까지 사용자가 볼 수 있는 함수들의 인클로징 환경은 글로벌 작업공간일 것입니
+다. 그 이유는 대부분의 함수들의 정의된 위치가 글로벌 작업공간이기 때문입니다.
+패런트 환경은 함수가 불러지는 곳이면 어디든지 될 수 있습니다. 만약 함수 f()가
+다른 함수 g()안에 정의 되어 있다고 한다면, 이것은 g()함수 내에서 사용될 수 있기
+때문에 패런트 환경과 인클로징 환경은 아마도 동일할 것입니다.
+
+패런트 환경들은 모델 포뮬러(model formulas)와 같은 것들이 모든 변수들을 이용가
+능한 장소인, 즉, 함수가 호출된 환경에서 평가되는 것이 필요하므로 매우 중요합니
+다. 이것은 매번 실행에 따라 달라질 수도 있는 패런트 환경에 크게 영향을 받습니
+다.
+
+인클로징 환경은 함수가 인크로징 환경내의 변수들을 다른 함수들 또는 자기 자신의
+또다른 실행으로 가진 정보들을 공유하기 위하여 사용할 수 있기 때문에 중요합니다
+(렉시컬 스코핑 섹션을 살펴보시길 바랍니다). 이는 함수가 매번 실행될때마다 동일
+한 인클로징 환경을 가져야 한다는 것을 필요로 합니다 (C에서는 이것을 정적변수
+(static variable)로 행하게 됩니다).
+
+스코핑(scoping)은 어렵습니다. 예제들을 살펴보는 것이 도움이 됩니다. 왜 R과 S에
+서 다르게 실행이 되며, 이들이 왜 다른가를 살펴보는 것이 중요합니다. R과 S의 스
+코핑이 다른 점을 설명하는 하나의 방법은 S는 인클로징 환경이 항상 클로벌 작업공
+간인데 반해 R은 인클로징 환경이 함수가 생성되는 곳에서 발생하게 됩니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.13 플롯의 라벨에 포함된 객체의 값을 어떻게 변경하나요?
+
+종종 제목(title)과 같은 플랏 라벨(plot label)내에서 R 객체의 값을 사용하고자 할
+때가 있습니다. 만약 라벨이 단순한 문자열이라면 paste()를 이용하여 쉽게 이루어지
+지만, 라벨이 정교한 수식을 가지는 표현일 경우에는 다소 어려움이 있습니다. 이 경
+우에는 연결된 문자열에 parse()를 이용하거나 수식에 대해서 substitute()를 이용합
+니다. 예를 들면, 만약 hat이 파라미터 a의 추정치라면, 다음과 같이 해 볼 수 있습
+니다.
+
+title(substitute(hat(a) == ahat, list(ahat = ahat)))
+
+(여기에서 ‘==’는 ‘=’이 아닙니다). 때때로 bquote()는 간결한 형식을 제공합니다.
+
+title(bquote(hat(a) = .(ahat)))
+
+여기에서 ‘.()’내에 닫혀진 부분은 값으로 대체됩니다.
+
+더 많은 예제들이 메일링 리스트 저장소에 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.14 유효한 이름(valid names)이란 무엇인가요?
+
+data.frame() 또는 read.table()을 이용하여 데이터 프레임을 생성하고자 할 때, R은
+기본적으로 변수명이 구문상 (syntactically) 올바른지 확인하게 됩니다. (이러한 함
+수들에 인자 check.names는 변수명을 확인할 것인지에 대한 여부를 조정하고 만약 필
+요하다면 make.names()을 이용하여 조정하게 됩니다).
+
+어떠한 이름들이 “유효한가”를 이해하기 위해서는 “name”(이름)이 어떤 방법으로 사
+용되는가를 알아야 할 필요가 있습니다.
+
+ 1. syntatic name(구문명)은 파서(parser)가 마치 표현식(expression)과 같은 유형
+    으로 해석하게 되는 문자열을 의미합니다. 이것은 문자(letters), 숫자, 닷기호
+    (dot), 언더스코어(underscore), 그리고 숫자바로 뒤에 오지 않는 문자 또는 닷
+    기호로 시작하게 됩니다. 예약어(reserved words)는 구문명이 아닙니다.
+ 2. object name(객체명)은 표현식내에서 객체와 연관된 문자열을 의미합니다. 이 표
+    현식은 할당연산자 (assignment operation)의 좌측에 있는 객체명을 가지거나
+    assign()함수에 이용되는 인자의 형태를 가지고 있습니다. 이것은 주로 구문명
+    (syntatic name)이기도 하지만, 만약 따옴표로 묶인다면 공백을 가지지 않는 어
+    떠한 문자열이라도 될 수 있습니다 (그리고 assign() 함수에 호출되는 된다면 이
+    는 항상 따옴표로 묶이게 됩니다).
+ 3. An argument name is what appears to the left of the equals sign when
+    supplying an argument in a function call (for example, f(trim=.5)).
+    Argument names are also usually syntactic names, but again can be anything
+    if they are quoted.
+ 4. argument name(인자명)은 f(trim=.5)와 같이 함수호출(function call)에 사용되
+    는 인자로서 등부호(equal sign) 좌측에 나타나는 것입니다. 인자명은 또한 구문
+    명(syntactic name)이기도 하지만, 위와 마찬가지로 따옴표로 묶여진다면 어떤
+    것이든 될 수 있습니다.
+ 5. element name(구성요소의 명칭 또는 요소명)은 리스트의 구성요소와 같이 객체의
+    조각을 구분하기 위한 문자열입니다. 이것이 ‘$’연산자의 우측에 사용될 때에는
+    반드시 구문명(syntactic name)이거나 따옴표로 묶여져야 합니다. 그렇지 않다면
+    요소명은 어떠한 문자열이든 될 수 있습니다. (객체가 eval() 또는 attach()에
+    호출될 때와 같이 데이터베이스로서 사용될 때, 요소명은 객체의 이름이 됩니
+    다).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.15 R에서 GAM 모형을 사용할 수 있나요?
+
+CRAN으로부터 얻을 수 있는 패키지 gam은 화이트 북(the White book)의 GAM 챕터에
+설명된 모든 Generalized Additive Models (GAM)을 구현하였습니다. 특히, 이는
+local regression과 smoothing spline를 사용하는 백피팅(backfitting)을 구현하였
+고, 확장할 수있습니다. 패키지 mgcv는 GAM을 위한 gam() 함수가 있는데, 이는 화이
+트북에 설명된 것과 완전히 동일하지는 않습니다 (예를들면 lo()라는 것은 없습니
+다). 패키지 gss는 스플라인 기반(spline-based)의 GAM을 이용할 수 있습니다. 만약
+리그레션 스플라인(regression spline)을 수용한다면, glm()을 사용할 수도 있습니
+다. Gaussian GAM의 경우에는 mda라는 패키지에 있는 bruto()를 사용할 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.16 파일을 source() 할 때 왜 결과물이 출력되지 않나요?
+
+대부분의 R 명령어들은 어떠한 결과물을 생성하지 않습니다.
+
+1+1
+
+computes the value 2 and returns it; the command
+
+summary(glm(y~x+z, family=binomial))
+
+위의 명령어는 로지스틱 리그레션 모델(logistic regression model)을 적합한뒤, 요
+약된 정보를 산출한뒤 "summary.glm"이라는 클래스의 객체를 반환합니다 (see
+summary 메소드를 어떻게 작성해야 하나요?).
+
+만약 명령어 라인에서 ‘1+1’ 또는 ‘summary(glm(y~x+z, family=binomial))’ 이라고
+입력한다면, 반환된 값들이 invisible()이 아닌 이상은 자동으로 출력됩니다. 그러
+나, source()를 이용하여 파일을 읽어들이거나 함수내에서 사용되는 경우에는 특별히
+프린트라는 명령을 지정하지 않는 이상은 보여지지 않습니다.
+
+이러한 값을 출력하기 위해서는 다음과 같이 해야 합니다.
+
+print(1+1)
+
+or
+
+print(summary(glm(y~x+z, family=binomial)))
+
+혹은 source(file, echo=TRUE)라고 해야합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.17 사용자 정의 함수내에서 outer()가 왜 이상하게 작동하나요?
+
+outer()의 도움말에 명시된 것과 같이, 이는 apply()계열의 함수들이 작동하는 방식
+을 가지는 함수들과는 함께 쓰일 수 없습니다. 이를 사용하기 위해서는 배열의 구성
+요소단위별로 작동하는 벡터라이즈된 함수가 필요합니다. 코드 outer(x,y, FUN)를 보
+면 알 수 있듯이, 이는 x와 y의 모든 가능한 조합들을 포함하는 두 개의 큰 벡터들을
+생성한 뒤, 이를 FUN에 전달하게 됩니다. 사용자의 함수는 아마도 이렇게 큰 두개의
+벡터들을 파라미터로서 다룰 수 없을 것입니다.
+
+만약 두 개의 벡터를 다룰 수는 없지만 두개의 스칼라(scalars)를 다룰 수 있는 함수
+를 가지고 있다면, outer()를 사용할 수는 있으나, 사용자의 함수에 이를 둘러쌓아야
+만 합니다. 아래와 같은 사용자 함수를 생각해 봅니다.
+
+foo <- function(x, y, happy) {
+  stopifnot(length(x) == 1, length(y) == 1) # scalars only!
+  (x + y) * happy
+}
+
+만약, 사용자가 다음과 같이 일반적인 함수를 정의한다면, outer()를 사용할 수 있습
+니다.
+
+wrapper <- function(x, y, my.fun, ...) {
+  sapply(seq_along(x), FUN = function(i) my.fun(x[i], y[i], ...))
+}
+
+then you can use outer() by writing, e.g.,
+
+outer(1:4, 1:2, FUN = wrapper, my.fun = foo, happy = 10)
+
+Scalar functions can also be vectorized using Vectorize().
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.18 anova()로부터 나온 결과는 왜 모델 내에 주어진 요인들의 순서에 따라 달라지
+나요?
+
+~A+B+A:B와 같은 모델내에서, R은 ~1, ~A, ~A+B, ~A+B+A:B 모델들의 제곱합(sums of
+squares)를 모두 다르게 보여줄 것입니다. 만약, 모델이 ~B+A+A:B이었다면 ~1, ~B,
+~A+B, ~A+B+A:B 역시 다르게 보여줄 것입니다. 첫번째의 경우에는 A에 대한 제곱합은
+~1과 ~A에 비교되고, 두번째의 경우에는 ~B와 ~B+A와 비교됩니다. 대부분의 언밸런스
+드 디자인(unbalanced design)인 비직교디자인(Non-orthogonal design)에서는 이러한
+비교는 개념상으로나 수치연산상으로 다릅니다.
+
+일부 패키지들은 풀모델(full model)에서 요인(factor)를 한번에 하나씩 지워나가는
+모델들과 비교한 제곱합 (예를들면, SAS 에서 ‘Type III sums of suqares’)를 보고합
+니다. 이는 모델에서 사용된 요인의 순서에 영향을 받지 않습니다. 어떤 종류의 제곱
+합이 올바른것인지에 대한 질문은 때때로 R-help에서 많은 논쟁거리를 유발합니다
+(provokes low-level holy wars).
+
+R이 알려주는 특정한 제곱합에 대해서는 걱정할 필요는 없습니다. 사용자가 선호하는
+제곱합을 손쉽게 계산할 수 있습니다. 두 모델은 anova(model1, model2)을 이용하여
+비교되어지고, drop1(model1)은 한 개의 항을 빼낸뒤 얻어낸 제곱합을 보여줄 것입니
+다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.19 배치모드에서 PNG 그래픽을 어떻게 생성하나요?
+
+Unix와 같은 환경에서 설치시 png() 장치에 대하여 type="cairo"를 지원된다면, 아무
+런 문제가 없어야 하며 기본설정대로 작동해야합니다. 이 옵션은 2.7.0 이전 버전에
+서는 사용할 수 없거나, cario에 대한 지원이 없습니다. R 2.7.0부터는 기본적으로
+png()는 Mac OS X에서는 Quartz 장치를 이용하며 이는 배치모드에서도 실행됩니다.
+
+Earlier versions of the png() device used the X11 driver, which is a problem in
+batch mode or for remote operation. If you have Ghostscript you can use bitmap
+(), which produces a PostScript or PDF file then converts it to any bitmap
+format supported by Ghostscript. On some installations this produces ugly
+output, on others it is perfectly satisfactory. Many systems now come with Xvfb
+from X.Org (possibly as an optional install), which is an X11 server that does
+not require a screen; and there is the GDD package from CRAN, which produces
+PNG, JPEG and GIF bitmaps without X11.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.20 명령어 기반의 편집기능은 어떻게 사용하나요?
+
+R과 함께 사용되는 Unix와 같은 커맨드라인은 오로지 빌트인 커맨드 라인 편집기
+(inbuilt command line editor)만을 제공합니다. 이 편집기는 만약 GNU readline 라
+이브러리가 컴파일에서 R에서 설정되었을때만 불러오기, 편집하기, 이전 명령어를 재
+실행할 수 있습니다. 이를 위해서는 적합한 헤더(headers)를 포함하고 있는 개발버전
+의 readline이 필요하므로, 리눅스 바이너리 배포를 사용하는 사용자들은
+libreadline-dev (Debian) 또는 readline-devel (Red Hat)과 같은 패키지가 필요할
+수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.21 문자열을 어떻게 변수로 바꿀 수 있나요?
+
+만약 아래와 같은 명령을 실행했다고 가정합니다.
+
+varname <- c("a", "b", "d")
+
+다음과 같이 해보세요.
+
+get(varname[1]) + 2
+
+for
+
+a + 2
+
+or
+
+assign(varname[1], 2 + 2)
+
+for
+
+a <- 2 + 2
+
+or
+
+eval(substitute(lm(y ~ x + variable),
+                list(variable = as.name(varname[1]))))
+
+for
+
+lm(y ~ x + a)
+
+최소한 처음 두가지 경우에는 리스트(list)를 이용한 뒤, 아래와 같이 요소명을 이용
+하여 보다 쉽게 사용할 수 있습니다.
+
+vars <- list(a = 1:10, b = rnorm(100), d = LETTERS)
+vars[["a"]]
+
+without any of this messing about.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.22 왜 lattice/treliis 그래픽이 작동하지 않나요?
+
+가장 큰 이유는 R에 그래프를 보여줄 것을 명령하는 것을 잊은 것입니다. xyplot()과
+같은 라띠스 함수(lattice function)들은 그래프 객체를 생성하지만, 보여주지는 않
+습니다. (ggplot2 그래픽스와 S-PLUS의 Trellis 그래픽스 또한 마찬가지입니다). 그
+래프 객체를 실제적으로 보여주기 위해서는 print() 메소드를 이용해야 합니다. 커맨
+드 라인에서 이러한 함수들이 대화식으로 사용될때에는 자동적으로 보여지게 되지만,
+source()를 이용하거나 사용자가 작성한 함수내에서 이용될 때에는 명시적으로 print
+()를 사용해야 합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.23 데이터 프레임의 행들을 어떻게 정렬하나요?
+
+데이터 프레임내에 있는 한 개 이상의 열들안에 있는 값들에 대해서 행들을 정렬하고
+자 한다면, order()를 이용하면 됩니다. (예를들어, DF[order(DF$a, DF[["b"]]), ]
+라고 하는 것은 데이터 프레임 DF을 a와 b라는 열들을 이용하여 정렬해줍니다).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.24 왜 help.start() 검색엔진이 작동하지 않나요?
+
+help.start()내의 브라우저 기반의 검색엔진은 Java applet을 이용합니다. 이것이 올
+바르게 작동하게하기 위해서는 Java와 호환가능한 버전이 설치되어야 하고, Java와
+Javascript 모두 브라우저에서 사용가능하도록 설정되어 있어야 합니다.
+
+Java와 브라우저의 버전들에 많은 호환성 문제들이 존재합니다. 더 자세한 사항은 R
+Installation and Administration 문서내의 “Enabling search in HTML help” 섹션을
+살펴보세요. 이 매뉴얼은 R 배포판에 포함 see R에 관련한 어떤 문서가 존재하나요?
+되어 있으며, 이의 HTML 버전은 HTML 검색페이지와도 링크가 되어 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.25 R을 업데이트하고 나면 왜 .Rprofile이 더 이상 작동하지 않나요?
+
+NEWS 파일을 읽어 보셨나요? base 패키지에 없는 함수들을 이용하기 위해서는 올바른
+패키지 네임스페이지를 지정해야만 합니다. 그 이유는 코드들은 패키지들이 로드되기
+전에 실행될 것이기 때문입니다. 예를들면, 다음을 살펴보세요.
+
+ps.options(horizontal = FALSE)
+help.start()
+
+위의 코드들은 아래와 같이 될 필요가 있습니다.
+
+grDevices::ps.options(horizontal = FALSE)
+utils::help.start()
+
+(graphics::ps.options(horizontal = FALSE) in R 1.9.x).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.26 모든 메소드들은 어디로 가게 되나요?
+
+현재 많은 함수들 (특히 S3 메소드들)은 네임스페이스(namespaces)에서 보여지지 않
+습니다. 이렇게 하는 것은 부주의하게 잘못된 클래스들을 인자로 호출되지 않게 하는
+장점이 있지만 확인하기가 더 힘들어 지게 됩니다.
+
+S3 메소드 (즉, [.terms])에 해당하는 원시코드를 확인하고 싶다면 아래의 함수를 이
+용해 보세요.
+
+getS3method("[", "terms")
+
+패키지 "bar"의 네임스페이스 내에서 아직 내보지지 않은 함수 foo()의 원시코드를
+확인하기 위해서는 foo()를 이용하세요. 사용자가 작성한 코드내에서 내보어지지 않
+은 함수들을 호출하려고 할때는 이렇게 사용하지 마시길 바랍니다. 그들은 아마도 어
+떠한 이유에서 내보어내어지지 않았거나 경고가 없이 변경될 수도 있기 때문입니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.27 축의 라벨을 어떻게 회전시킬 수 있나요?
+
+(base 그래픽스를 이용하여) 축 라벨들을 회전시키기 위해서는 mtext() 보다는 text
+()를 사용해야 합니다. 그 이유는 par("srt")를 지원하지 않기 때문입니다.
+
+## Increase bottom margin to make room for rotated labels
+par(mar = c(7, 4, 4, 2) + 0.1)
+## Create plot with no x axis and no x axis label
+plot(1 : 8, xaxt = "n",  xlab = "")
+## Set up x axis with tick marks alone
+axis(1, labels = FALSE)
+## Create some text labels
+labels <- paste("Label", 1:8, sep = " ")
+## Plot x axis labels at default tick marks
+text(1:8, par("usr")[3] - 0.25, srt = 45, adj = 1,
+     labels = labels, xpd = TRUE)
+## Plot x axis label at line 6 (of 7)
+mtext(1, text = "X Axis Label", line = 6)
+
+x 축라벨들을 플랏할때, 문자회전의 각도로 srt=45를 사용했고, 틱마크의 위치에 문
+자의 오른쪽 끝을 위치시키기 위해서 adj=1을 이용했으며, 플랏영역 바깥쪽의 텍스트
+를 위하여 xpd=TRUE가 사용되었습니다. x축에 비례하여 위 또는 아래로 축라벨을 이
+동시키는데 필요한 0.25 오프셋의 값을 조정할 수도 있습니다. 더 많은 정보를 위해
+서는 ?par를 살펴보세요.
+
+Figure 1를 보시고, 이와 관련된 코드를 Paul Murrell (2003), “Integrating grid
+Graphics Output with Base Graphics Output”, R News, 3/2, 7–12 에서 찾아보시길
+바랍니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.28 read.table()의 사용이 왜 비효율적인가요?
+
+기본적으로 read.table()은 모든 것들을 문자형 데이터로서 읽어들인 뒤, 어떤 변수
+가 숫자 또는 요인으로 변경되어야 하는지에 대하여 결정을 하게 됩니다. 크기가 큰
+데이터셋의 경우에는 이러한 방식은 꽤 많은 시간과 메모리를 필요로 합니다. 테이블
+의 열들을 어떤 클래스로 읽어들일 것인지를 지정하는데 이용되는 colClasses 인자를
+사용하면 성능이 상당히 향상될 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.29 패키지와 라이브러리의 다른 점은 무엇인가요?
+
+package(패키지)는 표준화된 방식으로 코드, 데이터, 그리고 문서를 제공함으로서 R
+을 확장할 수 있는 자료들의 모음입니다. library(라이브러리)는 R이 사용할 수 있는
+(설치된) 패키지들을 찾는 디렉토리를 의미압니다. R은 함수 library로의 호출을 통
+하여 패키지를 (“load(로드)”하고, 이를 검색경로에 추가하라고) 사용하라고 전달하
+게 됩니다. 즉, library()는 패키지들을 포함하고 있는 라이브러리들로부터 패키지를
+로드하는데 쓰입니다.
+
+더 자세한 사항은 See R 애드온 패키지(Add-On Packages)을 살펴보시길 바랍니다.
+Uwe Ligges (2003), ‘R Help Desk: Package Management”, R News, 3/3, 37–39 또한
+살펴보시면 도움이 됩니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.30 패키지를 설치하였지만 함수가 존재하지 않습니다
+
+패키지를 실제적으로 이용하기 위해서는 library()를 이용하여 로드되어져야 합니다.
+
+See ‘R Add-On Packages’ and ‘What is the difference between package and
+library?’ for more information.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.31 왜 R은 이 숫자들이 서로 같다고 하지 않는 것인가요?
+
+R의 숫자의 유형들 중에서 정확하게 표현될 수 있는 숫자들은 정수(intergers)과 분
+모가 2의 자승(power of 2)인 분수(fractions) 뿐입니다. 다른 숫자들은 (일반적으
+로) 이진법으로 53자리숫자에서 반올림 되어집니다. 그 결과 같은 알고리즘에 의하여
+얻어진 결과가 아니라면 두 부동소수점(floating point numbers)들은 같지 않을 것입
+니다. 예를들면, 다음과 같습니다.
+
+R> a <- sqrt(2)
+R> a * a == 2
+[1] FALSE
+R> a * a - 2
+[1] 4.440892e-16
+
+함수 all.equal()은 .Machine$double.eps ^ 0.5의 오차범위내에서 두개의 객체를 비
+교합니다. 만약, 이보다 더 높은 수준의 정확도를 원한다면 에러전파(error
+propagation)을 조심스럽게 생각해보아야 합니다.
+
+더 많은 정보를 David Goldberg (1991), “What Every Computer Scientist Should
+Know About Floating-Point Arithmetic”, ACM Computing Surveys, 23/1, 5–48 에서
+찾아 볼 수 있으며, 또한 http://www.validlab.com/goldberg/paper.pdf에서도 볼 수
+있습니다.
+
+Kernighan과 Plauger에 의해서 씌여진 “The Elements of Programming Style”에서 인
+용을 하자면, 다음과 같습니다.
+
+    10.0 곱하기 0.1은 1.0이 되기 어렵다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.32 시간이 오래 걸리는 시뮬레이션을 수행할 때 어떻게 해야 에러를 찾을 수 있거
+나 무시할 수 있나요?
+
+에러 대신에 "try-error"라는 클래스의 객체를 반환하고자 한다면 try()를 이용하거
+나, 좀 더 유연하게 다른 값을 반환할 수 있는 tryCatch()를 이용해 보세요. 예를들
+어, 다음의 예제는 성공적으로 수행된다면 lm()의 계수(coefficients)를 반환하고,
+실패할 경우에는 c(NaN, NaN, NaN, NaN)을 돌려주게 됩니다 (이 경우에는 계수가 4개
+라고 가정했습니다).
+
+beta[i,] <- tryCatch(coef(lm(formula, data)),
+                     error = function(e) rep(NaN, 4))
+
+would return the coefficients if the lm() call succeeded and would return c
+(NaN, NaN, NaN, NaN) if it failed (presumably there are supposed to be 4
+coefficients in this example).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.33 음수의 거듭제곱이 왜 틀리나요?
+
+아마 다음과 같은 경우에 이러한 질문이 생길 수 있으며, 이는 R의 표현식에 대한 우
+선순위 규칙(precedence rules)를 잘 못 이해한 경우에 해당합니다.
+
+R> -2^2
+[1] -4
+
+올바른 결과를 얻기 위해서는 다음과 같이 해야 -2의 제곱에 대한 올바른 값을 얻을
+수 있습니다.
+
+R> (-2)^2
+[1] 4
+
+to get the square of -2.
+
+우선순위 규칙은 ?Syntax 내에 정리되어 있으며, 어떻게 R이 해석하는지를 알기 위해
+서는 구문트리(parse tree)를 보시길 바랍니다.
+
+R> as.list(quote(-2^2))
+[[1]]
+`-`
+
+[[2]]
+2^2
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.34 어떻게 해야 반복문의 매 과정으로부터 생성되는 결과를 각각의 다른 파일에 저
+장할 수 있나요?
+
+이를 수행하는 한가지 방법으로는 file.path()로 경로를 지정해주면서 파일명과 각
+반복단계를 나타내는 숫자를 한데 결합시켜줄 수 있는 paste() (또는 sprintf())를
+이용하는 것입니다. 예를들면, 결과물을 현재의 작업디렉토리인 Results에
+result1.rda, …, result100.rda이라는 파일에 저장하기 위해서는 다음과 같이 할 수
+있습니다.
+
+for(i in 1:100) {
+  ## Calculations constructing "some_object" ...
+  fp <- file.path("Results", paste("result", i, ".rda", sep = ""))
+  save(list = "some_object", file = fp)
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.35 lmer()을 사용할 때 왜 p-값을 찾을 수 없나요?
+
+r-help 리스트에 포스트된 이 질문에 대해서 Doug Bates는 매우 친절하게 폭넓은 응
+답을 해주었으며, 이는 https://stat.ethz.ch/pipermail/r-help/2006-May/
+094765.html에서 확인할 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.36 Why are there unwanted borders, lines or grid-like artifacts when viewing
+a plot saved to a PS or PDF file?
+
+이것은 polygon(), filled.contour(), image(), 또는 이런 함수들을 내부적으로 호출
+하게 되는 함수들을 이용할 때 발생합니다. polygon()의 경우에는 border인자를 NA
+또는 "transparent"로 지정해주었음에도 다각형(polygon)들 사이에 원하지 않는 경계
+(border)가 생기는 것을 볼 수 있을 수도 있습니다.
+
+이 문제의 원인은 플랏이 anti-aliased되어 있을때 PS/PDF 뷰어에 있습니다. 이 문제
+들의 근원은 plot이 안티얼라이스드(anti-aliased, 그래픽에서 계단식 모양의 가장자
+리를 제거하는 처리 과정)되었을 때의 PS/PDF 뷰어입니다. 문제해결에 대한 자세한
+사항은 사용하는 뷰어 및 운영체제에 따라 다르며, 시간이 지남에 따라서 달라질 수
+도 있습니다. 일부 일반적인 뷰어들에서는 다음과 같이 해 볼 수 있습니다.
+
+Acrobat Reader (cross platform)
+
+    개인설정(Preference)메뉴에 텍스트 스무딩(Text smoothing), 이미지 스무딩
+    (image smoothing)과 라인아트 스무딩(line art smoothing)을 활성/비활성하는
+    옵션이 있습니다. 여기에서 라인아트 스무딩을 사용하지 않도록 조정하세요.
+
+Preview (OS X)
+
+    개인설정(Preference)에서 텍스트(text)와 라인아트(line art)에 대한 안티얼라
+    이싱(anti-aliasing)을 활성/비활성하는 옵션션이 있습니다. 이 옵션을 비활성화
+    하세요.
+
+GSview (cross platform)
+
+    텍스트 알파(Text Alpha)와 그래픽 알파(Graphics Alpha)를 설정하도록 합니다.
+    그래픽 안티얼라이싱 (graphic anti-aliasing)을 비활성화 하기 위해서 그래픽
+    알파를 4비트에서 1비트로 변경하세요.
+
+gv (Unix-like X)
+
+    There is an option to enable/disable anti-aliasing. Disable this option.
+
+Evince (Linux/GNOME)
+
+    안티얼라이싱(anti-aliasing)을 활성/비활성화하는 옵션이 있습니다. 이 옵션을
+    비활성화하세요.
+
+Okular (Linux/KDE)
+
+    GUI에서 안티얼라이싱의 활성/비활성을 조절하는 옵션이 없습니다. 콘솔상에서
+    명령어라인으로 아래와 같이 해보세요.
+
+    $ kwriteconfig --file okularpartrc --group 'Dlg Performance' \
+                   --key GraphicsAntialias Disabled
+
+    Okular를 재실행 보세요. 본래의 설정으로 되돌리기 위해서는 마지막 단어를
+    ‘Enabled’로 변경하세요.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.37 문자열 내부에서 왜 백슬래쉬가 이상하게 작동하나요?
+
+이 질문은 종종 파일명과 관계되어 올라오곤 하지만 (윈도우즈에서 파일명을 어떻게
+사용해야 하나요?를 살펴보세요), 만약 어떤 특정 문자들에 뒤이어 일어나지 않는 이
+상 문자열로 단일 ‘\’ 문자를 넣을 수 없는 것처럼 보일때 불평이 나오곤 합니다.
+
+이를 이해하기 위해서는ㄴ 문자열(character strings)와 문자열의 리프레젠테이션
+(represenation of character strings)를 구분해야만 합니다. 대부분의 경우에는 R에
+서의 리프레젠테이션(representation)은 단순히 어느쪽이 끝이던지 작은 따옴표 또는
+큰 따옴표가 함께 사용된 문자열입니다. 그러나, 이런 방법으로 사용할 수 없는 문자
+열들이 있습니다. 이러한 것에 해당하는 것은 따옴표 문자를 포함하고 있는 문자열들
+입니다.
+
+> str <- "This \"text\" is quoted"
+> str
+[1] "This \"text\" is quoted"
+> cat(str, "\n")
+This "text" is quoted
+
+이스케이프 시퀀스(escape sequences) 문자인 ‘"’와 ‘ ’은 큰 따옴표와 개행을 나타
+냅니다. print() 또는 프롬프트에서 이름을 입력하여 텍스트 문자열을 출력하는 것
+역시 이스케이프 시퀀스를 이용합니다. 그러나, cat()함수는 문자열 그대로를 보여줄
+것입니다. ‘"\n"’은 두개가 아닌 하나의 문자임을 알아두시길 바랍니다. 백슬래쉬는
+실제로 문자열내에 포함되는 것이 아니고 단지 프린트된 리프레젠테이션에서 생성된
+것 뿐입니다.
+
+> nchar("\n")
+[1] 1
+> substring("\n", 1, 1)
+[1] "\n"
+
+어떻게 백슬래쉬를 문자열 안에 표현할 수 있나요? 이렇게 하기 위해서는 이스케이프
+문자를 피해야만 합니다. 즉, 백슬래쉬를 두번 사용해야 합니다.
+
+> cat("\\n", "\n")
+\n
+
+레귤러 익스프레이션 매칭 (regular expression matching)을 이용하는 종류의 일부
+함수들은 백슬래쉬 메카니즘에 의하여 피해질 필요가 있는 메타문자들
+(metacharacters)들을 사용합니다. 그러한 경우에는 한개의 문자를 표현하기 위해서
+4개의 백슬래쉬를 써야 할 경우도 있습니다.
+
+2.4.1Rkwlsms ‘\p’와 같은 알려지지 않는 이스케이프 문자들은 ‘p’로 에러의 출력없
+이 해석되었습니다. 현재 버전의 R은 경고를 표시합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.38 에러바 또는 신뢰구간은 어떻게 표시할 수 있나요?
+
+특정한 종류의 플랏들에 대해서 에러바를 보여주는 일부 함수들이 있습니다.
+agricolae 패키지내의 bar.err() 함수, gplots 패키지내의 plotCI() 함수, plotrix
+패키지내의 plotCI()와 brkdn.plot() 함수, psych 패키지내의 error.bars(),
+error.crosses(), 그리고 error.bars.by() 함수가 있습니다. 이러한 유형의 함수 중
+plotCI()과 같은 몇몇 함수들은 dispersion(분산)을 계산해주고, bar.err와
+brkdn.plot와 같은 것들은 원래의 값들 (raw values)로부터의 dispersion measure(분
+산 측도)를 계산해주며, error.bars와 같은 것들은 두가지 모두를 제공합니다.
+plotrix 패키지내에 있는 dispersion 함수와 같은 것들은 에러바들만을 보여주기도
+합니다. 위에서 언급한 함수들의 대부분은 에러바를 그리기 위해서 base graphics 패
+키지 내에 있는 arrows()를 사용합니다.
+
+위에서 언급한 함수 모두는 base graphics 시스템 (즉, base 배포에 있는 graphics
+패키지를 이용한 그래픽 시스템)을 이용합니다. grid와 lattice 그래픽 시스템들 또
+한 에러바를 보여주는데 필요한 특정한 함수들을 가지고 있습니다. 예를들면, grid
+패키지내의 grid.arrow() 함수와 ggplot2 패키지 내의 geom_errorbar(),
+geom_errorbarh(), geom_pointrange(), geom_linerange(), geom_crossbar(), 그리고
+geom_ribbon()함수등입니다. 라띠스 시스템에서는 Hmisc 패키지에 있는 Dotplot() 또
+는 xYplot() 함수들, latticeExtra 패키지에 있는 segplot() 함수가 에러바를 보여줄
+수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.39 두 개의 y-축을 가진 플롯을 어떻게 생성하나요?
+
+예를들어, 두가지 다른 종류의 데이터가 같은 높이를 가지도록 스케일되어 있으되,
+플랏의 좌측과 우측이 서로 다른 값의 범위를 가지는 두개의 y 축을 가지는 그래프를
+생성하고자 한다면, 이는 R에서 가능합니다. 그러나, 권장되지는 않습니다. 이러한
+그래프를 생성하기 위해서는 기본적으로 par(new=TRUE) (?par를 참조하세요)를 이용
+하는 것입니다. plotrix 패키지내의 twoord.plot() 함수와 latticeExtra 패키지의
+doubleYScale() 함수들이 어느정도 자동화 된 프로세스를 제공합니다. 더 많은 정보
+를 위해서는 http://rwiki.sciviews.org/doku.php?id=tips:graphics-base:2yaxes를
+살펴보시길 바랍니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.40 함수의 소스코드에 어떻게 접근할 수 있나요?
+
+대부분의 경우에, 함수의 이름을 입력하면 원시 코드를 확인할 수 있습니다. 그런데,
+네임스페이스 내에 있어 보여지지 않거나 컴파일되어 보여지지 않는 경우가 있습니
+다. 원시코드에 대한 접근을 어떻게 하는가에 대한 전반적인 개요는 Uwe Ligges
+(2006), “Help Desk: Accessing the sources”, R News, 6/4, 43–45 (http://
+CRAN.R-project.org/doc/Rnews/Rnews_2006-4.pdf)를 살펴보시길 바랍니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.41 절편이 없는 선형모형을 적합한 뒤 summary()를 이용하면 R^2의 추정치가 왜 이
+상하게 나오나요?
+
+?summary.lm에 설명되어 있는 것과 같이 절편이 0일때 (즉, y~x-1 또는 y~x+0 이라고
+사용하는 경우), summary.lm()은 다음의 포뮬러를 사용합니다. R^2 = 1 - Sum(R[i]^
+2) / Sum((y[i])^2) 위의 포뮬러는 다음의 일반적인 포뮬러와 다릅니다. R^2 = 1 -
+Sum(R[i]^2) / Sum((y[i] - mean(y))^2). 여기에는 다음과 같은 몇 가지의 이유들이
+있습니다:
+
+  • R^2는 음수가 될 수 있습니다 (절편이 없는 모델은 비교되어지는 상수-평균
+    (constant-mean) 모델보다 설명력이 안 좋게 적합될수도 있기 때문입니다).
+  • 만약 원점을 지나는 직선을 가진 모델의 기울기가 0으로 설정되면, 적합된 값 y*
+    =0를 가지게 됩니다.
+  • 원점을 지나는 직선을 가진 모델에 상수, 즉 0이 아닌 평균을 가지는 모델은 중
+    첩되지 않습니다.
+
+만약 x=0이면 E[Y]=0이라는 것을 미리 알고 있다면 적합된 직선에 비교해야 할
+‘null’ 모델은 모든 곳에서 E[Y]=0인, 즉 x가 어떠한 분산도 설명할 수 없는 모델입
+니다 (만약 x=0일 때 E[Y]=0이라는 것을 사전에 모른다면 원점을 지나는 직선에 적합
+하는 것은 아마도 하지 말아야 할 것입니다).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.42 Why is R apparently not releasing memory?
+
+종종 리눅스를 이용하는 사용자들은 “R 내부의 객체들을 지우고 gc()를 실행하여 보
+니 ps/top에 따르면 R 프로세스가 많은 양의 메모리를 사용하는 것으로 보인다”라는
+의미와는 다른 의미로 질문이 되어집니다.
+
+이것은 운영체제가 메모리를 인공적으로 할당하는 방법입니다. 일반적으로 운영체제
+가 사용되지 않은 모든 메모리를 풀어줄 수 없습니다. 극단적인 경우에, 만약 R이 거
+의 모든 메모리를 자유롭게 할지라도 운영체제는 자체 설계 때문에 이들 중 어떤 것
+이라도 풀수 없습니다. 따라서, ps와 top과 같은 도구들은 R이 메모리를 아예 사용하
+지 않을지라도 R 프로세스에 의하여 사용되어진 상주된 RAM의 실질적인 양을 보고하
+게 됩니다. 일반적으로 이러한 도구들은 프로세스의 실제 메모리 사용을 보고 하지
+않고 운영체제가 해당 프로세스를 위하여 예약해 둔 것을 보고 합니다.
+
+간단히 말하면 이는 운영체제 내의 메모리 할당기(memory allocator)의 한계이며 이
+것과 관련하여 R이 할 수 있는 것은 아무것도 없습니다. 그 공간은 R이 나중에 물어
+볼 것이라는 기대하에 단순히 운영체제에 잡혀있습니다. 다음의 내용은 어떻게 이것
+이 발생되는지에 대한 다소 심도있는 답변을 줍니다.
+
+대부분의 시스템들은 메모리를 지정하기 위해 두 가지 다른 방법을 사용합니다. 큰
+청크(chunks, 즉 지정한 데이터의 양)의 할당에 대해서 그들은 프로세스 주소공간
+(process address space)로 맵 메모리(map memory)로 안내하기 위해서 mmap을 이용합
+니다. 이러한 조각들은 그들이 사용되지 않을때 즉각적으로 풀려집니다. 그러나, 이
+것은 상대적으로 비싼 연산에 해당되며 많은 운영체제들이 그러한 할당된 청크의 양
+에는 한계를 가지고 있으므로 이것은 오로지 큰 메모리 영역(memory regions)을 할당
+하는 목적으로만 사용됩니다. 작은 청크의 할당에 대해서는 시스템은 프로세스의 데
+이터 세그멘트(data segment)를 확장할 수 있습니다 (역사상으로는 brk 시스템 호출
+을 이용합니다). 그러나 이 전체 area는 항상 근접합니다. 운영체제는 이 공간의 끝
+만을 이동할 수 있고, 어떠한 “holes”를 생성할 수 없습니다. 이러한 작동에 대한 비
+용은 꽤 싼 편에 속하기 때문에 메모리의 작은 조작들에 대한 할당을 위한 목적으로
+사용됩니다. 그러나, 부작용으로는 데이터 세그먼트의 끝에서 오로지 1 바이트만이
+사용되고 있을지라도 운영체제는 어떠한 메모리라도 풀어주지 않습니다. 그 이유는
+해당 바이트의 주소를 변경할 수 없기 때문입니다. 이것은 실제로 보기 흔합니다. 그
+이유는 중간단계의 객체들을 할당하고 난뒤에 결과 객체를 할당하고 모든 중간단계의
+객체를 삭제하는 것은 흔하기 때문입니다. 결과는 맨 마지막에 할당되기 때문에 중간
+단계의 객체에 의해서 사용된 어떤 메모리를 운영체제는 풀어주지 않습니다. 실제로
+이것이 큰 문제가 되는 것은 아닙니다. 왜냐하면 현대의 운영체제는 쓰이지 않는 가
+상 메모리 부분을 페이지 아웃(page out)을 할 수 있어, 다른 어플리케이션에 이용될
+실제 메모리의 양을 줄이는 것이 아니기 때문입니다. 일반적으로 문자열(strings)과
+페어리스트(pairlists)와 같은 작은 객체들은 이러한 작동방식에 의하여 영향을 받을
+것입니다. 반면에 긴 벡터와 같은 큰 객체들은 mmap을 이용하게 될것이므로 영향을
+받지 않습니다. 리눅스 (그리고 Unix와 같은 시스템들)에서는 실제적으로 사용되지
+않은 메모리, 풀어줄 수 없는 메모리를 포함하여 할당 레이아웃(layout of
+allocation)에 관하여 할당기(allocator)를 질의하기 위하여 mallinfo 시스템호출을
+이용하는 것이 가능합니다 (mallinfo 패키지를 살펴보세요)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8 R 프로그래밍(Programming)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.1 summary 메소드를 어떻게 작성해야 하나요?
+
+만약 "foo"라는 클래스에 대한 summary 메소드를 만들고 싶다면, summary.foo()는 아
+무것도 출력해서는 안됩니다. 그러나, 클래스의 객체 "summary.foo"를 반환해야 하
+며, summary의 정보를 보기 좋게 출력해주며 이 객체를 보이지 않게 반환하는
+print.summary.foo()라는 메소드를 작성해야 합니다. 이러한 접근은 요약정보를 출력
+하는 summary.foo() 보다 선호됩니다. 그 이유는 때때로 함수 또는 유사한 곳의 내부
+에서 summary()에 의하여 계산된 결과를 사용할 필요가 때때로 있기 때문입니다. 그
+런 경우에 메소드 작성자는 어떠한 것도 출력되기를 원하지 않을 것입니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.2 동적으로 로드된 코드를 어떻게 디버그 할 수 있나요?
+
+대략적으로 말하면, 디버거 내에서 R을 시작할 필요가 있고, 코드를 로드하고, 인터
+럽트(interrupt)를 보내고, 브레이크포인트(breakpoint)을 설정해야만 합니다.
+
+Writing R Extensions 문서에서 “Finding entry points in dynamically loaded code”
+섹션을 참고하시길 바랍니다. 이 매뉴얼은 R 배포에 포함되어 있습니다, see R에 관
+련한 어떤 문서가 존재하나요?.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.3 디버깅을 할 때 어떻게 R 객체들을 점검할 수 있나요?
+
+가장 편리한 방법은 심볼릭 디버거(symbolic debugger)로부터 R_PV를 호출하는 것입
+니다.
+
+See section “Inspecting R objects when debugging” in Writing R Extensions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.4 어떻게 해야 컴파일 플래그를 변경할 수 있나요?
+
+R로 dynloading하기위한 C 코드 파일이 있지만, 기본값(R이 빌드되었을때 정해놓은)
+이 아닌 컴파일레이션 플래그들을 가지고 있는 R CMD SHLIB를 사용하고 싶다고 가정
+합니다.
+
+R 2.1.0 부터 사용자는 디폴트 플래그를 덮어쓰기 위하여 $HOME/.R내에 있는 개인
+Makevars 설정파일을 제공합니다. See section “Add-on packages” in R Installation
+and Administration.
+
+이전 버전의 R에서는 개인설정을 반영하기 위하여 R_HOME/etc/Makeconf 파일을 변경
+할 수 있거나, (최소한 GNU Make를 이용하는 시스템들에서) 환경변수 MAKEFLAGS를 이
+용하여 값들을 덮어 쓸 수 있었습니다. See section “Creating shared objects” in
+Writing R Extensions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.5 어떻게 S4 메소드를 디버그 할 수 있나요?
+
+브라우저로 호출을 추가하기 위하여 인자 signature=와 함께 trace() 함수를 이용하
+거나 상응하는 서명에 대해서 디스패치될 다른 코드를 이용하세요. 더 자세한 내용은
+?trace를 참조하세요.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+9 R 버그(Bugs)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+9.1 버그가 무엇인가요?
+
+만약 R이 정의되어 있는 방식대로 작동하지 않거나, 운영체제로부터의 프로그램에 문
+제가 있다 (디스크가 꽉 찼다는 것과 반대)는 에러메시지와 함께 프로그램이 죽는다
+면 이는 확실히 버그입니다. 만약 .C(), .Fortran(), .External(), 또는 .Call() (또
+는 .Internal()), 작성한 함수내에서 자기자신을 호출할때, 잘못된 인자유형을 사용
+하면 R은 작동하지 않을 수도 있습니다. 이것은 버그가 아닙니다.
+
+명령을 수행시 명령이 끝나지 않고 계속 지속되는 것은 버그일 수도 있으나, 이것이
+정말 R의 잘못인지를 반드시 확인해 보아야 합니다. 일부 명령어들은 단순히 오랜 시
+간이 걸릴 수도 있기 때문입니다. 만약 입력이 빨리 프로세스 되어야 한다는 것을 명
+백히 알고 있다면, 버그로 보고하시길 바랍니다. 만약에 명령어가 오래 걸릴지 안 걸
+릴지를 확신할 수 없다면 도움을 청하거나 매뉴얼을 읽어보면서 이를 알아내길 바랍
+니다.
+
+만약 익숙한 명령어가 정상적으로 작동해야 할 경우에 에러메시지를 발생시킨다면,
+이것은 아마도 버그일 것입니다. 만약 명령어가 잘못된 작업을 수행한다면, 이는 버
+그입니다. 그러나, 사용자는 반드시 무엇이 수행되어야 하는지를 반드시 알고 있어야
+합니다. 만약 명령어가 익숙한 것이 아니라면 또는 어떻게 명령어가 작동되는가를 정
+확히 모른다면, 실제로 정상적으로 작동하는 것일 수도 있습니다. 예를들면, 일부 사
+용자들은 때때로 R의 수학적 연산에 버그가 있다고 생각합니다. 그러나, 이는
+finite-precision arithmetic work를 이해하지 못하기 때문입니다. 결론을 내리기 전
+에 문제를 확실히 알고있는 누군가에게 보여주길 바랍니다. 예를들어 0.28 * 100 !=
+28 또는 0.1 + 0.2 != 0.3과 같은 것은 버그가 아닙니다. 더 자세한 사항은 See 왜 R
+은 이 숫자들이 서로 같다고 하지 않는 것인가요?를 참고해주세요.
+
+마지막으로, 명령어의 계획된 정의가 통계분석에 가장 잘 맞는 것은 아닙니다. 이것
+은 매우 중요한 문제이기도 한데, 이는 또한 문제에 대한 판단의 문제이기도 합니다.
+또한, 이들은 이전에 존재하는 기능들에 대해서 모르기 때문에 내리는 결론이기도 합
+니다. 이러한 종류의 문제에 대해서는 일반적인 방법으로 문서를 확인하고, 이를 제
+대로 이해했다고 확신한뒤, 원하는 무엇인가를 이용가능하지 않다는 것을 확실하게
+알기전까지는 불평하지 않는 것이 좋습니다. 만약 매뉴얼을 정독한 후에도 명령어가
+어떻게 무엇을 수행해야 하는지를 정확히 이해할 수 없다면, 이는 매뉴얼에 버그가
+있음을 의미합니다. 매뉴얼의 역할은 모든 것을 확실히 보여주는 것입니다. 프로그램
+버그도 중요하지만 문서의 버그를 보고하는 것도 중요합ㄴ디ㅏ. 그런데,
+introductory documentation은 심각하게 불충분하다는 것을 알고 이미 알고 있기 때
+문에 이것을 보고할 필요는 없습니다.
+
+만약 함수의 온라인 인자목록이 매뉴얼과 일치하지 않는다면, 둘 중에 하나가 잘 못
+된 것이므로 버그로 보고해 주시길 바랍니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+9.2 버그를 보고하는 방법
+
+버그가 있다고 판단될때, 이것을 보고하는 것도 중요하고, 어떻게 잘 보고하는가도
+중요합니다. 가장 좋은 방법은 쉘 커맨드에서 R을 입력하면서부터 문제가 발생한 부
+분까지의 사용된 명령어들에 대한 설명을 제공하는 것입니다. 항상 사용하는 R의 버
+전, 사용기기, 운영체제를 함께 알려주시길 바랍니다. 이들에 대한 정보는 version이
+라고 입력하면 출력됨을 확인할 수 있습니다.
+
+버그를 보고할 때 가장 중요한 원칙은 가설이나 분류를 하지 않고 실제 일어난 사실
+들만을 보고 하는 것입니다. 사실만을 보고하는 것이 더 쉬움에도 불구하고, 많은 분
+들은 이러한 사실이 왜 일어났는가를 설명하곤 합니다. 만약 이러한 설명들이 R이 어
+떻게 구현되었는가에 대한 추측에 기초한 것이라면, 쓸모가 없을 것입니다. 그 이유
+는 그러한 추측이 나오게 된 어떤 사실들을 밝혀내야만 하기 때문입니다. 때때로 이
+것은 불가능합니다. 그러나, 대부분의 경우에는 문제를 고치려고 노력하는 사람에게
+는 불필요한 일입니다.
+
+예를들어, 꽤 큰 크기의 데이터셋을 가지고 있다고 가정하고, 다음과 같은 명령어를
+입력합니다.
+
+R> data.frame(x, y, z, monday, tuesday)
+
+이것은 절대로 반환되지 않습니다. data.frame()이 큰 데이터셋에서 실패했다고 보고
+하지는 말아 주세요. 아마도 변수명이 요일로 되어 있을 때 실패하는 것일수도 있습
+니다. data.frame()이 큰 데이터에 대해 실패했다고 보고하지 마십시오. 만약 정말
+그러하다면 다른 사람들이 보고되어진 것을 보았을때 요일명이 아닌 변수명을 이용하
+여 아무런 문제가 일어나지 않는 것을 확인할 것입니다.
+
+혹은 마지막으로 사용한 명령어가 내부 데이터 구조에 오류를 발생시키고 그 이후부
+터 data.frame() 명령어가 실패하게 되는 원인을 가진 버그를 가졌던 "["()에 대한
+메소드일 수도 있기 때문입니다. 이것은 왜 어떤 명령어들이 (시작파일부터) 이전에
+입력되었는가를 알아야 하는 이유이기도 합니다.
+
+겉으로 보기에 똑같은 버그를 생성하는 간단한 예제를 찾아 시도하는 것은 매우 유익
+합니다. 실제로는 버그가 아니지만 버그를 생성할 것이라고 예상되는 단순한 예제를
+테스트 하는 것도 유용합니다. 만약 문제를 디버그하고 무엇이 문제를 야기하는지 정
+확히 찾아내고 싶다면, 이것은 매우 훌륭합니다. 당신은 실제로 일어난 사실만을 보
+고해야 하면서도 어떠한 설명 또는 해법을 함께 보고할 수 있습니다. 당신이 찾았던
+문제들중에서 그 문제가 똑같이 일어남을 확인해 줄 수 있는 가장 단순한 예제를 꼭
+포함해주시길 부탁드립니다 (즉, http://en.wikipedia.org/wiki/Reproducibility 입
+니다).
+
+--vanilla 옵션과 함께 R을 실행하는 것은 버그를 분리해 내는데 도움을 줄 것입니
+다. 이것은 사이트 프로파일과 저장된 데이터 파일들이 읽혀지지 않도록 합니다.
+
+버그리포트를 실제로 제출하기 전에, 해당 버그가 이미 보고되었거나 수정되었는지를
+확인하시길 바랍니다. 제일 먼저 http://bugs.R-project.org/에 있는 검색 기능 또는
+“Show open bugs new-to-old”을 시도해보시길 바랍니다. 그리고 나서 버그트래커에는
+고쳤다고 나오지 않았는지 혹은 다음에 배포되는 R에 변경사항을 기록한 https://
+svn.R-project.org/R/trunk/doc/NEWS.Rd에는 있는지 없는지 확인해 보시길 바랍니다.
+세번째로 가능하다면 R의 현재 r-patched나 r-devel 버전을 시도해 보십시오. 만약
+버그가 이미 보고되거나 고쳐졌다면, 추가적인 버그 보고서를 제출하지 말아주시길
+바랍니다. 마지막으로 버그가 R에 존재하는지 기여 패키지에 존재하는지에 대해서 주
+의 깊게 확인해 주시길 부탁드립니다. 기여된 패키지들에 대한 버그보고서는 가장 먼
+저 패키지 관리자에게 보내져야 하며, 패키지 관라자에 의해서 해당패키지명이 제목
+에 명시된 버그리포드만이 R-bug 저장소에 제출될 수 있습니다.
+
+버그 리포트는 함수 bug.report()을 이용하여 생성할 수 있습니다. 이것은 http://
+bugs.R-project.org/이라는 웹페이지를 열어줄 것입니다. 사용자 기여패키지
+(contributed package)에 대해서는 패키지의 버그 트래커 웹 페이지 또는 패키지 관
+리자에게 이메일을 작성할 수 있도록 도와줄 것입니다.
+
+‘wishlist’라고 라벨과 함께 R의 기능강화에 관한 제안들을 위한 버그저장소 섹션이
+있습니다. 제안사항들은 버그를 보고하는 것과 같은 방법으로 할 수 있으나, 제목에
+반드시 이것은 wishlist 이지 버그리포트가 아니라는 것을 명시해주셔야 합니다. 예
+를들면, ‘Wishlist:’ 라고 시작해 주시면 됩니다.
+
+R의 Windows 포트에 대한 조언 및 제안사항들은 R-windows@R-project.org로 보내져야
+합니다.
+
+메시지 번역에 관련한 수정 및 제안사항들은 해당 내용을 담고 있는 ‘.po’ 파일 상단
+에 명시된 마지막 번역자 또는 http://developer.R-project.org/
+TranslationTeams.html에 나열되어 있는 번역팀에게 보내어져야 합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10 감사의 말씀(Acknowledgements)
+
+Of course, many many thanks to Robert and Ross for the R system, and to the
+package writers and porters for adding to it.
+
+R 시스템을 제공해 준 Robert와 Ross에게 감사의 말씀을 올리며, 패키지 작성자들과
+포터(porters)들에게 또한 감사드립니다. 특히 본 FAQ 문서를 향상시킬 수 있는 코멘
+트를 제공해준 Doug Bates, Peter Dalgaard, Paul Gilbert, Stefano Iacus, Fritz
+Leisch, Jim Lindsey, Thomas Lumley, Martin Maechler, Brian D. Ripley, Anthony
+Rossini, 그리고 Andreas Weingessel에게 감사드립니다.
+
+더 많은 내용들이 추가될 것입니다…
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
