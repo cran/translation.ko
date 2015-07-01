@@ -2,7 +2,7 @@
 
 Frequently Asked Questions on R
 
-Version 3.2.2015-06-08
+Version 3.2.2015-06-26
 
 Kurt Hornik
 
@@ -13,8 +13,8 @@ Notes from the maintainer, Chel Hee Lee <chl948@mail.usask.ca>
 The first Korean translation of this document was completed by Chel Hee Lee
 with the version of R-2.8.1 (21-DEC-2008). Since then, the translation has been
 updated along with the changes with the English documentation. The current work
-shown in this page is based on Revision: 68580 (3.3.0 Under development
-(unstable)), updated on Wed Jun 24 09:40:31 CST 2015. Comments and corrections
+shown in this page is based on Revision: 68618 (3.3.0 Under development
+(unstable)), updated on Wed Jul 1 08:45:16 CST 2015. Comments and corrections
 via email to Chel Hee Lee is of course most welcome.
 
 Continuous efforts have been made by the following contributors:
@@ -137,7 +137,7 @@ Table of Contents
       □ 7.40 함수의 소스코드에 어떻게 접근할 수 있나요?
       □ 7.41 절편이 없는 선형모형을 적합한 뒤 summary()를 이용하면 R^2의 추정치
         가 왜 이상하게 나오나요?
-      □ 7.42 Why is R apparently not releasing memory?
+      □ 7.42 보시다시피 왜 R은 메모리를 풀어주지 않나요?
   • 8 R 프로그래밍(Programming)
       □ 8.1 summary 메소드를 어떻게 작성해야 하나요?
       □ 8.2 동적으로 로드된 코드를 어떻게 디버그 할 수 있나요?
@@ -448,18 +448,18 @@ CRAN 사이트의 bin/linux 디렉터리는 다음과 같은 패키지들을 담
            armel      wheezy               Johannes Ranke
     Ubuntu i386/amd64 lucid/precise/trusty Michael Rutter
 
-Dirk Eddelbuettel에 의해 유지보수되는 데비안(Debian) 패지들은 오랜 시간에 걸쳐
-데비안 배포판의 일부분이 되어가고 있으며, 데비안 패키지 관리도구인 APT 를 통하
-여 쉽게 엑세스 될 수 있습니다. R 기본 환경 및 추천 패키지들을 설치하기 위해서는
-apt-get install r-base r-recommended을 입력하면 됩니다. 만약, 원시코드(source)
-로부터 R 패키지를 빌드하고자 한다면, 이에 필요한 도구들을 설치하기 위해서
-apt-get install r-base-dev이라고 입력하면 됩니다. 최소한 stable(안정적인 버전
-의) 데비안에 적용이 될 수 있는 “backport”라고 불리우는 R 패키지들은 Johannes
-Ranke에 의하여 제공되며, CRAN으로부터 받을 수 있습니다. R 데비안 패키지들에 대
+Dirk Eddelbuettel에 의해 유지보수되는 데비안(Debian) 패키지들은 오랜 시간에 걸
+쳐 데비안 배포판의 일부분이었으며, 데비안 패키지 관리도구인 APT 를 통하여 쉽게
+입수할 수 있습니다. 예로 R의 기본 환경 및 추천 패키지들을 설치하기 위해서는
+apt-get install r-base r-recommended을 입력하면 됩니다. 만약, 소스코드(source)
+로부터 R 패키지를 빌드하고자 한다면, 추가로 apt-get install r-base-dev 라고 입
+력하면 부가적인 도구들을 설치할수 있습니다. 통용하는 R 패키지들의 흔히 말하는
+"backports" 는, 적어도 데비안의 dfn안정적인 버전의 패키지들에 한하여, Johannes
+Ranke 에 의해서 제공되며, CRAN으로부터 받을 수 있습니다. R 데비안 패키지들에 대
 한 사항들과 백포트(backport)를 설치하는 하는 방법에 대해서는 http://
 CRAN.R-project.org/bin/linux/debian/README 를 살펴보시길 바랍니다. 이는 데비안
-으로부터 파생된 다른 배포판에서도 안정적으로 작동될 것입니다. 우분투를 위한 네
-이티브 백포트 (native backports)는 Michael Rutter에 의해서 제공됩니다.
+으로부터 파생된 다른 배포판에서도 적용될 것입니다. 우분투를 위한 네이티브 백포
+트 (native backports)는 Michael Rutter에 의해서 제공됩니다.
 
 Fedora(페도라)를 위한 R 바이너리들은 Tom “Spot” Callaway에 의해서 유지보수되며,
 페도라 배포판의 일부로서 제공되며 RPM 설치 및 업데이트 관리프로그램인 yum을 통
@@ -474,10 +474,10 @@ R이 배포될때, 페도라 RPM 에서 새버전을 사용하기 위해서는 �
 능성이 있습니다. 이는 반드시 페도라내에 지정된 검증프로세스 (statuory Fedora
 review process)를 반드시 거쳐야 하기 때문입니다.
 
-See http://CRAN.R-project.org/bin/linux/suse/README.html for information about
-RPMs for openSUSE.
+openSUSE 에서필요한 RPM 에 대한 자세한 내용은 http://CRAN.R-project.org/bin/
+linux/suse/README.html 을 참조하십시오.
 
-No other binary distributions are currently publically available via CRAN.
+공개적으로 CRAN 을 통해 사용가능한 다른 바이너리 배포판은 없습니다.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -696,7 +696,7 @@ Classic, Mac OS X, 그리고 MS Windows와 같은 다양한 운영체제를 위�
 된 바이너리들을 얻을 수 있습니다. CRAN은 또한 R 문서들, 메일링 리스트들, 그리고
 버그트랙킹 시스템에 접근할 수 있도록 해줍니다.
 
-Please always use the URL of the master site when referring to CRAN.
+CRAN 을 참조할때는 항상 마스터 사이트의 URL 을 사용해주시기 바랍니다.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -714,22 +714,26 @@ R Core Team은 R 을 상업적 목적 (즉, 비지니스 혹은 컨설팅)으로
 Definition의 제 6항 (clause 6) “No Discrimination Against Fields of Endeavor”에
 서 명확하게 나타납니다.
 
+    라이센스는 어느 특정 분야에서 이 프로그램이 사용되는것을 누구에게라도 제한
+    해서는 않됩니다. 예를 들어, 이 프로그램이 유전자 연구나 어느 사업에서 사용
+    되는 것을 제한 할 수없습니다.
+
     The license must not restrict anyone from making use of the program in a
     specific field of endeavor. For example, it may not restrict the program
     from being used in a business, or from being used for genetic research.
 
 이는 또한 GPL 제 0항 (clause 0)에서도 아래와 같이 (일부분만) 언급되어 있습니다.
 
-    모든 추천(recommended) 패키지들을 포함하여 대부분의 애드온(add-on) 패키지들
-    은 이러한 방법으로서 상업적으로도 이용이 될 수 있음을 명시하고 있습니다. 몇
-    개의 패키지들은 “non-commercial use”(비상업용적 용도)로서 제한됩니다. 이 경
-    우 사용자는 반드시 저작권자에게 상업적 용도로의 활용여부를 문의하거나 법률
-    상담가로부터의 조언을 찾아야 합니다.
+    복사, 배포 및 수정 이외의 활동은 본 라이센스에 포함되지 않습니다; 그런 활동
+    들은 본 라이센스의 범위를 벗어난 활동들입니다. 프로그램을 실행시키는 행위는
+    제한되지 않습니다. 그리고, 프로그램의 출력물은 그 내용이 프로그램에 기초한
+    저작물을 구성하는 경우에만 포함됩니다.
 
-Most add-on packages, including all recommended ones, also explicitly allow
-commercial use in this way. A few packages are restricted to “non-commercial
-use”; you should contact the author to clarify whether these may be used or
-seek the advice of your legal counsel.
+모든 추천(recommended) 패키지들을 포함하여 대부분의 애드온(add-on) 패키지들은
+이러한 방법으로서 상업적으로도 이용이 될 수 있음을 명시하고 있습니다. 몇개의 패
+키지들은 “non-commercial use”(비상업용적 용도)로서 제한됩니다. 이 경우 사용자는
+반드시 저작권자에게 상업적 용도로의 활용여부를 문의하거나 법률상담가로부터의 조
+언을 찾아야 합니다.
 
 이 섹션에 언급된 모든 논의는 법적조언이 아닙니다. R Core Team은 어떠한 경우에도
 법적조언을 제공하지 않습니다.
@@ -759,13 +763,13 @@ www.R-project.org/foundation/에서 더 많은 정보를 찾을 수 있습니다
 2.14 R-Forge는 무엇인가요?
 
 R-Forge (http://R-Forge.R-project.org/)는 R 패키지, R 관련 소프트웨어, 그리고
-다양한 프로젝트들의 개발을 위한 중요한 기반(central platform)을 제공합니다. SVN
-에 최적화된 손쉬운 접근, 매일 빌드되고 체크되는 패키지들, 메일링 리스트, 버그
-트래킹, 메시지 보드/포럼공간, 사이트 호스팅, 영구파일 저장공간, 안정적인 백업,
-그리고 웹기반의 관리 기능등을 제공하는 GForge를 기초로 운영됩니다. R-Forge 웹페
-이지와 Stefan Theußl and Achim Zeileis (2009), “Collaborative software
-development using R-Forge”, The R Journal, 1(1):9–14 로부터 더 많은 내용을 얻을
-수 있습니다.
+다양한 프로젝트들의 개발을 위한 중심적인 기반(central platform)을 제공합니다.
+GForge 를 기반으로 하여 SVN에 최적화된 손쉬운 엑세스, 매일 빌드되고 점검되는 패
+키지들, 메일링 리스트, 버그 트래킹, 메시지 보드/포럼공간, 사이트 호스팅, 영구파
+일 저장공간, 완전한 백업, 그리고 전적으로 웹에 기반한 관리기능 등을 제공합니다.
+R-Forge 웹페이지와 Stefan Theußl and Achim Zeileis (2009), “Collaborative
+software development using R-Forge”, The R Journal, 1(1):9–14 로부터 더 자세한
+내용을 얻을 수 있습니다.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -780,14 +784,17 @@ S는 데이터 분석과 그래픽스를 위한 하이레벨 언어 (high level 
 주요설계자인 John M. Chambers에게 아래와 같이 치하하며 Software System Award를
 수여하였습니다.
 
+    S 시스템은 영원히 사람들이 데이터를 분석, 시각화 그리고 조작하는 방법을 변
+    화시켰다 …
+
     the S system, which has forever altered the way people analyze, visualize,
     and manipulate data …
 
-    S 언어의 발전은 John Chambers와 공동저자들에 의하여 쓰여진 네권의 책들에 잘
-    설명되어 있습니다. 이들은 또한 S에 대한 주요 참고문헌이기도 합니다.
+    John Chambers 의 고마운 통찰력, 풍취와 노력으로 만들어진 S 는 훌륭하고, 널
+    리 인정 받으며 개념적으로 완전한 지속적인 소프트웨어 시스템 입니다.
 
-The evolution of the S language is characterized by four books by John Chambers
-and coauthors, which are also the primary references for S.
+S 언어의 발전은 John Chambers와 공동저자들에 의하여 쓰여진 네권의 책들에 잘 설
+명되어 있습니다. 이들은 또한 S에 대한 주요 참고문헌이기도 합니다.
 
   • Richard A. Becker and John M. Chambers (1984), “S. An Interactive
     Environment for Data Analysis and Graphics,” Monterey: Wadsworth and Brooks
@@ -809,14 +816,14 @@ and coauthors, which are also the primary references for S.
     능을 수행하기 위한 구조들이 추가되어진 S 버전 3로 알려진 것을 소개합니다.
 
   • John M. Chambers (1998), “Programming with Data,” New York: Springer, ISBN
-    0-387-98503-4 (http://cm.bell-labs.com/cm/ms/departments/sia/Sbook/).
+    0-387-98503-4 (http://statweb.stanford.edu/~jmc4/Sbook/).
 
     “Green Book”(그린 북)은 프로그래밍 프로세스의 매 단계마다 유용성을 향상시킬
     수 있도록 John Chambers에 의하여 설계된 S의 주요수정사항들이 있는 S 버전 4
     를 설명합니다.
 
-더 자세한 내용은 http://cm.bell-labs.com/cm/ms/departments/sia/S/history.html
-에서 “Stages in the Evolution of S”를 살펴보시길 바랍니다.
+"Evolution of the S Language" (S 언어의 진화) 에 관한 더 자세한 내용은 http://
+statweb.stanford.edu/~jmc4/papers/96.7.ps 를 참조 하시기 바랍니다.
 
 CMU에 있는 S Repository에 가시면 사용자들이 제공한 매우 방대한 양의 S코드들을
 있습니다.
@@ -825,9 +832,8 @@ CMU에 있는 S Repository에 가시면 사용자들이 제공한 매우 방대�
 
 3.2 S-PLUS란 무엇인가요?
 
-S-PLUS is a value-added version of S currently sold by TIBCO Software Inc as
-‘TIBCO Spotfire S+’. See http://en.wikipedia.org/wiki/S-PLUS for more
-information.
+S-PLUS 는 TIBCO Software Inc에서 ‘TIBCO Spotfire S+’ 로 판매되는 S의 부가가치
+버전입니다. 자세한 내용은 http://en.wikipedia.org/wiki/S-PLUS을 참조하십시오.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -837,11 +843,9 @@ S는 현재 세가지 종류의 구현체 또는 “engines”(엔진)을 가진
 니다. 이는 “old S engine” (S version 3; S-Plus 3.x 그리고 4.x), “new S engine”
 (S version 4; S-Plus 5.x 혹은 그 이후의 버전), 그리고 R입니다. 이러한 내용을 바
 탕으로 보면, “R과 S 사이의 다른점”에 대한 질문은 S언어를 이용하여 구현된 R의 세
-부사항들을 묻는것과 같습니다. 즉, R의 엔진과 S의 엔진 사이에 다른 점의 다른 점
-입니다.
+부사항들을 묻는것과 같습니다. 즉, R의 엔진과 S의 엔진 사이에 다른 점입니다.
 
-For the remainder of this section, “S” refers to the S engines and not the S
-language.
+이 섹션에서 이 지점 이후로, "S” 는 S 엔진이 아닌 S 언어를 의미합니다.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1225,11 +1229,11 @@ R 언어에 대한 지식이 요구되지 않고 기초 통계 과목들에 유�
 Journal of Statistical Software (http://www.jstatsoft.org/v04/i01/)에서 출간된
 “Rweb: Web-based Statistical Analysis”에 설명되어 있습니다.
 
-Ulf Bartel has developed R-Online, a simple on-line programming environment for
-R which intends to make the first steps in statistical programming with R
-(especially with time series) as easy as possible. There is no need for a local
-installation since the only requirement for the user is a JavaScript capable
-browser. See http://www.osvisions.com/r_online/ for more information.
+Ulf Bartel 은 R의 간단한 온라인식의 프로그램 환경인 R-Online 을 개발하였습니다.
+이 는 R에서 사용되는 통계학 프로그래밍의 첫단계(특히 시계열)를 가능한한 쉽게 만
+들수있는 의도로 개발한것입니다. 사용자에 대한 요구사항은 자바스크립트가 가능한
+브라우저 밖에 없으므로 로컬 설치를 할 필요가 없습니다. 자세한 내용은 http://
+www.osvisions.com/r_online/ 를 참조 하십시요.
 
 Rcgi는 MJ Ray에서 만들어진 CGI WWW 인터페이스입니다. 이는 HTML 작성자가 CGI 스
 크립들을 쓰지 않고도 데이터 셋을 로드하는 것부터 사용자가 대부분의 명령어들을
@@ -1240,10 +1244,9 @@ Rcgi는 MJ Ray에서 만들어진 CGI WWW 인터페이스입니다. 이는 HTML 
 는 (bitmap) 그래픽스가 있는 것과 없는 것 두가지가 존재합니다)가 있으며, 본래의
 코드는 http://www.ms.uky.edu/~statweb/에서 찾아 볼 수 있습니다.
 
-There are many additional examples of web interfaces to R which basically allow
-to submit R code to a remote server, see for example the collection of links
-available from http://biostat.mc.vanderbilt.edu/twiki/bin/view/Main/
-StatCompCourse.
+기본적으로 원격 서버에 R 코드를 제출 할수있게 해주는 R의 웹 인터페이스에 관한
+부가적인 예들은 많이 있습니다. http://biostat.mc.vanderbilt.edu/twiki/bin/view/
+Main/StatCompCourse 에서 찾을수있는 링크 모음을 예로 참조 하십시요.
 
 David Firth는 CRAN으로부터 얻을 수 있는 R 애드온 패키지인 CGIwithR을 작성하였습
 니다. 이것은 웹서버에 대한 CGI 인터페이스를 통하여 R script들을 실행할 수 있도
@@ -1263,8 +1266,8 @@ view/Main/RApacheProject에서 이용가능합니다.
 
 Rserve는 Simon Urbanek에 의해 활발히 개발되는 프로젝트입니다. 이는 다른 프로그
 램들이 R의 기능들을 사용할 수 있도록 허용하는 TCP/IP 서버를 구현하는 것입니다.
-Java와 C++ (TCP/IP socket들을 지원하는 다른 언어로도 쓰여질 수 있습니다) 클라이
-언트들은 웹사이트로부터 얻을 수 있습니다.
+클라이언트들은 Java와 C++ 의 웹사이트로부터 얻을 수 있습니다 (그리고 TCP/IP
+socket들을 지원하는 다른 언어로도 쓰여질 수 있습니다) .
 
 R 웹인터페이스를 제공하는데 PHP를 사용한 두 개의 프로젝트가 있습니다. Steve
 Chen에 의해서 개발되는 R_PHP_Online(이 프로젝트가 아직 진행중인지는 불분명합니
@@ -1303,9 +1306,6 @@ Jeffrey Horner의 Rook 패키지는 Ruby의 Rack project의 많은 부분을 가
 하여 Concerto는 MySQL 서버 (데이터의 교환과 저장), Rstudio (R코드의 디자인, 테
 스트, 그리고 파일관리), CKEditor (HTML Layer 디자인), 그리고 PHP와 같은 인기있
 고 신뢰할 수 있는 오픈소스들로 구성되어 있습니다.
-
-더 많은 정보를 http://rwiki.sciviews.org/doku.php?id=faq-r#web_interfaces 에서
-찾을 수 있습니다.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1529,22 +1529,22 @@ Omegahat) 외에서도 찾을 수 있습니다. 특히, R-Forge는 CRAN 스타�
 (Unix와 같은 환경에서만 사용할 수 있습니다) CRAN의 애드온 패키지들은 실제로 한
 개 이상의 패키지들은 포함하는 “bundles”(번들)과 같이 pkg_version.tar.gz의 이름
 을 가진 gzip으로 압축된 tar 파일로 제공되어집니다. path를 그러한 패키지 파일에
-대한 경로라고 가정합니다. 만약 tar와 gzip을 사용가능하다면, 라이브러리 검색경로
-(library search path)내 첫번째 디렉토리에서 갈려져 나오는 라이브러리 트리
-(library tree)에 설치하고자 한다면 쉘프롬프트에서 아래와 같이 입력해 보세요.
-(검색경로가 어떻게 결정되는지에 대한 자세한 사항은 .libPahts()에 대한 도움말 페
-이지를 살펴보시길 바랍니다).
+대한 경로라고 가정합니다. 만약 tar와 gzip을 사용가능하다면, 쉘프롬프트에서 아래
+와 같이 입력해 보세요.
 
 $ R CMD INSTALL path/pkg_version.tar.gz
 
-여기에서 lib는 설치를 하고자 하는 라이브러리 트리(library tree)에 대한 경로를
-의미합니다.
+위 명령문은 라이브러리 검색경로 (library search path)내 첫번째 디렉토리에서 갈
+려져 나오는 라이브러리 트리(library tree)를 설치하게 해줍니다. (검색경로가 어떻
+게 결정되는지에 대한 자세한 사항은 .libPaths()에 대한 도움말 페이지를 살펴보시
+길 바랍니다).
 
-To install to another tree (e.g., your private one), use
+또 다른 트리 (예: 개인의 비공개 트리) 를 설치하려면 아래와 같이 입력하세요.
 
 $ R CMD INSTALL -l lib path/pkg_version.tar.gz
 
-where lib gives the path to the library tree to install to.
+여기에서 lib는 설치를 하고자 하는 라이브러리 트리(library tree)에 대한 경로를
+의미합니다.
 
 만약 CRAN과 같은 저장소들에 접근할 수 있다면, 더욱 더 편리하게 사용자는 R 내에
 서 패키지들을 설치하고 이들을 자동으로 업데이트 할 수 있습니다. 이에 대한 더 많
@@ -1554,12 +1554,12 @@ where lib gives the path to the library tree to install to.
 
 5.3 애드온 패키지는 어떻게 사용하나요?
 
-사용자의 시스템에 이용이 가능한 추가적인 패키지들을 확인하기 위해서는 R 프롬프
-트에 아래와 같이 입력해보세요.
+아래의 명령문은 사용자의 시스템에 이용이 가능한 추가적인 패키지들을 확인하기 위
+한 것 입니다.
 
 library()
 
-at the R prompt.
+위의 명령문을 R 프롬프트에서 입력합니다.
 
 다음과 같은 결과를 생성해 줄 것입니다.
 
@@ -1623,7 +1623,7 @@ detach("package:pkg", unload = TRUE)
 
 5.4 애드온 패키지는 어떻게 제거할 수 있나요?
 
-Use
+아래는 패키지를 제거할때 사용합니다.
 
 $ R CMD REMOVE pkg_1 … pkg_n
 
@@ -2619,14 +2619,13 @@ geom_ribbon()함수등입니다. 라띠스 시스템에서는 Hmisc 패키지에
 
 7.39 두 개의 y-축을 가진 플롯을 어떻게 생성하나요?
 
-예를들어, 두가지 다른 종류의 데이터가 같은 높이를 가지도록 스케일되어 있으되,
-플랏의 좌측과 우측이 서로 다른 값의 범위를 가지는 두개의 y 축을 가지는 그래프를
-생성하고자 한다면, 이는 R에서 가능합니다. 그러나, 권장되지는 않습니다. 이러한
-그래프를 생성하기 위해서는 기본적으로 par(new=TRUE) (?par를 참조하세요)를 이용
-하는 것입니다. plotrix 패키지내의 twoord.plot() 함수와 latticeExtra 패키지의
-doubleYScale() 함수들이 어느정도 자동화 된 프로세스를 제공합니다. 더 많은 정보
-를 위해서는 http://rwiki.sciviews.org/doku.php?id=tips:graphics-base:2yaxes를
-살펴보시길 바랍니다.
+Creating a graph with two y-axes, i.e., with two sorts of data that are scaled
+to the same vertical size and showing separate vertical axes on the left and
+right sides of the plot that reflect the original scales of the data, is
+possible in R but is not recommended. The basic approach for constructing such
+graphs is to use par(new=TRUE) (see ?par); functions twoord.plot() (in the
+plotrix package) and doubleYScale() (in the latticeExtra package) automate the
+process somewhat.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -2663,7 +2662,7 @@ Sum(R[i]^2) / Sum((y[i] - mean(y))^2). 여기에는 다음과 같은 몇 가지�
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-7.42 Why is R apparently not releasing memory?
+7.42 보시다시피 왜 R은 메모리를 풀어주지 않나요?
 
 종종 리눅스를 이용하는 사용자들은 “R 내부의 객체들을 지우고 gc()를 실행하여 보
 니 ps/top에 따르면 R 프로세스가 많은 양의 메모리를 사용하는 것으로 보인다”라는

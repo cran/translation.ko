@@ -5,8 +5,8 @@ Notes from the maintainer, Chel Hee Lee <chl948@mail.usask.ca>
 The first Korean translation of this document was completed by Chel Hee Lee
 with the version of R-2.7.2 (25-AUG-2008). Since then, the translation has been
 updated along with the changes with the English documentation. The current work
-shown in this page is based on Revision: 68580 (3.3.0 Under development
-(unstable)), updated on Wed Jun 24 09:40:31 CST 2015. Comments and corrections
+shown in this page is based on Revision: 68618 (3.3.0 Under development
+(unstable)), updated on Wed Jul 1 08:45:16 CST 2015. Comments and corrections
 via email to Chel Hee Lee is of course most welcome.
 
 Continuous efforts have been made by the following contributors:
@@ -200,7 +200,7 @@ modelling), 통계적 검정(statistical tests), 시계열분석(time series ana
 그리고 통계 모델링(statistical modelling) 및 그래픽(graphics)에 대한 내용을 다
 룹니다.
 
-이 매뉴얼은 R Revision: 68580 (3.3.0 Under development (unstable))을 위하여 작
+이 매뉴얼은 R Revision: 68618 (3.3.0 Under development (unstable))을 위하여 작
 성되었습니다.
 
 Copyright © 1990 W. N. Venables

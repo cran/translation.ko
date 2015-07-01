@@ -1,4 +1,4 @@
-                   R for Windows FAQ (translated in Korean)
+                   R for Windows FAQ (Translated in Korean)
 
 Version for 3.3.0 Under development (unstable)
 
@@ -11,8 +11,8 @@ Notes from the maintainer, Chel Hee Lee <chl948@mail.usask.ca>
 The first Korean translation of this document was completed by Chel Hee Lee
 with the version of R-2.12.0 (15-OCT-2010). Since then, the translation has
 been updated along with the changes with the English documentation. The current
-work shown in this page is based on Revision: 68580 (3.3.0 Under development
-(unstable)), updated on Wed Jun 24 09:40:31 CST 2015. Comments and corrections
+work shown in this page is based on Revision: 68618 (3.3.0 Under development
+(unstable)), updated on Wed Jul 1 08:45:16 CST 2015. Comments and corrections
 via email to Chel Hee Lee is of course most welcome.
 
 Continuous efforts have been made by the following contributors:
@@ -71,7 +71,7 @@ Table of Contents
       □ 2.28 32 또는 64 비트 중 어떤 R을 사용해야 하나요?
       □ 2.29 같은 머신위에 32와 64 비트 R을 함께 설치할 수 있나요?
       □ 2.30 Rcmd를 PATH에서 찾을 수 없습니다!
-  • 3 언어(languages)와 국제화(internationalization)
+  • 3 언어(languages) 및 국제화(internationalization)
       □ 3.1 설치프로그램이 내 언어를 지원하지 않습니다.
       □ 3.2 R을 영어로 원합니다(불어/중국어/…가 아닌)!
       □ 3.3 R을 중국어/일본어/한국어로 실행하기 원합니다.
@@ -79,10 +79,10 @@ Table of Contents
       □ 3.5 일본어 폰트를 사용 가능하게 하고 싶습니다.
       □ 3.6 R 콘솔에서 악센트 부호 문자를 찾을 수 없습니다.
       □ 3.7 대화버튼이 번역되어 있지 않습니다.
-  • 4 패키지(packages)
+  • 4 패키지 (packages)
       □ 4.1 이 버전의 라이브러리에 패키지를 설치할 수 있나요?
-      □ 4.2 I don’t have permission to write to the 3.3.0 Under development
-        (unstable)\library directory.
+      □ 4.2 3.3.0 Under development (unstable)\library 디렉토리에 쓰기 권한이
+        없습니다.
       □ 4.3 설치한 패키지가 HTML 도움말 시스템에 보이지 않습니다.
       □ 4.4 내가 작성한 함수들이 HTML 도움 검색 시스템에 의하여 찾아지지 않습니
         다.
@@ -98,21 +98,21 @@ Table of Contents
       □ 4.14 사용 중인 R버전에서 사용 가능한 바이너리 패키지가 나타나지 않습니
         다.
       □ 4.15 32비트와 64비트 R에 내 패키지를 어떻게 구축해야 하나요?
-  • 5 윈도우즈 기능(Windows Features)
+  • 5 윈도우즈 기능 (Windows Features)
       □ 5.1 What should I expect to behave differently from the Unix version of
         R?
       □ 5.2 I hear about some nifty features: please tell me about them!
       □ 5.3 Circles appear as ovals on screen.
       □ 5.4 어떻게 포커스를 그래픽창에서 콘솔로 옮길 수 있나요?
       □ 5.5 TAB 완성이란 무엇인가요?
-  • 6 작업공간(workspaces)
+  • 6 작업공간 (workspaces)
       □ 6.1 My workspace gets saved in a strange place: how do I stop this?
       □ 6.2 작업공간을 어떻게 다른 위치에 저장하나요?
       □ 6.3 Can I load workspaces saved under Unix/GNU-Linux or Mac OS X?
-  • 7 R 콘솔(console)
+  • 7 R 콘솔 (console)
       □ 7.1 When using Rgui the output to the console seems to be delayed.
       □ 7.2 Long lines in the console or pager are truncated.
-  • 8 Building from Source
+  • 8 소스로부터 빌드하기
       □ 8.1 R을 소스로부터 어떻게 컴파일할 수 있나요?
       □ 8.2 fast BLAS를 사용할 수 있나요?
       □ 8.3 컴파일된 C 코드를 어떻게 포함시키나요?
@@ -129,13 +129,14 @@ Top
 
 1 소개
 
-This FAQ is for the Windows port of R: it describes features specific to that
-version. The main R FAQ can be found at
+본 FAQ 문서는 윈도우즈 버전의 R 사용자들을 위한 것입니다. 기본이 되는 중요한 R
+FAQ 문서는 다음의 링크로부터 찾을 수 있습니다.
 
 http://CRAN.R-project.org/doc/FAQ/R-FAQ.html.
 
-The information here applies only to recent versions of R for Windows, (‘3.1.0’
-or later). It is biased towards users of 64-bit Windows.
+이 문서에 담겨있는 내용은 오로지 윈도우즈를 위한 R ((‘3.1.0’ 또는 이후에 배포)
+에만 적용됩니다. 또한 64-비트 윈도우즈 사용자에게 편중되어 있음을 먼저 알려드립
+니다.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -179,13 +180,13 @@ disk space (up to 150MB if ICU was included in the build)
 합니다. 네트워크에서 공유되는 경로에 R 을 설치하는 것은 지원되고 있지 않습니다.
 그러한 경우에는 반드시 네트워크 드라이버에 설치경로가 제한되어야 합니다.
 
-To install use ‘3.3.0 Under development (unstable)-win.exe’. Just double-click
-on the icon and follow the instructions. If you have an account with
-Administrator privileges you will be able to install R in the Program Files
-area and to set all the optional registry entries; otherwise you will only be
-able to install R in your own file area. You may need to confirm that you want
-to proceed with installing a program from an ‘unknown’ or ‘unidentified’
-publisher.
+설치하기 위해 ‘3.3.0 Under development (unstable)-win.exe’를 사용하세요. 그 exe
+파일을 더블클릭하고, 설명에 따라 진행하세요.만약 사용자가 Administrator
+preivileges 계정을 가지고 있다면, ’Program Files’안에 R을 설치할수 있고, 모든
+optional registry entries들을 설정할 수 있습니다. 그게 아니라면, 사용자는 오직
+자신만의 파일 공간에 R을 설치 할 수 있습니다. 사용자는 어쩌면 ’unkbown’ 혹은
+’unidentified’ publisher로 부터의 프로그램을 설치하는 과정을 확인할 필요가 있습
+니다.
 
 After installation you should choose a working directory for R. You will have a
 shortcut to Rgui.exe on your desktop and/or somewhere on the Start menu file
@@ -232,7 +233,7 @@ R 2.11.0에서 제거된 설치파일들과 관련되어 있습니다.
 
 ‘/DIR="x:\dirname"’
 
-    기본 설치 directory를 설정합니다
+    기본 설치 디렉토리를 지정합니다.
 
 ‘/GROUP="folder name"’
 
@@ -473,12 +474,13 @@ Rgui.exe와 Rterm.exe에 대한 환경변수는 세가지 다른 방법들을 �
 
 2.16 R can’t find my file, but I know it is there!
 
-How did you specify it? Backslashes have to be doubled in R character strings,
-so for example one needs ‘"d:\\3.3.0 Under development (unstable)\\library\\
-xgobi\\scripts\\xgobi.bat"’. You can make life easier for yourself by using
-forward slashes as path separators: they do work under Windows. You should
-include the file extension (e.g. ‘"xgobi.bat"’ rather than just ‘"xgobi"’);
-sometimes this isn’t shown in Windows Explorer, but it is necessary in R.
+사용자는 어떻게 그것을 구체적으로 명시하나요? 두개의 Backslashe가 R character
+strings에 있어야합니다. 그래서 예를 들면 하나는 ‘"d:\\3.3.0 Under development
+(unstable)\\library\\xgobi\\scripts\\xgobi.bat"’을 필요로 합니다. 사용자는 앞의
+슬래쉬들을 path separators로 사용합으로써 보다 쉽게 작업할 수 있습니다. 그들을
+윈도우 운영체제에서 작동됩니다. 사용자는 file extension(예를 들면, 그냥
+‘"xgobi.bat"’ 보다는 ‘"xgobi"’이 좋습니다)을 포함해야만 합니다. 어쩌다가 이것은
+윈도우즈 익스플로러에서 볼수 없을수도 있지만, R은 이것을 필요로 합니다.
 
 이러한 문제점들을 피하기 위한 간단한 방법으로는 standard Windows file selection
 dialog 를 실행하기 위한 function, file.choose()를 사용하십시오. 만약 사용자가
@@ -504,11 +506,11 @@ version number in registry’와 ‘Associate R with .RData files’ 있습니�
 만약 사용자가 첫번째 옵션을 선택한다면, 이후의 string entries들을 Windows
 registry 에 더해집니다.
 
-  • HKEY_LOCAL_MACHINE\Software\R-core\R\Current Version contains the version
-    number, currently 3.3.0 Under development (unstable).
+  • HKEY_LOCAL_MACHINE\Software\R-core\R\Current Version 은 버전정보 3.3.0
+    Under development (unstable)을 포함합니다.
   • HKEY_LOCAL_MACHINE\Software\R-core\R\[version]\InstallPath (where [version]
-    is currently 3.3.0 Under development (unstable)) contains the path to the R
-    home directory.
+    is currently 3.3.0 Under development (unstable))은 R home directory의 경로
+    를 포함합니다.
 
 만약, 사용자가 installer를 실행하고 있는 동안 관리자 권한을 가지고 있지 않다면,
 entries는 HKEY_CURRENT_USER에 생성됩 니다. 동일한 entries는 32 와 64 비트 R 각
@@ -860,7 +862,7 @@ CMD /K setpath.bat
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-3 언어(languages)와 국제화(internationalization)
+3 언어(languages) 및 국제화(internationalization)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -984,7 +986,7 @@ LANGUAGE 환경 변수 설정은 ‘UI language’의 윈도우 설정을 바꾸
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-4 패키지(packages)
+4 패키지 (packages)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1028,8 +1030,7 @@ suits)가 있다면) 패키지를 확인하기 위해 R CMD check pkgname를 사
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-4.2 I don’t have permission to write to the 3.3.0 Under development (unstable)\
-library directory.
+4.2 3.3.0 Under development (unstable)\library 디렉토리에 쓰기 권한이 없습니다.
 
 어디든지 패키지를 설치할 수 있으며 라이브러리의 위치를 알려주기 위해 환경변수
 R_LIBS (see ‘How do I set environment variables?’)를 사용할 수 있습니다.
@@ -1267,7 +1268,7 @@ R이 설치되었을 때와 --compile-both 옵션이 주어졌을 때 32비트 �
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-5 윈도우즈 기능(Windows Features)
+5 윈도우즈 기능 (Windows Features)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1379,7 +1380,7 @@ completion scheme.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-6 작업공간(workspaces)
+6 작업공간 (workspaces)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1422,7 +1423,7 @@ loading the workspace.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-7 R 콘솔(console)
+7 R 콘솔 (console)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1448,7 +1449,7 @@ in the pager too.)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-8 Building from Source
+8 소스로부터 빌드하기
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

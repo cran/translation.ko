@@ -1,5 +1,5 @@
 # Created on 2012-APR-27 (Friday)
-# Modified on 2015-JUN-23 (Tuesday)
+# Modified on 2015-JULY-01 (Tuesday)
 #
 #' @title Show R Manuals Literally Translated in Korean
 #'
@@ -54,18 +54,27 @@
 #' @author Chel Hee Lee \email{chl948@@mail.usask.ca}
 #'
 #' @examples
+#'
 #' Rmanual(what="R-intro")
 #' Rmanual(what="R-intro", type="html")
+#'
 #' @export
-Rmanual <- function(what=c("R-intro", "R-FAQ", "R-admin", "rw-FAQ", "R-exts", "R-lang", "RMacOSX-FAQ", "R-data"), type=c("html", "txt"), language="ko"){
+Rmanual <- function(what=c("R-intro", "R-FAQ", "R-admin", "rw-FAQ", "R-exts", "R-lang", "R-ints", "RMacOSX-FAQ", "R-data"), type=c("html", "txt"), language="ko"){
 
 	if (missing(type)) type <- "txt"
 	if (missing(what)) what <- "R-intro"
 	if (language != "ko") stop("Currently, only Korean translation is provided.")
 	stopifnot(type %in% c("html", "txt"))
-	if (what %in% c("R-exts", "R-lang", "RMacOSX-FAQ", "R-data")) stop("Translation is available for only \"R-intro\", \"R-FAQ\", \"R-admin\", and \"rw-FAQ\" manuals at this moment.  In order to see the change or progress of translation, please visit \\url{http://www.openstatistics.net}.")
 	
-	cat("This translation is based on the manuals for R-devel (Rev: 68577, 2015-06-23 15:17:28 -0600 Tue, 23 Jun 2015).\nComments and corrections via email to the maintainer is of course most welcome.\n")
+	if (what %in% c("R-intro", "R-FAQ", "R-admin", "rw-FAQ")) cat("This package is experimental, and includes unreliable or incorrect translation due to limited time and manpower.")
+	
+	if (what %in% c("R-exts", "R-lang", "R-ints", "R-data")) cat("This package is experimental, and include very limited, unreliable, and incorrect translation at this moment due to limited time and manpower")
+	
+	if (what == "RMacOSX-FAQ") stop("Translation is not available.")
+	
+	cat("\n\nHowever, continuous efforts have been made by a number of contributors.  Please acknolwedge their time and effort for this translation.  Change and progress can be checked via with 'type=\"html\"' or visit http://www.openstatistics.net.\n\n")
+	
+	cat("This work is based on the manuals for R-devel (Rev: 68618, 2015-07-01 06:05:29 -0600 Wed, 01 Jul 2015).  Comments and corrections via email to the maintainer is of course most welcome.\n\n")
 	
 	if (type == "txt"){
 		filename <- paste(file.path(path.package("translation.ko", path.package()), "doc/"), what, "-", language, sep="")
@@ -74,7 +83,7 @@ Rmanual <- function(what=c("R-intro", "R-FAQ", "R-admin", "rw-FAQ", "R-exts", "R
 	
 	if (type == "html") {
 		filename <- paste("https://homepage.usask.ca/~chl948/doc/manual/", what, "-ko.html", sep="")
-		browseURL(url=filename)
+		utils::browseURL(url=filename)
 	}
 	
 }

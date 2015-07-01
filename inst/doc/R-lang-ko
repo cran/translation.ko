@@ -1,0 +1,4005 @@
+                             R Language Definition
+
+Notes from the maintainer, Chel Hee Lee <chl948@mail.usask.ca>
+
+The first Korean translation of this document was completed by Chel Hee Lee
+with the version of R-3.0.1 (16-MAY-2013). Since then, the translation has been
+updated along with the changes with the English documentation. The current work
+shown in this page is based on Revision: 68618 (3.3.0 Under development
+(unstable)), updated on Wed Jul 1 08:45:16 CST 2015. Comments and corrections
+via email to Chel Hee Lee is of course most welcome.
+
+Continuous efforts have been made by the following contributors:
+
+  • Chel Hee Lee <chl948@mail.usask.ca>, University of Saskatchewan, Saskatoon,
+    Saskatchewan, Canada, 2013–2015
+
+Note that your name may not be found because of incomplete record keeping. If
+you were overlooked, please let the maintainer know and the list will be
+updated. Please also contact the mainter of this document in order to
+voluntarily participate in or offer your help with this work.
+
+주의: 현재 이 문서는 기존의 작업내용을 새로이 갱신하는 중입니다. 따라서, 번역이
+되어 있지 않거나, 읽기에 불완전한 문장, 혹은 오역된 내용이 있을 수 있으며, 버전
+이 뒤쳐진 문서의 내용이 존재합니다. 본 문서에 대한 이러한 문제점들을 수정하고
+개발버전과 일치하는 내용(하루 또는 이틀 정도의 차이)을 가진 문서를 만들기 위하
+여 꾸준한 수정과 변경 작업이 이루어지고 있습니다. 본 메시지는 내용의 정확성과
+개발버전과의 일치에 대한 검토가 모두 완료되었을 때 삭제될 예정입니다.
+
+Table of Contents
+
+  • 1 Introduction
+  • 2 Objects
+      □ 2.1 Basic types
+          ☆ 2.1.1 Vectors
+          ☆ 2.1.2 Lists
+          ☆ 2.1.3 Language objects
+              ○ 2.1.3.1 Symbol objects
+          ☆ 2.1.4 Expression objects
+          ☆ 2.1.5 Function objects
+          ☆ 2.1.6 NULL
+          ☆ 2.1.7 내장객체들과 특수한 형식들
+          ☆ 2.1.8 Promise objects
+          ☆ 2.1.9 Dot-dot-dot
+          ☆ 2.1.10 Environments
+          ☆ 2.1.11 Pairlist objects
+          ☆ 2.1.12 The “Any” type
+      □ 2.2 Attributes
+          ☆ 2.2.1 Names
+          ☆ 2.2.2 Dimensions
+          ☆ 2.2.3 Dimnames
+          ☆ 2.2.4 Classes
+          ☆ 2.2.5 Time series attributes
+          ☆ 2.2.6 Copying of attributes
+      □ 2.3 Special compound objects
+          ☆ 2.3.1 Factors
+          ☆ 2.3.2 Data frame objects
+  • 3 Evaluation of expressions
+      □ 3.1 Simple evaluation
+          ☆ 3.1.1 Constants
+          ☆ 3.1.2 Symbol lookup
+          ☆ 3.1.3 Function calls
+          ☆ 3.1.4 Operators
+      □ 3.2 Control structures
+          ☆ 3.2.1 if
+          ☆ 3.2.2 Looping
+          ☆ 3.2.3 repeat
+          ☆ 3.2.4 while
+          ☆ 3.2.5 for
+          ☆ 3.2.6 switch
+      □ 3.3 Elementary arithmetic operations
+          ☆ 3.3.1 Recycling rules
+          ☆ 3.3.2 Propagation of names
+          ☆ 3.3.3 Dimensional attributes
+          ☆ 3.3.4 NA handling
+      □ 3.4 Indexing
+          ☆ 3.4.1 Indexing by vectors
+          ☆ 3.4.2 Indexing matrices and arrays
+          ☆ 3.4.3 Indexing other structures
+          ☆ 3.4.4 Subset assignment
+      □ 3.5 Scope of variables
+          ☆ 3.5.1 Global environment
+          ☆ 3.5.2 Lexical environment
+          ☆ 3.5.3 The call stack
+          ☆ 3.5.4 Search path
+  • 4 Functions
+      □ 4.1 Writing functions
+          ☆ 4.1.1 Syntax and examples
+          ☆ 4.1.2 Arguments
+      □ 4.2 Functions as objects
+      □ 4.3 Evaluation
+          ☆ 4.3.1 Evaluation environment
+          ☆ 4.3.2 Argument matching
+          ☆ 4.3.3 Argument evaluation
+          ☆ 4.3.4 Scope
+  • 5 Object-oriented programming
+      □ 5.1 Definition
+      □ 5.2 Inheritance
+      □ 5.3 Method dispatching
+      □ 5.4 UseMethod
+      □ 5.5 NextMethod
+      □ 5.6 Group methods
+      □ 5.7 Writing methods
+  • 6 Computing on the language
+      □ 6.1 Direct manipulation of language objects
+      □ 6.2 Substitutions
+      □ 6.3 More on evaluation
+      □ 6.4 Evaluation of expression objects
+      □ 6.5 Manipulation of function calls
+      □ 6.6 Manipulation of functions
+  • 7 System and foreign language interfaces
+      □ 7.1 Operating system access
+      □ 7.2 Foreign language interfaces
+      □ 7.3 .Internal and .Primitive
+  • 8 Exception handling
+      □ 8.1 stop
+      □ 8.2 warning
+      □ 8.3 on.exit
+      □ 8.4 Error options
+  • 9 Debugging
+      □ 9.1 browser
+      □ 9.2 debug/undebug
+      □ 9.3 trace/untrace
+      □ 9.4 traceback
+  • 10 Parser
+      □ 10.1 The parsing process
+          ☆ 10.1.1 Modes of parsing
+          ☆ 10.1.2 Internal representation
+          ☆ 10.1.3 Deparsing
+      □ 10.2 Comments
+      □ 10.3 Tokens
+          ☆ 10.3.1 Constants
+          ☆ 10.3.2 Identifiers
+          ☆ 10.3.3 Reserved words
+          ☆ 10.3.4 Special operators
+          ☆ 10.3.5 Separators
+          ☆ 10.3.6 Operator tokens
+          ☆ 10.3.7 Grouping
+          ☆ 10.3.8 Indexing tokens
+      □ 10.4 Expressions
+          ☆ 10.4.1 Function calls
+          ☆ 10.4.2 Infix and prefix operators
+          ☆ 10.4.3 Index constructions
+          ☆ 10.4.4 Compound expressions
+          ☆ 10.4.5 Flow control elements
+          ☆ 10.4.6 Function definitions
+      □ 10.5 Directives
+  • Function and Variable Index
+  • Concept Index
+  • Appendix A References
+
+R Language Definition
+
+이 문서는 R 언어에 대한 소개자료로서 평가(evaluation), 구문 분석(parsing), 객체
+지향 프로그래밍 (objective oriented programming), R 언어 상에서의 컴퓨팅
+(computing) 등과 같은 내용을 설명하고 있습니다.
+
+This manual is for R, version Revision: 68618 (3.3.0 Under development
+(unstable)).
+
+Copyright © 2000–2014 R Core Team
+
+    Permission is granted to make and distribute verbatim copies of this manual
+    provided the copyright notice and this permission notice are preserved on
+    all copies.
+
+    Permission is granted to copy and distribute modified versions of this
+    manual under the conditions for verbatim copying, provided that the entire
+    resulting derived work is distributed under the terms of a permission
+    notice identical to this one.
+
+    Permission is granted to copy and distribute translations of this manual
+    into another language, under the above conditions for modified versions,
+    except that this permission notice may be stated in a translation approved
+    by the R Core Team.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1 Introduction
+
+R은 통계적 계산과 그래픽을 위한 시스템입니다. R이 제공하는 것들은 여러 가지가
+있지만 그 중에서도 프로그래밍 언어, 고수준의 그래픽스, 다른 언어와의 인터페이
+스, 그리고 디버깅 기능들을 제공합니다. 이 매뉴얼에서는 R 언어에 대해서 상세히
+기술하고 이를 정의합니다.
+
+R 언어는, 1980년대에 설계된 이후로 통계학 커뮤니티 내에서 널리 사용되어 온 S라
+는 언어로부터 파생되었습니다. 이 S 언어의 주 설계자인 존 챔버스 (John M.
+Chambers)는 1998 ACM Software Systems Awards을 수상한 바 있습니다.
+
+R 언어의 문법(syntax)은 겉으로 보기에는 C 언어와 유사하지만, 의미 구조
+(semantics)는 Lisp와 APL과 같은 언어들과 상당한 유사성을 가진 기능적 프로그래밍
+언어(FPL; functional programming language)의 일종입니다. 특히, R 언어에서는 표
+현식(expression)을 입력으로서 받아들이는 함수를 작성하는 것이 가능하게 해주는
+“computing on the language (랭귀지를 이용한 컴퓨팅)”이 가능합니다. 이는 종종 통
+계 모델링(statistical modelling)과 그래픽에 유용합니다.
+
+커맨드 라인 상에서 단순 표현식(simple expressions)을 대화식으로 R을 사용하는 것
+만으로도 상당한 것들을 할 수 있습니다. 일부 사용자들은 그러한 수준을 넘어갈 필
+요가 없겠지만, 어떤 사용자들은 반복적인 작업을 시스템화하거나 새로운 기능을 담
+은 애드온(add-on) 패키지를 작성하는 관점에서 사용자 자신만의 함수들을 만들고 싶
+어 할 것입니다.
+
+이 매뉴얼의 목적은 R 언어 그 자체를 문서화하는 것입니다. 즉, R 언어가 동작하는
+객체들 그리고 표현식 평가 과정의 세부사항들과 같이 알고 있으면 R 함수를 프로그
+래밍 할 때 유용한 내용들을 담고 있습니다. 그래픽과 같은 특정 작업을 위한 주요
+하부 시스템은 이 매뉴얼에서는 간략히 소개만 되고 별도 문서로 만들어질 것입니다.
+
+이 문서의 많은 내용들이 S에도 동일하게 적용됩니다. 그러나, 몇 가지 중요한 차이
+점도 존재하기 때문에 혼란을 일으키지 않도록 R을 설명하는 데에만 집중할 것입니
+다.
+
+설계된 디자인은 여러가지 좋은 점들도 있지만 사용자를 놀라게 할 수도 있는 위험요
+소들도 있습니다. 이러한 것들의 대부분은 언어를 좀 더 깊은 수준에서의 일관성 때
+문에 존재하는 것으로 이들에 대해서는 나중에 설명하도록 하겠습니다. 꽤 복잡한 연
+산들을 간결하게 표현해 줄 수 있는 손 쉬운 방법들(shortcuts)과 특정한 방법
+(idioms)들이 있습니다. 이러한 것들의 대부분은 근본적인 개념들에 익숙해 진다면
+사용에 있어 자연스러워 질 것입니다. 어떤 경우에는 하나의 작업을 수행하는 여러
+가지 방법이 있는데, 이들 중 몇 가지는 랭귀지 구현에 의존하는 것이고 또 다른 몇
+가지는 상위단계 추상화로부터 비롯되는 것입니다. 그러한 경우에는 선호되는 사용법
+을 명시하도록 할 것입니다.
+
+독자들은 이미 어느 정도 R에 익숙하다고 가정한 상태에서 문서가 작성되었습니다.
+이 문서는 R에 대한 소개서라고 하기 보다는 프로그래머의 레퍼런스 매뉴얼입니다.
+추가적으로 필요한 내용들에 대해서는 다른 문서를 참고 해주시길 바랍니다. Preface
+in An Introduction to R은 R에 대한 소개가 잘 되어 있으며, System and foreign
+language interfaces in Writing R Extensions은 컴파일된 코드를 이용하여 R을 어떻
+게 확장하는지에 대하여 상세히 설명되어 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2 Objects
+
+In every computer language 모든 컴퓨터 언어에서 변수(variable)는 메모리에 저장
+된 데이터에 접근하는 수단을 제공합니다. R은 컴퓨터 메모리에 직접적인 접근을 제
+공하지 않지만, 대신 여러가지 특수화되어 있는 데이터 구조를 제공하며, 우리는 이
+들을 객체(object)라고 합니다. 이러한 객체들은 심볼 (symbol) 또는 변수를 통해 참
+조될 수 있습니다. 그러나, R에서는 심볼은 그 자체로서 객체이기도 하므로 다른 객
+체들과 동일한 방식으로 조작 할 수 있습니다. 이 점이 다른 컴퓨터 언어와 다른 점
+이며, R 프로그래밍에 있어 광범위하게 영향을 미칩니다.
+
+이번 챕터에서 우리는 R에서 제공되는 다양한 자료구조(data structure)에 대해 간략
+히 설명합니다. 이들에 대한 많은 부분들을 아래에서 설명되는 챕터들을 통하여 알
+수 있을 것입니다. R은 R 객체의 유형(type of R object)을 알려주는 typeof 이라는
+함수를 가지고 있습니다. R의 밑바탕을 이루고 있는 C 코드에서 모든 객체들은
+SEXPREC이라는 불리는 typedef 자료형으로 된 구조체(structure)를 가리키는 포인터
+(pointer)들입니다. R의 여러 가지 데이터 형(data types)들은 구조체(structure)의
+다양한 부분에 어떻게 정보가 사용되는가를 결정해주는 SEXPTYPE에 의해서 C코드로
+표현됩니다.
+
+아래의 표에서 typeof 함수에 의해 반환되는 값들과 그 값들이 무엇인지를 정리하였
+습니다.
+
+    "NULL"           NULL
+    "symbol"         변수명 (a variable name)
+    "pairlist"       패어리스트 객체 (a pairlist object, 주로 내부용)
+    "closure"        함수 (a function)
+    "environment"    환경 (an environment)
+    "promise"        지연 평가를 구현하는데 사용된 객체 (an object used to
+                     implement lazy evaluation)
+    "language"       R 언어구조물 (an R language construct)
+    "special"        입력인자를 평가하지 않는 내부 함수 (an internal function
+                     that does not evaluate its arguments)
+    "builtin"        입력인자를 평가하는 내부 함수 (an internal function that
+                     evaluates its arguments)
+    "char"           스칼라 문자열 객체 (a ‘scalar’ string object, 내부전용)
+    "logical"        논리값을 가지는 벡터 (a vector containing logical values)
+    "integer"        정수값을 가지는 벡터 (a vector containing integer values)
+    "double"         실수값을 가지는 벡터 (a vector containing real values)
+    "complex"        복소수를 가지는 벡터 (a vector containing complex values)
+    "character"      문자값을 가지는 벡터 (a vector containing character
+                     values)
+    "..."            특수 변수 길이 인자 (the special variable length argument)
+                     ***
+    "any"            모든 유형에 부합하는 특별한 유형 (a special type that
+                     matches all types: there are no objects of this type)
+    "expression"     표현식 객체 (an expression object)
+    "list"           리스트 (a list)
+    "bytecode"       바이트 코드 (byte code, 내부 전용) ***
+    "externalptr"    외부 포인터 객체 (an external pointer object)
+    "weakref"        약한 참조 객체 (a weak reference object)
+    "raw"            바이트를 포함하는 벡터 (a vector containing bytes)
+    "S4"             단순 객체가 아닌 S4 객체 (an S4 object which is not a
+                     simple object)
+
+사용자는 ‘***’로 표시된 유형의 객체들을 쉽게 찾을 수 없습니다.
+
+함수 mode는 Becker, Chambers & Wilks (1988)에서 설명된 객체의 모드(mode)에 대한
+정보를 알려줍니다. 그리고 이는 S 언어를 이용하여 구현된 것들과 더 잘 호환됩니
+다. 마지막으로, 함수 storage.mode는 Becker et al. (1988)에서 설명된 입력인자의
+저장모드(storage mode)를 알려줍니다. 이 함수는 보통 C 또는 FORTRAN 과 같은 다른
+언어로 작성된 함수를 호출할때 R 객체들이 호출되어진 루틴에 의하여 입력되어지기
+를 기대되는 자료형(data type)을 가지고 있는지 확인하기 위하여 사용됩니다. (S 언
+어에서는 정수 또는 실수를 가지는 벡터는 모두 "numeric" 모드를 가지기 때문에 저
+장모드가 구분될 필요가 있습니다).
+
+> x <- 1:3
+> typeof(x)
+[1] "integer"
+> mode(x)
+[1] "numeric"
+> storage.mode(x)
+[1] "integer"
+
+R R객체들은 연산이 수행되는 도중에 종종 다른 유형(type)으로 강제변환(coercion)
+이 이루어지기도 합니다. 또한, 명시적으로 강제변환을 수행하는 많은 함수들이 있습
+니다. R을 이용한 프로그래밍에서 객체의 유형 (또는 종류)는 일반적으로 연산(의 결
+과)에 영향을 미치지 않습니다. 그러나, 외부언어(foreign languages) 또는 운영체제
+를 함께 다룰 때에는 종종 객체가 올바른 유형을 가지고 있는지 확인하는 것이 필요
+합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1 Basic types
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.1 Vectors
+
+벡터들은 데이터를 포함하고 있는 인접한 셀들과 같이 생각될 수 있습니다.셀들은 x
+[5]와 같이 인덱싱 조작(indexing operation)을 통하여 접근 되어집니다. 더 자세한
+사항은 Indexing에 설명되어 있습니다.
+
+R은 여섯 가지의 기본 (‘atomic’, 아토믹) 벡터를 가지고 있습니다. 이들은 논리형
+(logical), 정수형(integer), 실수형(real), 복소수형(complex), 문자열 (string) 또
+는 문자 (character), 그리고 원형(raw)입니다. 다음의 표는 유형이 다른 벡터들의
+모드와 저장모드들을 정리하였습니다.
+
+     typeof     mode    storage.mode
+    logical   logical   logical
+    integer   numeric   integer
+    double    numeric   double
+    complex   complex   complex
+    character character character
+    raw       raw       raw
+
+4.2와 같은 하나의 숫자와 "four point two"와 같은 문자열도 길이가 1인 벡터입니
+다. 이외의 다른 기본유형은 없습니다. 길이가 0인 벡터 또한 가능하며 (유용합니
+다).
+
+문자열 벡터들은 둘 다 "character" (문자형) 모드와 저장모드를 가집니다. 문자형
+벡터의 구성요소 하나를 종종 character string(문자형 문자열)라고도 합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.2 Lists
+
+리스트 (“generic vectors”)는 데이터 저장(data storage)의 또 다른 종류입니다. 리
+스트들의 구성요소는 어떠한 유형의 R 객체들이 될 수 있습니다. 즉, 리스트의 구성
+요소들은 같은 유형일 필요가 없습니다.리스트의 구성요소들은 세가지 다른 인덱싱
+조작(indexing operation)에 의하여 접근되어 집니다. 자세한 사항은 Indexing에 설
+명되어 있습니다
+
+리스트도 벡터의 종류이긴 하지만, 리스트 유형을 제외한 기본 벡터의 종류들을
+atomic vectors(벡터를 구성하는데 있어 더 이상 하위단계로 분류할 수 최소의 기본
+구성단위 요소만으로 된 벡터 – 아토믹 벡터)라고 합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.3 Language objects
+
+R 언어는 세가지의 객체들로 구성되어 있습니다. 이들은 calls, expressions, 그리고
+names입니다. R은 "expression"이라는 유형의 객체들을 가지고 있기 때문에 우리는
+expression이라는 단어를 다른 의미로 사용하지 않으려고 노력할 것입니다. 특히 구
+문상으로 올바른 expression을 statements라고 지칭할 것입니다.
+
+이러한 객체들은 "call", "expression", 그리고 "name"라는 모드를 가지고 있습니다.
+
+이들은 quote 매커니즘 (즉, 따옴표와 함께 사용하여)을 이용하여 expressions 로부
+터 바로 생성되고, as.list와 as.call 함수들에 의하여 리스트에서 리스트로 서로 전
+환될 수 있습니다. Components of the 구문트리(parse tree)의 구성요소(component)
+들은 표준 인덱싱 조작(standard indexing operations)을 이용하여 얻어질 수 있습니
+다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.3.1 Symbol objects
+
+Symbols refer to R objects. The 심볼 (symbols)들은 R 객체들을 지칭합니다. 모든
+R 객체의 이름은 일반적으로 심볼입니다. 심볼들은 함수 as.name과 quote을 통하여
+생성되어질 수 있습니다.
+
+심볼들은 "name"이라는 모드, "symbol"이라는 저장모드, 그리고 "symbol"이라는 유형
+을 가지게 됩니다. 이들은 as.character와 as.name을 이용하여 문자열로 강제변환될
+수 있습니다. 이들은 구문분석된 표현의 기본단위(atoms of parsed expressions)으로
+나타나게 됩니다. 예를들어 보기 위하여, as.list(quote(x+y))를 입력해 보시길 바랍
+니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.4 Expression objects
+
+R에서는 "expression"이라는 객체의 유형을 가질 수 있습니다. expression은 한 개
+또는 그 이상의 statement를 포함합니다. statement는 구문상 올바른 토큰(token)들
+의 모음(collection)입니다. tokens. 다른 점은 expression 객체들은 여러개의 그런
+expression들을 포함할 수 있다는 것입니다. 또 다른 미묘한 차이점은 "expression"
+유형의 객체들은 오로지 eval에 명시적으로 넘겨졌을 때에만 평가되어지는 반면, 다
+른 랭귀지 객체들은 일부 예상하지 못한 경우에도 평가될 수도 있습니다.
+
+An expression 객체는 리스트(list)와 매우 흡사하게 작동하며, 이들의 구성요소들은
+리스의 구성요소에 접근하는 방법으로 접근되어집니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.5 Function objects
+
+R에서 함수(function)은 객체(object)이며, 다른 종류의 객체들과 꽤 많이 비슷한 방
+법으로 다루어질 수 있습니다. 함수 (또는 보다 정교하게 말하면 펀션 클로우져 –
+function closure)는 세가지 구성요소를 가지고 있습니다. 이들은 형식인자 목록
+(formal argument list), 본체(body), 그리고 인바이런먼트 (enviroment)입니다. 인
+자 목록은 컴마로 분리된 입력인자들의 목록입니다. 인자는 심볼(symbol) 또는
+‘symbol = default’라는 구성체(construct), 또는 ‘...’이라는 특수인자가 될 수 있
+습니다. 여기에서 두번째에 사용된 형식은 인자에 기본값을 부여하는데 사용됩니다.
+만약 이 값은 인자에 어떠한 값도 지정되지 않은 상태로 함수가 호출되었을때 사용될
+것입니다. ‘...’ 인자는 특별하며, 입력받는 인자의 개수에 제한을 받지 않습니다.
+이는 주로 인자의 개수를 정확히 모를 때 사용하거나, 다른 함수에 전달될 함수의 인
+자들이 존재할 경우에 사용됩니다.
+
+함수의 본체(body)는 구문이 분석된 R 문장 (parsed R statement)입니다. 이는 일반
+적으로 중괄호(brace)안에 놓인 문장들의 집합체이지만, 한개의 문장, 한개의 심볼
+또는 심지어 한 개의 상수(constant) 일 수도 있습니다.
+
+A function’s 함수의 인바이런먼트(environment)는 함수가 생성되었을 당시 그 시점
+에 활성화 되어 있는 장소(environment)를 의미합니다. 해당 인바이런트와 함께 묶여
+있는 모든 심볼들을 파일화 (captured)하게 되어 함수에서 사용할 수 있습니다. 함수
+의 코드와 인바이런먼트 내의 바인딩의 이러한 조합을 펀션 클로우져(‘function
+closure’)라고 합니다. 이 용어는 ‘functional programming theory’로 부터 나온것입
+니다. 이 문서내에서 우리는 일반적으로 ‘함수’(function)라고 사용할 것이지만, 함
+께 부착된 인바이런먼트 (attached environment)의 중요성을 강조하고자 할 때에는 ‘
+클로져’(closure)를 사용할 것입니다.
+
+formals(형식인자들), body(본체), environment(인바이런먼트)라는 구성체
+(construct)들을 이용하여 클로져 객체(closure object)의 세부분을 추출하고 조작을
+할 수 있습니다 (세가지 모든 것은 할당문의 좌변에 사용될 수 있습니다). 
+assignments). 이것들중의 마지막 구성체는 원하지 않았던 인바이런먼트가 파일하였
+던 것을 제거하는데 사용할 수 있습니다.
+
+함수가 호출되었을대, evaluation environment(이밸류에이션 인바이런먼트)라고 불리
+는 새로운 인바이런먼트가 생성됩니다. 이 인바이런먼트의 인클로져(enclosure)는 함
+수의 클로져(function closure)로부터 나온 인바이런먼트입니다 (Environment
+objects를 살펴보시길 바랍니다). 처음에 이 새로운 인바이런먼트는 평가가 아직 되
+지 않은 함수의 인자들로 이루어져 있습니다. 그러나, 평가(evaluation)이 진행됨에
+따라서, 지역변수(local variables)들이 이 인바이런먼트내에서 생성되게 됩니다.
+
+as.list와 as.function을 이용하여 함수와 리스트 구조체가 서로 전환할 수 있는 기
+능이 있습니다. 이러한 것들은 S와의 호환성을 제공하나, 이들의 사용은 추천되지 않
+습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.6 NULL
+
+NULL이라고 불리우는 특별한 객체가 있습니다.이것은 객체의 부재를 나타내거나 명시
+해야할 필요가 있을 때 사용되게 됩니다. 그러나, 이것은 길이가 0인 벡터 또는 리스
+트와 혼돈해서는 안됩니다.
+
+NULL 객체는 이를 나타내는 유형(type)이 없으면 수정할 수 있는 속성들을 가지고 있
+지 않습니다. R에서는 이러한 객체들을 나타내는데 있어 오로지 하나의 NULL 객체가
+있을 뿐입니다. 객체가 NULL인지 확인하기 위해서는 is.null을 이용하세요. NULL 객
+체에 속성(attributes)를 부여할 수 없습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.7 내장객체들과 특수한 형식들
+
+These two kinds of object contain the builtin 이러한 두 종류의 객체는 R의 내장
+함수(builtin function)를 가지고 있습니다.즉, 코드가 보여질 때 (code listings)
+.Primitive와 같이 보여지는 것들을 말합니다. (또한 .Internal 함수를 통하여 접근
+되어지는 것들을 말하는데, 이 객체들은 사용자가 볼 수 없습니다).이 두가지 종류의
+객체 사이에는 인자처리(argumnet handling)방법이 다릅니다.내장함수들은
+call-by-value에 따라서 인자들이 평가되어 내부 함수(internal function)로 전달되
+는 반면에 특수함수(special function)들은 평가되지 않은 인자들을 내부함수로 전달
+합니다.
+
+R 언어에서는 이러한 객체들은 단지 또다른 종류의 함수일뿐입니다. is.primitive 함
+수는 인터프리티드된 함수들로부터 이들을 구별해 낼 수 있습니다. functions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.8 Promise objects
+
+프라미스 객체들(promise objects)는 R의 지연연산방법(lazy evaluation mechanism)
+의 부분입니다.이들은 세 부분으로 되어 있습니다: 값(value), 표현식(expression),
+그리고 환경 (environment)입니다. environment. When a 함수가 호출될때 인자들은
+짝지어진 후, 각각의 형식인자들은 프라미스(promise)와 결합하게 됩니다. 형식인자
+들을 위해 주어진 표현식과 함수를 호출되어진 환경(environment)에 대한 포인터들은
+프라미스에 저장됩니다.
+
+해당 인자에 접근되어질 때 까지, 프라미스(promise)와 연관된 값은 존재하지 않습니
+다. 인자가 접근되어질 때, 저장된 표현(expression)이 저장된 환경(environment)내
+에서 평가되어지고, 그 결과가 반환됩니다. 이 결과는 또한 프라미스에 의하여 저장
+되어집니다. substitute 함수는 익스프레이션 슬롯 (expression slot)의 내용을 뽑아
+낼 것입니다. 이것은 프로그래머가 프라미스와 연관된 표현 또는 값에 접근하도록 해
+주는 것입니다.
+
+R 언어에서는 프라미스 객체들은 거의 직접적으로 보여지지 않지만 실제적인 함수의
+인자들은 이러한 종류에 해당합니다. 또한, 프라미스를 익스프레이션(expression) 밖
+으로 꺼내주는 delayedAssign 함수가 있습니다. R 코드내에서 객체가 프라미스인지
+아닌지를 확인하는 방법이 없으며, 또한 프라미스의 환경을 정하기 위하여 R 코드를
+사용하는 방법 또한 없습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.9 Dot-dot-dot
+
+‘...’ 객체유형은 패어리스트(pairlist)라는 유형으로 저장됩니다. ‘...’의 구성요소
+들은 C 코드에서의 일반적인 패어리스트 방법으로 접근할 수 있습니다. 그러나, 인터
+프리티드된 코드내에 있는 객체처럼 쉽게 접근되지는 않습니다. 아래의 예제에서 보
+이는 것과 같이 객체는 리스트로서로 캡쳐할 수 있습니다.
+
+    args <- list(...)
+## ....
+    for (a in args) {
+## ....
+
+만약 함수가 ...를 형식인자로 가지게 된다면, ‘...’는 형식인자와 일치하지 않은 어
+떠한 실제적인 인자들과도 일치하지 않습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.10 Environments
+
+인바이런먼트(environment)는 두 가지로 구성되어 있다고 생각할 수 있습니다. 심볼
+(symbol)과 값(value)들이 짝으로 이루어져 있는 프레임(frame)과 인클로징 인바이런
+먼트(enclosing environment)에 대한 포인터(pointer)인 인클로저(enclosure)입니다.
+R이 심볼에 대한 값을 찾고자 할때 프레임이 검사되며 만약 일치하는 심볼을 찾게 된
+다면 이것의 값을 반환하게 됩니다. 만약 그렇지 않다면 인클로징 인바이런먼트에 접
+근된 후에 이 과정을 반복하게 됩니다. 인바이런먼트는 인클로져들의 부모 역할을 하
+는 트리 구조(tree structure)로 되어 있습니다. 인바이런먼트들로 되어 있는 트리는
+부모(parent)가 없는 비어있는 인바이런먼트(empty environment)로부터 시작되며
+emptyenv()를 통하여 사용가능합니다. 이는 base 패키지의 환경에 대한 직접적인 부
+모이며 (baseenv()함수를 통하여 이용할 수 있습니다). 2.4.0 이전에는 baseenv()는
+NULL이라는 특별한 값을 가지고 있었으나, 이후부터는 환경에 NULL은 더 이상 사용되
+지 않습니다.
+
+환경(environment)이라는 것은 Function objects와 Lexical environment에 설명된 것
+과 같이 함수호출에 의하여 직접적으로 생성되지 않을 수도 있습니다. 이 경우 환경
+은 인자들을 포함하여 함수에 국한적인 변수들을 포함하게 되며, 이것의 인클로져
+(enclosure)는 현재 호출된 함수의 환경입니다. 환경들은 아마도 new.env를 이용하여
+직접적으로 생성될 수도 있습니다. 함수의 프레임내에 있는 내용들은 ls, get,
+assign, eval, 그리고 evalq에 의하여 접근되고 조작되어질 수 있습니다.
+
+parent.env 함수는 환경의 인클로져에 접근하기 위해서 사용될 수 있습니다.
+
+대부분의 R 객체들과는 다르게 환경들은 함수에 전달되어지거나 할당에 사용이 될 때
+복사되어지지 않습니다. 따라서, 만약 같은 환경을 여러개의 심볼에 할당하거나 이를
+변경한다면 다른 것들이 함께 변경되게 됩니다. 특히, 환경에 속성을 부여하는 것은
+예상치 못한 결과를 가져오기도 합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.11 Pairlist objects
+
+Pairlist object들은 Lisp의 dotted-pair 목록들과 비슷합니다. 그들은 R의 내부에서
+광범위하게 쓰여지지만, 그들이 formals에 의해 return되고 (예를들어) pairlist
+function에 의해 생성될 수도 있음에도 불구하고, 변환된 코드에서는 드물게 보여집
+니다. Lisp에서 예상되는 것 처럼 길이가 0인 pairlist는 NULL이지만 길이가 0인 목
+록과는 반대입니다. 각각의 object들은 CAR 값, CDR값과 TAG값의 세 개의 자리가 있
+습니다. TAG 값은 text string이고 CAR과 CDR는 순서대로 보통 나타내는 list item
+(head)과 목록의 NULL object를 terminator처럼 가지고있는 목록의 remainder (tail)
+입니다 (CAR/CDR 용어는 전통적인 Lisp이고 처음으로 address를 나타냈고 60년대 초
+반 IBM 컴퓨터에서 감소가 되었습니다???).
+
+Pairlist들은 포괄적인 벡터들 ("lists")와 똑같은 방법으로 R 언어에서 다루어 집니
+다. 특히, element들은 같은[[]] syntax를 사용하여 접근됩니다. 내부의 pairlist가
+R에서부터 접근되었을때, 이는 일반적으로 (subset이 되었을때를 포함) 포괄적인 벡
+터로 전환됩니다.
+
+아주 드문 경우들로 pairlist들이 user-visible합니다: 한 개의 예는 .Options입니
+다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1.12 The “Any” type
+
+Object가 “Any” 의 종류가 되는 것은 거의 가능하지 않지만, 그럼에도 불구하고 이는
+유효한 type 값입니다. 이는 예를들어 type coercion이 되지 않아야함을 나타내주는
+as.vector(x, "any")와 같은 특정한 상황들에 사용됩니다 (매우 드물게). coercion
+should not be done.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.2 Attributes
+
+NULL을 제외한 모든 object들은 그들에게 부여된 하나 이상의 attribute들을 가질 수
+있습니다. Attribute들은 모든 element들이 이름지어진 곳에 pairlist처럼 저장되지
+만, name=value pair들의 세트처럼 생각되어야만 합니다. attribute들의 목록은
+attributes를 사용하여 얻을 수 있고 attributes<-에 의해 설정됩니다. 각각의 구성
+요소들은 attr와 attr<-를 사용하여 접근됩니다. individual components are
+accessed using attr and attr<-.
+
+Some attributes have special accessor 몇몇의 attribute들은 (예를들어 factor들을
+위한 levels<-) 특별한 accessor function들을 가지고있고 이들은 사용가능할 때만
+사용되어야만 합니다. 실행의 숨겨진 디테일에 추가적으로, 그들은 추가적인
+operation들을 실행할 지도 모릅니다. R은 특별한 attribute을 포함하고 일관적인 확
+인들을 강요하는 attr<-와 attributes<-로의 call들을 가로채려고 시도합니다.
+
+행렬들과 열들은 간단하게말해서 dim attribute를 가진 벡터들이고 옵션적으로
+dimnames가 벡터에 부여되어있습니다.
+
+Attribute들은 R에 사용된 class structure을 이행하하기위해 사용되었습니다. 만약
+object가 class attribute를 가지고 있다면 그 attribute는 평가 도중 검토될 것입니
+다. R의 class structure은 Object-oriented programming에 자세하게 설명되어있습니
+다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.2.1 Names
+
+Names 속성은, 존재할 때, 벡터나 목록의 각각의 요소들에 label을 합니다. Object가
+존재하는 names의 속성을 프린트하려고 할 때, 요소들을 label하기위하여 쓰여집니
+다. Names 속성은 예를들어quantile(x)["25%"]와 같은 indexing 목적으로도 쓰여질
+수 있습니다.
+
+names와 names<- 구성들을 사용하여 name들을 얻거나 설정할 수도 있습니다. 뒷쪽 것
+(names<-)은 names 속성이 적합한 타입과 길이를 가지고있는지를 확실히 하기 위해
+필요한 일관적인 체크를 수행할 것입니다.
+
+Pairlist들과 일차원 행들은 특별하게 대해집니다. Pairlist object들에는, 가상의
+names 속성이 사용되어집니다; names 속성은 사실상 목록 구성요소들의 태그에서부터
+구성됩니다. 일차원 행들에서 names 속성은 실제로dimnames[[1]]에 접근합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.2.2 Dimensions
+
+dim 속성은 행들을 이행하기위하여 쓰여집니다. 행의 내용은 열방향순서의 벡터안에
+저장되고, 그 dim 속성은 각각의 행의 규모를 명시하는 정수의 벡터입니다. R은 벡터
+의 길이가dimension 길이의 산출물임을 확실하게 합니다. 하나 이상의 dimension의
+길이가 0일 수도 있습니다.
+
+벡터는 dim 속성이 없는 반면, 일차원 행은 길이가 1인 dim 속성을 가지고 있기때문
+에, 일차원 행과 같지 않습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.2.3 Dimnames
+
+행은 문자 벡터의 목록인 dimnames 속성을 사용하여 각각의 dimension을 따로 이름지
+을 수도 있습니다. dimnames 목록이 자기 자신의 이름을 가지고 있을 수 있으며, 그
+러면 이는 행들을 프린트 할 때 extent heading들로 쓰여집니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.2.4 Classes
+
+R은class 속성을 통해 주로 컨트롤되는 정교한 class 시스테을 가지고 있습니다. 이
+속성은object가 inherit하는 곳의 class들의 목록을 포함하고있는 문자 벡터입니다.
+이 형태들은 R의 “일반적인 방법을” 기능의 기초를 형성합니다.
+
+이 속성은 사용자에의한 제한 없이도 가상적으로 접근되고 조작될 수 있습니다. 여기
+에는 object가 class 방법들이 예상하는 구성요소들을 확실히 포함하고 있는지를 확
+인하는 것이 없습니다. 그러므로 class 속성을 대신하는 것은 조심해서 해야만하며, 
+이들이 사용 가능할 때는 구체적인 창출과 강제 function들이 선호되어야만합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.2.5 Time series attributes
+
+tsp 속성은 시계열 분석, 시작, 끝, 그리고 빈도의 매개변수를 붙잡고 있기위해 사용
+됩니다. 이 구성은 월간 혹은 분기별 데이터처럼 주기적인 하부구조를 가진 series들
+을 다루기위해 주로 사용됩니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.2.6 Copying of attributes
+
+Object가 변경되었을 때 속성이 복사가 되어야만 하는지 아닌지는 복잡한 영역이지
+만, 몇몇의 일반적인 규칙들이 있습니다(Becker, Chambers & Wilks, 1988, pp.
+144–6).
+
+Scalar function들 (벡터에서 요소에서 요소로 실행하고 output이 input과 비슷한)은
+속성들을 보존해야만 합니다 (class는 제외할 수도 있습니다).
+
+2항 연산은 보통 더 긴 argument에서부터의 대부분의 속성들을 복사합니다 (그리고
+만약 그들이 두 개 모두에서부터 같은 길이라면, 처음의 값을 선호합니다). 여기에서
+‘대부분’은 operator의 코드에의해 알맞게 설정된 names, dim, 그리고 dimnames를 제
+외한 모든 것 이라는 뜻입니다.
+
+(빈 index에 의한 것을 제외한) subsetting은 일반적으로 알맞게 reset되는 names,
+dim, 그리고 dimnames를 제외한 모든 속성을 drop합니다. 반면에, subassignment는
+일반적으로 길이가 바뀌더라도 속성을 보존합니다. Coercion은 모든 속성을 drop합니
+다.
+
+Sorting의 기본 방법은 object와 마찬가지로 구분/정렬되는 names를 제외한 모든 속
+성들을 drop하는 것입니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.3 Special compound objects
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.3.1 Factors
+
+Factor들은 유한 값들을 가질 수 있는 아이템들 (성별, 사회계층 등)을 설명하기위하
+여 사용됩니다. Factor는 levels 속성과 “factor” class를 가집니다. 선택적으로,
+factor이 modeling function들에 사용되었을 때 사용된 parametrisation을 조정하기
+위한 contrasts 속성도 포함하고 있을 수 있습니다. modeling functions.
+
+Factor는 순수하게 명목상이거나 순차적인 카테고리일 수도 있습니다. 순차적인 카테
+고리일 경우, 그렇게 정의되어야만하고 class 벡터c("ordered"," factor")를 가집니
+다.
+
+Factor들은 현재 실질적인 레벨과 정수로 연결된 names의 두 번째 행을 지정하기위한
+정수 행을 사용하여 실행됩니다. 불행하게도, 사용자들은 때때로 몇몇의 계산을 조금
+더 쉬게 맘ㄴ들기 위하여 실행을 사용합니다. 그러나 이는 이행 문제이고 R의 모든
+이행들을 할 수 있다고 장담할 수 없습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.3.2 Data frame objects
+
+데이터 프레임은 SAS 혹은 SPSS 데이터 셋을 가장 비슷하게 흉내내는 R structure들
+입니다, 즉 데이터의 “값에 의한 경우들” 행렬.
+
+데이터 프레임은 모두가 같은 길이(행렬일 경우에는 열의 갯수)를 가지고있는 벡터
+들, factor들, 그리고/또는 행렬들의 목록입니다. 추가적으로, 데이터 프레임은 일반
+적으로 값들을 label하는 names 속성과 경우들을 label하는 row.names 속성을 가지고
+있습니다.
+
+데이터 프레임은 다른 구성요소들처럼 같은 길이의 목록을 포함할 수 있습니다. 목록
+은 상이한 길이의 요소들을 포함할 수 있고 그렇게 함으로써 rag된 배열들의 데이터
+structure을 제공합니다. 그러나, 현재 이 글에서 그러한 배열들은 일반적으로 올바
+르게 다루어지지 않습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3 Evaluation of expressions
+
+사용자가 prompt에 명령어를 입력했을 때 (혹은 파일에서부터 expression이 읽혀졌을
+때), 그에 처음으로 일어나는 일은 명령어가 parser에 의해 internal representation
+으로 변형된다는 것입니다. Evaluator는 parse된 R expression들을 실행하고 그
+expression의 값을 돌려줍니다. 모든 expression들은 값을 가지고 있습니다. 이는 언
+어의 핵심입니다.
+
+이 챕터는 evaluator의 기본 mechanism들을 설명하지만, 다른 챕터들에서 나중에 설
+명되었거나 help 페이지들이 충분히 문서화되어있는 특정한 function들이나 function
+들의 그룹들에 대하여 이야기하는것은 피합니다.
+
+사용자는 expression들을 구성할 수 있고 그에 evaluator를 적용할 수 있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.1 Simple evaluation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.1.1 Constants
+
+Prompt에 바로 입력된 모든 숫자들은 항수이고 평가되어집니다.
+
+> 1
+[1] 1
+
+아마 예상밖일지도 모르지만, expression 1에서부터 돌아오는 숫자는 numeric입니다.
+대부분의 경우에, 숫자들을 사용할 때 R이 알맞게 할 것이기 때문에 정수와 numeric
+값의 다른점은 중요하지 않을 것입니다. 하지만, 항수에 확실하게 정수 값을 생성하
+고 싶을때도 있습니다. 이럴 경우, as.integer function을 call하거나 여러가지의 다
+른 기술들을 사용함으로써 할 수 있습니다. 하지만 아마도 가장 쉬운 접근방법은
+suffix character “L”로 우리의 항수를 qualify 하도록 하는 것 입니다. 예를들어,
+정수 값 1을 생성하기위해, 우리는 다음을 사용할 수도 있습니다.
+
+> 1L
+[1]
+
+‘L’ suffix를 확실하게 정수도 만들려는 의도를 가진 어떠한 숫자라도 qualify하도록
+할 때 사용할 수 있습니다. 그래서 ‘0x10L’은 16진법 representation으로부터의 정수
+값 16ㅇ르 생성합니다. 항수 1e3L은 1000을 numeric값 대신 정수로 주고 이는 1000L
+과 동일합니다. (‘L’이 3이 아닌 1e3항을 qualify 하는 것 처럼 취급됩니다.) 만약
+우리가 정수값이 아닌 ‘L’로, 예를들어 1e-3L, 값을 qualify한다면, warning을 받고
+numeric값이 생성됩니다. Warning은 숫자에 필요하지 않은 소수점이, 예를들어 1.L,
+있을때도 생성됩니다.
+
+복소수인 ‘L’을 사용할 때, 예로 12iL, syntax 에러를 받습니다.
+
+항수들은꽤나 지루하고 부호들이 필요할 때 더 작업합니다.?????(영어가 이상)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.1.2 Symbol lookup
+
+새로운 값이 생성되었을 때, 이는 찾아질 수 있도록 이름이 있어야만하고 보통 값이
+있습니다. 이름 자체가 symbol입니다. Symbol이 평가될 때 그 값이 되돌려집니다. 나
+중에 symbol에 관련된 값을 어떻게 알아내는지를 자세하게 설명할 것입니다.
+
+아래의 간단한 예제에서 y 는 symbol이고 그의 값은 4입니다. Symbol도 R object이지
+만, “programming on the language”를 할 때를 제외하고는, symbol들을 직접적으로
+쓸 일은 거의 없습니다 (Computing on the language).
+
+> y <- 4
+> y
+[1] 4
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.1.3 Function calls
+
+대부분의 계산들은 function들의 evaluation이 포함된 R에서 이루어집니다. 이를
+function invocation처럼 여길것 입니다. function들은 쉼표로 분리된 argument들의
+목록으로 된 이름에의해 불러집니다
+
+> mean(1:10)
+[1] 5.5
+
+위의 예에서 function mean은 1부터 10까지의 정수 벡터인, 하나의 argument로 불려
+졌습니다.
+
+R은 다른 목적의 방대한 양의 function들을 포함하고 있습니다. 대부분은 R object인
+결과를 산출하기위해 쓰여지지만, 다른 것들은 예를들어 프린트하거나 함수의 그래프
+를 그리는 것 등의 side effect들을 위하여 사용됩니다.
+
+Function call들은 tagged (혹은 named)된 argument들을 가지고 있을 수 있습니다.
+plot(x, y, pch = 3)에서처럼 tag가 없는 argument들은, 예로 x가 가로축 값을 그리
+고 y가 세로축을 나타내는 것과 같이, call의 argument들 중 순차배열에서 이 의미를
+구별해야만 하기때문에 positional로 알려져 있습니다. Tags/names의 사용은 많은 양
+의 옵션적인 argument들이 function들에 매우 편리합니다.특별한 종류의 function
+call들은 다음과 같이 assignment operator의 왼쪽에 나타날 수도 있습니다.
+
+A special type of function calls can appear on the left hand side of the 
+assignment operator as in
+
+> class(x) <- "foo"
+
+이 구성이 실제로 하는 것은 원래의 object인 class<- function과 오른쪽을 부르는
+것입니다. 이 function은 object의 변경을 수행하고 그리고 나서 원래의 값에 다시
+저장되는 결과를 돌려줍니다. (적어도 개념상으로, 이가 행해집니다. 몇몇의 추가적
+인 노력은 필요하지 않은 데이터 중복을 피하도록하는 것 입니다.)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.1.4 Operators
+
+R은 C 프로그래밍 언어의 것도 비슷하게 operator들을 사용한 연산 expression들의
+사용을 허용합니다. 예를들어,
+
+> 1 + 2
+[1] 3
+
+Expression들은 괄호를 사용하여 그룹지어질 수 있고, function call들과 조합될 수
+도 있으며, 간단한 방법으로 값들에 assign될 수도 있습니다. R은 아래 테이블에 나
+열되어있는 다양한 operator들을 포함합니다
+
+> y <- 2 * (a + log(x))
+
+R contains a number of operators. They are listed in the table below.
+
+    -        Minus, can be unary or binary
+    +        Plus, can be unary or binary
+    !        Unary not
+    ~        Tilde, used for model formulae, can be either unary or binary
+    ?        Help
+    :        Sequence, binary (in model formulae: interaction)
+    *        Multiplication, binary
+    /        Division, binary
+    ^        Exponentiation, binary
+    %x%      Special binary operators, x can be replaced by any valid name
+    %%       Modulus, binary
+    %/%      Integer divide, binary
+    %*%      Matrix product, binary
+    %o%      Outer product, binary
+    %x%      Kronecker product, binary
+    %in%     Matching operator, binary (in model formulae: nesting)
+    <        Less than, binary
+    >        Greater than, binary
+    ==       Equal to, binary
+    >=       Greater than or equal to, binary
+    <=       Less than or equal to, binary
+    &        And, binary, vectorized
+    &&       And, binary, not vectorized
+    |        Or, binary, vectorized
+    ||       Or, binary, not vectorized
+    <-       Left assignment, binary
+    ->       Right assignment, binary
+    $        List subset, binary
+
+Syntax를 제외하고, operator를 적용하는 것과 function을 부르는 것의 차이는 없습
+니다. 실질적으로, x+y는‘+‘(x, y)로 동일하게 쓰여질 수 있습니다. ‘+’가 기본
+function 이름이 아니기 때문에, quoted 되어야 한다는 것을 유의하십시오.
+
+R은 한번에 데이터의 모든 행렬들을 다루고, 대부분의 기초 operator들과 log 같은
+기본 수학 function들은 (위의 테이블에 나타난 것 처럼) 벡터화 됩니다. 이는 예로
+같은 길이의 두개의 벡터들을 더하면 암암리에 벡터 인덱스에 looping하는
+element-wise 덧셈을 포함한 벡터를 생성할 것입니다. 이는 -, *, 그리고 /와 더 높
+은 차원의 구조들과 같은 다른 operator들에도 적용합니다. 두 개의 행렬을 곱하는
+것은 일반적인 행렬 값을 생산하지 않는다는 것을 특히 유의하십시오 (%*% operator
+가 이런 목적으로 존재합니다). Vectorized 작업들에 관련된 몇몇의 더 나은 사항들
+은 Elementary arithmetic operations에서 의논될 것 입니다.
+
+Atomic 벡터의 각각의 요소들에 접근하기 위해서는, x[i] 구성을 일반적으로 사용합
+니다.
+
+> x <- rnorm(5)
+> x
+[1] -0.12526937 -0.27961154 -1.03718717 -0.08156527  1.37167090
+> x[2]
+[1] -0.2796115
+
+List components are more commonly accessed using x$a or x[[i]].
+
+> x <- options()
+> x$prompt
+[1] "> "
+
+Indexing construct들은 assignment의 오른쪽에 나타날 수도 있습니다. assignment.
+
+다른 operator들과 마찬가지로, indexing은 function들에 의해 취급되고, x[2] 대신
+‘[‘(x, 2)를 썼을수도 있습니다.
+
+R의 indexing 작업들은 Indexing에 더 자세하게 설명된 많은 고급 특성들은 포함하고
+있습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.2 Control structures
+
+R의 계산은 statement들을 순차적으로 평가하는 것으로 구성되어져 있습니다. x
+<-1:10 혹은 mean(y)와 같은 Statement들은 semi-colon이나 새로운 줄에 의해 나누어
+질 수 있습니다. Evaluator이 통사적으로 완성된 평가된 statement들과 함께 존재할
+때마다 값이 return됩니다. Statement의 평가의 결과는 statement의 값처럼 여겨질
+수도 있습니다. 그 값은 언제나 기호로 지정될 수 있습니다.
+
+semicolon들과 새로운 줄은 둘 다 서로 다른 statement들로 사용될 수 있습니다. 새
+로운 줄이 문장의 끝을 나타낼 수도 있는 반면, Semicolon은 항상 문장의 끝을 나타
+냅니다. 만약 현재 문장이 syntactically하게 완성되지 않았다면, 새로운 줄들은
+evaluator로 간단하게 무시됩니다. 만약 그 세션이 상호적이라면, 그 prompt는 ‘>’
+에서 ‘+’로 바뀝니다.
+
+> x <- 0; x + 5
+[1] 5
+> y <- 1:10
+> 1; 2
+[1] 1
+[1] 2
+
+문장들은 중괄호 를 사용하여 그룹지어질 수 있습니다. 문장들의 하나의 그룹은 때때
+로 block이라고 불리어집니다. 단일 문장들은 syntactically하게 완성된 문장의 끝에
+새로운 줄이 입력되었을 때 evaluate됩니다. Block들은 끝맺는 중괄호가 입력된 후
+새로운 줄이 입력되기 전까지는 evaluate되지 않습니다. 이 섹션의 마지막으로,
+statement는 단일 문장혹은 block중에 하나를 지칭합니다.
+
+> { x <- 0
++ x + 5
++ }
+[1] 5
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.2.1 if
+
+if/else 문장은 조건적으로 두 개의 문장들을 evaluate합니다. evaluate되려면 조건
+이 있는데, 만약 값이 TRUE이면 첫번째 문장이 evaluate됩니다; 그렇지 않으면 두번
+째 문장이 evaluate됩니다. if/else 문장은 선택된 문장의 값을 그의 값인 것 처럼
+return합니다. 공식적인 syntax는 다음과 같습니다.
+
+if ( statement1 )
+    statement2
+else
+    statement3
+
+첫 째로, statement1은 value1을 산추하기위해 evaluate됩니다. 만약 value1이 첫 번
+째element가 TRUE인 logical 벡터이면 statement2가evaluate됩니다. 만약 value1의
+첫 번째 element가 FAULSE이면 statement3가 evaluate됩니다. 만약 value1이 숫자 벡
+터이면 value1의 첫 번째 element가 제로일 때 statement3이 evaluate되고 그렇지 않
+으면 statment2가 evaluate됩니다. Value1의 첫 번째 element만이 사용됩니다. 다른
+모든 element들은 무시됩니다. 만약 value1이 logical이나 숫자 벡터가 아닌 다른 종
+류이면 에러 신호가 보내질 것입니다.
+
+If/else 문장들은 음수의 logarithm을 취하는 등의 숫자 문제들을 피하기위해 사용될
+수도 있습니다. If/else 문장들은 다른 문장들과 같기 때문에 그들에게 값을 지정할
+수 있습니다. 아래의 두 개의 예는 동일합니다.
+
+> if( any(x <= 0) ) y <- log(1+x) else y <- log(x)
+> y <- if( any(x <= 0) ) log(1+x) else log(x)
+
+else 절은 선택사항입니다. if(any(x <= 0)) x <- x[x <= 0]문장은 유효합니다. If
+문장이 else에서 막히지 않았을 때, 만약 존재한다면, statement2의 끝에서 처럼 같
+은 줄에 나타나야만 합니다. 그렇지 않으면 statement2 끝의 새로운 줄은 if를 완성
+할 것이고 evaluate이 된 syntactically하게 완성된 문장을 산출 할 것입니다. 간단
+한 해결책은 else를 문장의 끝을 나타내는 끝마치는 중괄호와 같은 줄에 넣고, 중괄
+호들 안에 둘러싸인 조합된 문장을 사용하는 것입니다.
+
+If/else 문장들은 nested될 수 있습니다.
+
+if ( statement1 ) {
+    statement2
+} else if ( statement3 ) {
+    statement4
+} else if ( statement5 ) {
+    statement6
+} else
+    statement8
+
+짝수 숫자의 문장들 중 하나는 evaluate될 것이고 값을 return하는 결과를 일으킬 것
+입니다. 만약 선택사항인 else절이 생략되고 모든 홀수 숫자의 문장들이 FALSE로
+evaluate된다면, 아무런 문장도 evaluate되지 않을 것이고 NULL이 return됩니다.
+
+홀수 숫자의 문장들은 TRUE일 때 까지 순서대로 evaluate되고 그런 다음 연관된 짝수
+숫자의 문장들이 evaluate됩니다. 위의 예제에서, statement6는 statement1이 FALSE
+이고 statement3가 FALSE이고 statement5가 TRUE일 때만 evaluate됩니다. else if 절
+이 허용되는 갯 수의 제한은 없습니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.2.2 Looping
+
+R은 명쾌한 looping을 제공하는 세 가지 statement들을 가지고 있습니다. 그들은
+for, while, 그리고 repeat입니다. 두 개의 built-in 구성들, next와 break,는
+evaluation에 대한 추가적인 컨트롤을 제공합니다. 각각의 세 statement들은
+evaluate된 마지막 statetment의 값을 return합니다. 흔하지는 않지만, statement들
+중 하나의 결과를 symbol에 지정하는 것이 가능합니다. R은 tapply, apply, 그리고
+lapply와 같은 함축적인 looing들을 위한 다른 function들을 제공합니다. 추가적으
+로, 많은 operation들, 특히 산술적인것들,은 벡터화되기 때문에 loopd을 사용하지
+않아도 될지도 모릅니다.
+
+명쾨하게 looping을 컨트롤하는데 사용되어 질 수 있는 두 개의 statement들이 있습
+니다. 그들은 break와 next입니다. break statement는 현재 실행되고있는 가장 안쪽
+의 loop에서부터의 exit을 바로하게하는 원인입니다. next statement는 loop의 시작
+으로 return하기위한 컨트롤을 바로 일으킵니다. loop의 다음 반복이 (만약에 있다
+면) 그 다음에 execute됩니다. 현재 loop안의 next아래의 statement는 evaluate되지
+않습니다.
+
+Loop statement에 의해 return된 값은 항상 NULL이고 보이지 않게 return 됩니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.2.3 repeat
+
+repeat statement는 break가 특별히 요청되기 전 까지 body의 evaluation를 반복하는
+것을 초래합니다. 이는 무한 loop의 위험때문에 repeat을 사용할 때 조심해야 한다는
+뜻입니다. repeat loop의 Syntax는 다음과 같습니다.
+
+repeat statement
+
+repeat을 사용할 때, statement는 block statement이어야만 합니다. loop에서부터
+break를 하던지 하지 않던지 간에 몇몇의 계산과 테스트 둘 다를 수행해야하고 보통
+이는 두 개의 statement들을 필요로 합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.2.4 while
+
+while statement는 repeat statement와 매우 유사합니다. while loop의 syntax는 다
+음과 같습니다.
+
+while ( statement1 ) statement2
+
+statement1이 evaluate되고 만약 값이 TRUE라면 statement2가 evaluate됩니다. 이 프
+로세스는 statement1이 FALSE로 evaluate될 때까지 계속됩니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.2.5 for
+
+for loop의 syntax는 아래와 같습니다.
+
+for ( name in vector )
+   statement1
+
+vector 은 벡터 혹은 목록이 될 수 있습니다. vector 안의 각각의 element에 간해
+name 값은 element의 값으로 설정되고 statement1가 evaluate됩니다. 부작용은 loop
+이 끝나고도 name 값이 계속 존재하고 이가 loop이 evaluate된vector의 마지막
+element의 값을 가지고 있다는 것입니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.2.6 switch
+
+Technically speaking, switch is just another function, but its semantics are
+close to those of control structures of other programming languages.
+
+The syntax is
+
+switch (statement, list)
+
+where the elements of list may be named. First, statement is evaluated and the
+result, value, obtained. If value is a number between 1 and the length of list
+then the corresponding element of list is evaluated and the result returned. If
+value is too large or too small NULL is returned.
+
+> x <- 3
+> switch(x, 2+2, mean(1:10), rnorm(5))
+[1]  2.2903605  2.3271663 -0.7060073  1.3622045 -0.2892720
+> switch(2, 2+2, mean(1:10), rnorm(5))
+[1] 5.5
+> switch(6, 2+2, mean(1:10), rnorm(5))
+NULL
+
+If value is a character vector then the element of ‘...’ with a name that
+exactly matches value is evaluated. If there is no match a single unnamed
+argument will be used as a default. If no default is specified, NULL is
+returned.
+
+> y <- "fruit"
+> switch(y, fruit = "banana", vegetable = "broccoli", "Neither")
+[1] "banana"
+> y <- "meat"
+> switch(y, fruit = "banana", vegetable = "broccoli", "Neither")
+[1] "Neither"
+
+A common use of switch is to branch according to the character value of one of
+the arguments to a function.
+
+> centre <- function(x, type) {
++ switch(type,
++        mean = mean(x),
++        median = median(x),
++        trimmed = mean(x, trim = .1))
++ }
+> x <- rcauchy(10)
+> centre(x, "mean")
+[1] 0.8760325
+> centre(x, "median")
+[1] 0.5360891
+> centre(x, "trimmed")
+[1] 0.6086504
+
+switch returns either the value of the statement that was evaluated or NULL if
+no statement was evaluated.
+
+To choose from a list of alternatives that already exists switch may not be the
+best way to select one for evaluation. It is often better to use eval and the
+subset operator, [[, directly via eval(x[[condition]]).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.3 Elementary arithmetic operations
+
+In this section, we discuss the finer points of the rules that apply to basic
+operation like addition or multiplication of two vectors or matrices.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.3.1 Recycling rules
+
+If one tries to add two structures with a different number of elements, then
+the shortest is recycled to length of longest. That is, if for instance you add
+c(1, 2, 3) to a six-element vector then you will really add c(1, 2, 3, 1, 2,
+3). If the length of the longer vector is not a multiple of the shorter one, a
+warning is given.
+
+As from R 1.4.0, any arithmetic operation involving a zero-length vector has a
+zero-length result.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.3.2 Propagation of names
+
+propagation of names (first one wins, I think - also if it has no names?? —-
+first one *with names* wins, recycling causes shortest to lose names)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.3.3 Dimensional attributes
+
+(matrix+matrix, dimensions must match. vector+matrix: first recycle, then check
+if dims fit, error if not)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.3.4 NA handling
+
+Missing values in the statistical sense, that is, variables whose value is not
+known, have the value NA. This should not be confused with the missing property
+for a function argument that has not been supplied (see Arguments).
+
+As the elements of an atomic vector must be of the same type there are multiple
+types of NA values. There is one case where this is particularly important to
+the user. The default type of NA is logical, unless coerced to some other type,
+so the appearance of a missing value may trigger logical rather than numeric
+indexing (see Indexing for details).
+
+Numeric and logical calculations with NA generally return NA. In cases where
+the result of the operation would be the same for all possible values the NA
+could take, the operation may return this value. In particular, ‘FALSE & NA’ is
+FALSE, ‘TRUE | NA’ is TRUE. NA is not equal to any other value or to itself;
+testing for NA is done using is.na. However, an NA value will match another NA
+value in match.
+
+Numeric calculations whose result is undefined, such as ‘0/0’, produce the
+value NaN. This exists only in the double type and for real or imaginary
+components of the complex type. The function is.nan is provided to check
+specifically for NaN, is.na also returns TRUE for NaN. Coercing NaN to logical
+or integer type gives an NA of the appropriate type, but coercion to character
+gives the string "NaN". NaN values are incomparable so tests of equality or
+collation involving NaN will result in NA. They are regarded as matching any
+NaN value (and no other value, not even NA) by match.
+
+The NA of character type is as from R 1.5.0 distinct from the string "NA".
+Programmers who need to specify an explicit string NA should use ‘as.character
+(NA)’ rather than "NA", or set elements to NA using is.na<-.
+
+As from R 2.5.0 there are constants NA_integer_, NA_real_, NA_complex_ and
+NA_character_ which will generate (in the parser) an NA value of the
+appropriate type, and will be used in deparsing when it is not otherwise
+possible to identify the type of an NA (and the control options ask for this to
+be done).
+
+There is no NA value for raw vectors.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.4 Indexing
+
+R contains several constructs which allow access to individual elements or
+subsets through indexing operations. In the case of the basic vector types one
+can access the i-th element using x[i], but there is also indexing of lists,
+matrices, and multi-dimensional arrays. There are several forms of indexing in
+addition to indexing with a single integer. Indexing can be used both to
+extract part of an object and to replace parts of an object (or to add parts).
+
+R has three basic indexing operators, with syntax displayed by the following
+examples
+
+x[i]
+x[i, j]
+x[[i]]
+x[[i, j]]
+x$a
+x$"a"
+
+For vectors and matrices the [[ forms are rarely used, although they have some
+slight semantic differences from the [ form (e.g. it drops any names or
+dimnames attribute, and that partial matching is used for character indices).
+When indexing multi-dimensional structures with a single index, x[[i]] or x[i]
+will return the ith sequential element of x.
+
+For lists, one generally uses [[ to select any single element, whereas [
+returns a list of the selected elements.
+
+The [[ form allows only a single element to be selected using integer or
+character indices, whereas [ allows indexing by vectors. Note though that for a
+list or other recursive object, the index can be a vector and each element of
+the vector is applied in turn to the list, the selected component, the selected
+component of that component, and so on. The result is still a single element.
+
+The form using $ applies to recursive objects such as lists and pairlists. It
+allows only a literal character string or a symbol as the index. That is, the
+index is not computable: for cases where you need to evaluate an expression to
+find the index, use x[[expr]]. When $ is applied to a non-recursive object the
+result used to be always NULL: as from R 2.6.0 this is an error.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.4.1 Indexing by vectors
+
+R allows some powerful constructions using vectors as indices. We shall discuss
+indexing of simple vectors first. For simplicity, assume that the expression is
+x[i]. Then the following possibilities exist according to the type of i.
+
+  • Integer. All elements of i must have the same sign. If they are positive,
+    the elements of x with those index numbers are selected. If i contains
+    negative elements, all elements except those indicated are selected.
+
+    If i is positive and exceeds length(x) then the corresponding selection is
+    NA. Negative out of bounds values for i are silently disregarded since R
+    version 2.6.0, S compatibly, as they mean to drop non-existing elements and
+    that is an empty operation (“no-op”).
+
+    A special case is the zero index, which has null effects: x[0] is an empty
+    vector and otherwise including zeros among positive or negative indices has
+    the same effect as if they were omitted.
+
+  • Other numeric. Non-integer values are converted to integer (by truncation
+    towards zero) before use.
+  • Logical. The indexing i should generally have the same length as x. If it
+    is shorter, then its elements will be recycled as discussed in Elementary
+    arithmetic operations. If it is longer, then x is conceptually extended
+    with NAs. The selected values of x are those for which i is TRUE.
+  • Character. The strings in i are matched against the names attribute of x
+    and the resulting integers are used. For [[ and $ partial matching is used
+    if exact matching fails, so x$aa will match x$aabb if x does not contain a
+    component named "aa" and "aabb" is the only name which has prefix "aa". For
+    [[, partial matching can be controlled via the exact argument which
+    defaults to NA indicating that partial matching is allowed, but should
+    result in a warning when it occurs. Setting exact to TRUE prevents partial
+    matching from occurring, a FALSE value allows it and does not issue any
+    warnings. Note that [ always requires an exact match. The string "" is
+    treated specially: it indicates ‘no name’ and matches no element (not even
+    those without a name). Note that partial matching is only used when
+    extracting and not when replacing.
+  • Factor. The result is identical to x[as.integer(i)]. The factor levels are
+    never used. If so desired, use x[as.character(i)] or a similar
+    construction.
+  • Empty. The expression x[] returns x, but drops “irrelevant” attributes from
+    the result. Only names and in multi-dimensional arrays dim and dimnames
+    attributes are retained.
+  • NULL. This is treated as if it were integer(0).
+
+Indexing with a missing (i.e. NA) value gives an NA result. This rule applies
+also to the case of logical indexing, i.e. the elements of x that have an NA
+selector in i get included in the result, but their value will be NA.
+
+Notice however, that there are different modes of NA—the literal constant is of
+mode "logical", but it is frequently automatically coerced to other types. One
+effect of this is that x[NA] has the length of x, but x[c(1, NA)] has length 2.
+That is because the rules for logical indices apply in the former case, but
+those for integer indices in the latter.
+
+Indexing with [ will also carry out the relevant subsetting of any names
+attributes.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.4.2 Indexing matrices and arrays
+
+Subsetting multi-dimensional structures generally follows the same rules as
+single-dimensional indexing for each index variable, with the relevant
+component of dimnames taking the place of names. A couple of special rules
+apply, though:
+
+Normally, a structure is accessed using the number of indices corresponding to
+its dimension. It is however also possible to use a single index in which case
+the dim and dimnames attributes are disregarded and the result is effectively
+that of c(m)[i]. Notice that m[1] is usually very different from m[1, ] or m[,
+1].
+
+It is possible to use a matrix of integers as an index. In this case, the
+number of columns of the matrix should match the number of dimensions of the
+structure, and the result will be a vector with length as the number of rows of
+the matrix. The following example shows how to extract the elements m[1, 1] and
+m[2, 2] in one operation.
+
+> m <- matrix(1:4, 2)
+> m
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+> i <- matrix(c(1, 1, 2, 2), 2, byrow = TRUE)
+> i
+     [,1] [,2]
+[1,]    1    1
+[2,]    2    2
+> m[i]
+[1] 1 4
+
+Indexing matrices may not contain negative indices. NA and zero values are
+allowed: rows in an index matrix containing a zero are ignored, whereas rows
+containing an NA produce an NA in the result.
+
+Both in the case of using a single index and in matrix indexing, a names
+attribute is used if present, as had the structure been one-dimensional.
+
+If an indexing operation causes the result to have one of its extents of length
+one, as in selecting a single slice of a three-dimensional matrix with (say) m
+[2, , ], the corresponding dimension is generally dropped from the result. If a
+single-dimensional structure results, a vector is obtained. This is
+occasionally undesirable and can be turned off by adding the ‘drop = FALSE’ to
+the indexing operation. Notice that this is an additional argument to the [
+function and doesn’t add to the index count. Hence the correct way of selecting
+the first row of a matrix as a 1 by n matrix is m[1, , drop = FALSE].
+Forgetting to disable the dropping feature is a common cause of failure in
+general subroutines where an index occasionally, but not usually has length
+one. This rule still applies to a one-dimensional array, where any subsetting
+will give a vector result unless ‘drop = FALSE’ is used.
+
+Notice that vectors are distinct from one-dimensional arrays in that the latter
+have dim and dimnames attributes (both of length one). One-dimensional arrays
+are not easily obtained from subsetting operations but they can be constructed
+explicitly and are returned by table. This is sometimes useful because the
+elements of the dimnames list may themselves be named, which is not the case
+for the names attribute.
+
+Some operations such as m[FALSE, ] result in structures in which a dimension
+has zero extent. R generally tries to handle these structures sensibly.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.4.3 Indexing other structures
+
+The operator [ is a generic function which allows class methods to be added,
+and the $ and [[ operators likewise. Thus, it is possible to have user-defined
+indexing operations for any structure. Such a function, say [.foo is called
+with a set of arguments of which the first is the structure being indexed and
+the rest are the indices. In the case of $, the index argument is of mode
+"symbol" even when using the x$"abc" form. It is important to be aware that
+class methods do not necessarily behave in the same way as the basic methods,
+for example with respect to partial matching.
+
+The most important example of a class method for [ is that used for data
+frames. It is not described in detail here (see the help page for [.data.frame,
+but in broad terms, if two indices are supplied (even if one is empty) it
+creates matrix-like indexing for a structure that is basically a list of
+vectors of the same length. If a single index is supplied, it is interpreted as
+indexing the list of columns—in that case the drop argument is ignored, with a
+warning.
+
+The basic operators $ and [[ can be applied to environments. Only character
+indices are allowed and no partial matching is done.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.4.4 Subset assignment
+
+Assignment to subsets of a structure is a special case of a general mechanism
+for complex assignment:
+
+x[3:5] <- 13:15
+
+The result of this command is as if the following had been executed
+
+`*tmp*` <- x
+x <- "[<-"(`*tmp*`, 3:5, value=13:15)
+rm(`*tmp*`)
+
+Note that the index is first converted to a numeric index and then the elements
+are replaced sequentially along the numeric index, as if a for loop had been
+used. Any existing variable called `*tmp*` will be overwritten and deleted, and
+this variable name should not be used in code.
+
+The same mechanism can be applied to functions other than [. The replacement
+function has the same name with <- pasted on. Its last argument, which must be
+called value, is the new value to be assigned. For example,
+
+names(x) <- c("a","b")
+
+is equivalent to
+
+`*tmp*` <- x
+x <- "names<-"(`*tmp*`, value=c("a","b"))
+rm(`*tmp*`)
+
+Nesting of complex assignments is evaluated recursively
+
+names(x)[3] <- "Three"
+
+is equivalent to
+
+`*tmp*` <- x
+x <- "names<-"(`*tmp*`, value="[<-"(names(`*tmp*`), 3, value="Three"))
+rm(`*tmp*`)
+
+Complex assignments in the enclosing environment (using <<-) are also
+permitted:
+
+names(x)[3] <<- "Three"
+
+is equivalent to
+
+`*tmp*` <<- get(x, envir=parent.env(), inherits=TRUE)
+names(`*tmp*`)[3] <- "Three"
+x <<- `*tmp*`
+rm(`*tmp*`)
+
+and also to
+
+`*tmp*` <- get(x,envir=parent.env(), inherits=TRUE)
+x <<- "names<-"(`*tmp*`, value="[<-"(names(`*tmp*`), 3, value="Three"))
+rm(`*tmp*`)
+
+Only the target variable is evaluated in the enclosing environment, so
+
+e<-c(a=1,b=2)
+i<-1
+local({
+   e <- c(A=10,B=11)
+   i <-2
+   e[i] <<- e[i]+1
+})
+
+uses the local value of i on both the LHS and RHS, and the local value of e on
+the RHS of the superassignment statement. It sets e in the outer environment to
+
+ a  b
+ 1 12
+
+That is, the superassignment is equivalent to the four lines
+
+`*tmp*` <- get(e, envir=parent.env(), inherits=TRUE)
+`*tmp*`[i] <- e[i]+1
+e <<- `*tmp*`
+rm(`*tmp*`)
+
+Similarly
+
+x[is.na(x)] <<- 0
+
+is equivalent to
+
+`*tmp*` <- get(x,envir=parent.env(), inherits=TRUE)
+`*tmp*`[is.na(x)] <- 0
+x <<- `*tmp*`
+rm(`*tmp*`)
+
+and not to
+
+`*tmp*` <- get(x,envir=parent.env(), inherits=TRUE)
+`*tmp*`[is.na(`*tmp*`)] <- 0
+x <<- `*tmp*`
+rm(`*tmp*`)
+
+These two candidate interpretations differ only if there is also a local
+variable x. It is a good idea to avoid having a local variable with the same
+name as the target variable of a superassignment. As this case was handled
+incorrectly in versions 1.9.1 and earlier there must not be a serious need for
+such code.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.5 Scope of variables
+
+Almost every programming language has a set of scoping rules, allowing the same
+name to be used for different objects. This allows, e.g., a local variable in a
+function to have the same name as a global object.
+
+R uses a lexical scoping model, similar to languages like Pascal. However, R is
+a functional programming language and allows dynamic creation and manipulation
+of functions and language objects, and has additional features reflecting this
+fact.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.5.1 Global environment
+
+The global environment is the root of the user workspace. An assignment
+operation from the command line will cause the relevant object to belong to the
+global environment. Its enclosing environment is the next environment on the
+search path, and so on back to the empty environment that is the enclosure of
+the base environment.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.5.2 Lexical environment
+
+Every call to a function creates a frame which contains the local variables
+created in the function, and is evaluated in an environment, which in
+combination creates a new environment.
+
+Notice the terminology: A frame is a set of variables, an environment is a
+nesting of frames (or equivalently: the innermost frame plus the enclosing
+environment).
+
+Environments may be assigned to variables or be contained in other objects.
+However, notice that they are not standard objects—in particular, they are not
+copied on assignment.
+
+A closure (mode "function") object will contain the environment in which it is
+created as part of its definition (By default. The environment can be
+manipulated using environment<-). When the function is subsequently called, its
+evaluation environment is created with the closure’s environment as enclosure.
+Notice that this is not necessarily the environment of the caller!
+
+Thus, when a variable is requested inside a function, it is first sought in the
+evaluation environment, then in the enclosure, the enclosure of the enclosure,
+etc.; once the global environment or the environment of a package is reached,
+the search continues up the search path to the environment of the base package.
+If the variable is not found there, the search will proceed next to the empty
+environment, and will fail.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.5.3 The call stack
+
+Every time a function is invoked a new evaluation frame is created. At any
+point in time during the computation the currently active environments are
+accessible through the call stack. Each time a function is invoked a special
+construct called a context is created internally and is placed on a list of
+contexts. When a function has finished evaluating its context is removed from
+the call stack.
+
+Making variables defined higher up the call stack available is called dynamic
+scope. The binding for a variable is then determined by the most recent (in
+time) definition of the variable. This contradicts the default scoping rules in
+R, which use the bindings in the environment in which the function was defined
+(lexical scope). Some functions, particularly those that use and manipulate
+model formulas, need to simulate dynamic scope by directly accessing the call
+stack.
+
+Access to the call stack is provided through a family of functions which have
+names that start with ‘sys.’. They are listed briefly below.
+
+sys.call
+
+    Get the call for the specified context.
+
+sys.frame
+
+    Get the evaluation frame for the specified context.
+
+sys.nframe
+
+    Get the environment frame for all active contexts.
+
+sys.function
+
+    Get the function being invoked in the specified context.
+
+sys.parent
+
+    Get the parent of the current function invocation.
+
+sys.calls
+
+    Get the calls for all the active contexts.
+
+sys.frames
+
+    Get the evaluation frames for all the active contexts.
+
+sys.parents
+
+    Get the numeric labels for all active contexts.
+
+sys.on.exit
+
+    Set a function to be executed when the specified context is exited.
+
+sys.status
+
+    Calls sys.frames, sys.parents and sys.calls.
+
+parent.frame
+
+    Get the evaluation frame for the specified parent context.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.5.4 Search path
+
+In addition to the evaluation environment structure, R has a search path of
+environments which are searched for variables not found elsewhere. This is used
+for two things: packages of functions and attached user data.
+
+The first element of the search path is the global environment and the last is
+the base package. An Autoloads environment is used for holding proxy objects
+that may be loaded on demand. Other environments are inserted in the path using
+attach or library.
+
+Packages which have a namespace have a different search path. When a search for
+an R object is started from an object in such a package, the package itself is
+searched first, then its imports, then the base namespace and finally the
+global environment and the rest of the regular search path. The effect is that
+references to other objects in the same package will be resolved to the
+package, and objects cannot be masked by objects of the same name in the global
+environment or in other packages.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4 Functions
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.1 Writing functions
+
+While R can be very useful as a data analysis tool most users very quickly find
+themselves wanting to write their own functions. This is one of the real
+advantages of R. Users can program it and they can, if they want to, change the
+system level functions to functions that they find more appropriate.
+
+R also provides facilities that make it easy to document any functions that you
+have created. See Writing R documentation in Writing R Extensions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.1.1 Syntax and examples
+
+The syntax for writing a function is
+
+function ( arglist ) body
+
+The first component of the function declaration is the keyword function which
+indicates to R that you want to create a function.
+
+An argument list is a comma separated list of formal arguments. A formal
+argument can be a symbol, a statement of the form ‘symbol = expression’, or the
+special formal argument ‘...’.
+
+The body can be any valid R expression. Generally, the body is a group of
+expressions contained in curly braces (‘{’ and ‘}’).
+
+Generally functions are assigned to symbols but they don’t need to be. The
+value returned by the call to function is a function. If this is not given a
+name it is referred to as an anonymous function. Anonymous functions are most
+frequently used as arguments to other functions such as the apply family or
+outer.
+
+Here is a simple function: echo <- function(x) print(x). So echo is a function
+that takes a single argument and when echo is invoked it prints its argument.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.1.2 Arguments
+
+The formal arguments to the function define the variables whose values will be
+supplied at the time the function is invoked. The names of these arguments can
+be used within the function body where they obtain the value supplied at the
+time of function invocation.
+
+Default values for arguments can be specified using the special form ‘name =
+expression’. In this case, if the user does not specify a value for the
+argument when the function is invoked the expression will be associated with
+the corresponding symbol. When a value is needed the expression is evaluated in
+the evaluation frame of the function.
+
+Default behaviours can also be specified by using the function missing. When
+missing is called with the name of a formal argument it returns TRUE if the
+formal argument was not matched with any actual argument and has not been
+subsequently modified in the body of the function. An argument that is missing
+will thus have its default value, if any. The missing function does not force
+evaluation of the argument.
+
+The special type of argument ‘...’ can contain any number of supplied
+arguments. It is used for a variety of purposes. It allows you to write a 
+function that takes an arbitrary number of arguments. It can be used to absorb
+some arguments into an intermediate function which can then be extracted by
+functions called subsequently.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.2 Functions as objects
+
+Functions are first class objects in R. They can be used anywhere that an R
+object is required. In particular they can be passed as arguments to functions
+and returned as values from functions. See Function objects for the details.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.3 Evaluation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.3.1 Evaluation environment
+
+When a function is called or invoked a new evaluation frame is created. In this
+frame the formal arguments are matched with the supplied arguments according to
+the rules given in Argument matching. The statements in the body of the
+function are evaluated sequentially in this environment frame.
+
+The enclosing frame of the evaluation frame is the environment frame associated
+with the function being invoked. This may be different from S. While many
+functions have .GlobalEnv as their environment this does not have to be true
+and functions defined in packages with namespaces (normally) have the package
+namespace as their environment.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.3.2 Argument matching
+
+This subsection applies to closures but not to primitive functions. The latter
+typically ignore tags and do positional matching, but their help pages should
+be consulted for exceptions, which include log, round, signif, rep and seq.int.
+
+The first thing that occurs in a function evaluation is the matching of formal
+to the actual or supplied arguments. This is done by a three-pass process:
+
+ 1. Exact matching on tags. For each named supplied argument the list of formal
+    arguments is searched for an item whose name matches exactly. It is an
+    error to have the same formal argument match several actuals or vice versa.
+ 2. Partial matching on tags. Each remaining named supplied argument is
+    compared to the remaining formal arguments using partial matching. If the
+    name of the supplied argument matches exactly with the first part of a
+    formal argument then the two arguments are considered to be matched. It is
+    an error to have multiple partial matches. Notice that if f <- function
+    (fumble, fooey) fbody, then f(f = 1, fo = 2) is illegal, even though the
+    2nd actual argument only matches fooey. f(f = 1, fooey = 2) is legal though
+    since the second argument matches exactly and is removed from consideration
+    for partial matching. If the formal arguments contain ‘...’ then partial
+    matching is only applied to arguments that precede it.
+ 3. Positional matching. Any unmatched formal arguments are bound to unnamed
+    supplied arguments, in order. If there is a ‘...’ argument, it will take up
+    the remaining arguments, tagged or not.
+
+If any arguments remain unmatched an error is declared.
+
+Argument matching is augmented by the functions match.arg, match.call and
+match.fun. Access to the partial matching algorithm used by R is via pmatch.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.3.3 Argument evaluation
+
+One of the most important things to know about the evaluation of arguments to a
+function is that supplied arguments and default arguments are treated
+differently. The supplied arguments to a function are evaluated in the
+evaluation frame of the calling function. The default arguments to a function
+are evaluated in the evaluation frame of the function.
+
+The semantics of invoking a function in R argument are call-by-value. In
+general, supplied arguments behave as if they are local variables initialized
+with the value supplied and the name of the corresponding formal argument.
+Changing the value of a supplied argument within a function will not affect the
+value of the variable in the calling frame.
+
+R has a form of lazy evaluation of function arguments. Arguments are not
+evaluated until needed. It is important to realize that in some cases the
+argument will never be evaluated. Thus, it is bad style to use arguments to
+functions to cause side-effects. While in C it is common to use the form, foo(x
+= y) to invoke foo with the value of y and simultaneously to assign the value
+of y to x this same style should not be used in R. There is no guarantee that
+the argument will ever be evaluated and hence the assignment may not take
+place.
+
+It is also worth noting that the effect of foo(x <- y) if the argument is
+evaluated is to change the value of x in the calling environment and not in the
+evaluation environment of foo.
+
+It is possible to access the actual (not default) expressions used as arguments
+inside the function. The mechanism is implemented via promises. When a function
+is being evaluated the actual expression used as an argument is stored in the
+promise together with a pointer to the environment the function was called
+from. When (if) the argument is evaluated the stored expression is evaluated in
+the environment that the function was called from. Since only a pointer to the
+environment is used any changes made to that environment will be in effect
+during this evaluation. The resulting value is then also stored in a separate
+spot in the promise. Subsequent evaluations retrieve this stored value (a
+second evaluation is not carried out). Access to the unevaluated expression is
+also available using substitute.
+
+When a function is called, each formal argument is assigned a promise in the
+local environment of the call with the expression slot containing the actual
+argument (if it exists) and the environment slot containing the environment of
+the caller. If no actual argument for a formal argument is given in the call
+and there is a default expression, it is similarly assigned to the expression
+slot of the formal argument, but with the environment set to the local
+environment.
+
+The process of filling the value slot of a promise by evaluating the contents
+of the expression slot in the promise’s environment is called forcing the
+promise. A promise will only be forced once, the value slot content being used
+directly later on.
+
+A promise is forced when its value is needed. This usually happens inside
+internal functions, but a promise can also be forced by direct evaluation of
+the promise itself. This is occasionally useful when a default expression
+depends on the value of another formal argument or other variable in the local
+environment. This is seen in the following example where the lone label ensures
+that the label is based on the value of x before it is changed in the next
+line.
+
+function(x, label = deparse(x)) {
+    label
+    x <- x + 1
+    print(label)
+}
+
+The expression slot of a promise can itself involve other promises. This
+happens whenever an unevaluated argument is passed as an argument to another
+function. When forcing a promise, other promises in its expression will also be
+forced recursively as they are evaluated.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.3.4 Scope
+
+Scope or the scoping rules are simply the set of rules used by the evaluator to
+find a value for a symbol. Every computer language has a set of such rules. In
+R the rules are fairly simple but there do exist mechanisms for subverting the
+usual, or default rules.
+
+R adheres to a set of rules that are called lexical scope. This means the
+variable bindings in effect at the time the expression was created are used to
+provide values for any unbound symbols in the expression.
+
+Most of the interesting properties of scope are involved with evaluating 
+functions and we concentrate on this issue. A symbol can be either bound or
+unbound. All of the formal arguments to a function provide bound symbols in the
+body of the function. Any other symbols in the body of the function are either
+local variables or unbound variables. A local variable is one that is defined
+within the function. Because R has no formal definition of variables, they are
+simply used as needed, it can be difficult to determine whether a variable is
+local or not. Local variables must first be defined, this is typically done by
+having them on the left-hand side of an assignment.
+
+During the evaluation process if an unbound symbol is detected then R attempts
+to find a value for it. The scoping rules determine how this process proceeds.
+In R the environment of the function is searched first, then its enclosure and
+so on until the global environment is reached.
+
+The global environment heads a search list of environments that are searched
+sequentially for a matching symbol. The value of the first match is then used.
+
+When this set of rules is combined with the fact that functions can be returned
+as values from other functions then some rather nice, but at first glance
+peculiar, properties obtain.
+
+A simple example:
+
+f <- function() {
+    y <- 10
+    g <- function(x) x + y
+    return(g)
+}
+h <- f()
+h(3)
+
+A rather interesting question is what happens when h is evaluated. To describe
+this we need a bit more notation. Within a function body variables can be
+bound, local or unbound. The bound variables are those that match the formal
+arguments to the function. The local variables are those that were created or
+defined within the function body. The unbound variables are those that are
+neither local nor bound. When a function body is evaluated there is no problem
+determining values for local variables or for bound variables. Scoping rules
+determine how the language will find values for the unbound variables.
+
+When h(3) is evaluated we see that its body is that of g. Within that body x is
+bound to the formal argument and y is unbound. In a language with lexical scope
+x will be associated with the value 3 and y with the value 10 local to f so h
+(3) should return the value 13. In R this is indeed what happens.
+
+In S, because of the different scoping rules one will get an error indicating
+that y is not found, unless there is a variable y in your workspace in which
+case its value will be used.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5 Object-oriented programming
+
+Object-oriented programming is a style of programming that has become popular
+in recent years. Much of the popularity comes from the fact that it makes it
+easier to write and maintain complicated systems. It does this through several
+different mechanisms.
+
+Central to any object-oriented language are the concepts of class and of
+methods. A class is a definition of an object. Typically a class contains
+several slots that are used to hold class-specific information. An object in
+the language must be an instance of some class. Programming is based on objects
+or instances of classes.
+
+Computations are carried out via methods. Methods are basically functions that
+are specialized to carry out specific calculations on objects, usually of a
+specific class. This is what makes the language object oriented. In R, generic
+functions are used to determine the appropriate method. The generic function is
+responsible for determining the class of its argument(s) and uses that
+information to select the appropriate method.
+
+Another feature of most object-oriented languages is the concept of
+inheritance. In most programming problems there are usually many objects that
+are related to one another. The programming is considerably simplified if some
+components can be reused.
+
+If a class inherits from another class then generally it gets all the slots in
+the parent class and can extend it by adding new slots. On method dispatching
+(via the generic functions) if a method for the class does not exist then a
+method for the parent is sought.
+
+In this chapter we discuss how this general strategy has been implemented in R
+and discuss some of the limitations within the current design. One of the
+advantages that most object systems impart is greater consistency. This is
+achieved via the rules that are checked by the compiler or interpreter.
+Unfortunately because of the way that the object system is incorporated into R
+this advantage does not obtain. Users are cautioned to use the object system in
+a straightforward manner. While it is possible to perform some rather
+interesting feats these tend to lead to obfuscated code and may depend on
+implementation details that will not be carried forward.
+
+The greatest use of object oriented programming in R is through print methods,
+summary methods and plot methods. These methods allow us to have one generic 
+function call, plot say, that dispatches on the type of its argument and calls
+a plotting function that is specific to the data supplied.
+
+In order to make the concepts clear we will consider the implementation of a
+small system designed to teach students about probability. In this system the
+objects are probability functions and the methods we will consider are methods
+for finding moments and for plotting. Probabilities can always be represented
+in terms of the cumulative distribution function but can often be represented
+in other ways. For example as a density, when it exists or as a moment
+generating function when it exists.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.1 Definition
+
+Rather than having a full-fledged object-oriented system R has a class system
+and a mechanism for dispatching based on the class of an object. The dispatch
+mechanism for interpreted code relies on four special objects that are stored
+in the evaluation frame. These special objects are .Generic, .Class, .Method
+and .Group. There is a separate dispatch mechanism used for internal functions
+and types that will be discussed elsewhere.
+
+The class system is facilitated through the class attribute. This attribute is
+a character vector of class names. So to create an object of class "foo" one
+simply attaches a class attribute with the string ‘"foo"’ in it. Thus,
+virtually anything can be turned in to an object of class "foo".
+
+The object system makes use of generic functions via two dispatching functions,
+UseMethod and NextMethod. The typical use of the object system is to begin by
+calling a generic function. This is typically a very simple function and
+consists of a single line of code. The system function mean is just such a
+function,
+
+> mean
+function (x, ...)
+UseMethod("mean")
+
+When mean is called it can have any number of arguments but its first argument
+is special and the class of that first argument is used to determine which
+method should be called. The variable .Class is set to the class attribute of
+x, .Generic is set to the string "mean" and a search is made for the correct
+method to invoke. The class attributes of any other arguments to mean are
+ignored.
+
+Suppose that x had a class attribute that contained "foo" and "bar", in that
+order. Then R would first search for a function called mean.foo and if it did
+not find one it would then search for a function mean.bar and if that search
+was also unsuccessful then a final search for mean.default would be made. If
+the last search is unsuccessful R reports an error. It is a good idea to always
+write a default method. Note that the functions mean.foo etc. are referred to,
+in this context, as methods.
+
+NextMethod provides another mechanism for dispatching. A function may have a
+call to NextMethod anywhere in it. The determination of which method should
+then be invoked is based primarily on the current values of .Class and
+.Generic. This is somewhat problematic since the method is really an ordinary
+function and users may call it directly. If they do so then there will be no
+values for .Generic or .Class.
+
+If a method is invoked directly and it contains a call to NextMethod then the
+first argument to NextMethod is used to determine the generic function. An
+error is signalled if this argument has not been supplied; it is therefore a
+good idea to always supply this argument.
+
+In the case that a method is invoked directly the class attribute of the first
+argument to the method is used as the value of .Class.
+
+Methods themselves employ NextMethod to provide a form of inheritance. Commonly
+a specific method performs a few operations to set up the data and then it
+calls the next appropriate method through a call to NextMethod.
+
+Consider the following simple example. A point in two-dimensional Euclidean
+space can be specified by its Cartesian (x-y) or polar (r-theta) coordinates.
+Hence, to store information about the location of the point, we could define
+two classes, "xypoint" and "rthetapoint". All the ‘xypoint’ data structures are
+lists with an x-component and a y-component. All ‘rthetapoint’ objects are
+lists with an r-component and a theta-component.
+
+Now, suppose we want to get the x-position from either type of object. This can
+easily be achieved through generic functions. We define the generic function
+xpos as follows.
+
+xpos <- function(x, ...)
+    UseMethod("xpos")
+
+Now we can define methods:
+
+xpos.xypoint <- function(x) x$x
+xpos.rthetapoint <- function(x) x$r * cos(x$theta)
+
+The user simply calls the function xpos with either representation as the
+argument. The internal dispatching method finds the class of the object and
+calls the appropriate methods.
+
+It is pretty easy to add other representations. One need not write a new
+generic function only the methods. This makes it easy to add to existing
+systems since the user is only responsible for dealing with the new
+representation and not with any of the existing representations.
+
+The bulk of the uses of this methodology are to provide specialized printing
+for objects of different types; there are about 40 methods for print.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.2 Inheritance
+
+The class attribute of an object can have several elements. When a generic
+function is called the first inheritance is mainly handled through NextMethod.
+NextMethod determines the method currently being evaluated, finds the next
+class from th
+
+FIXME: something is missing here
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.3 Method dispatching
+
+Generic functions should consist of a single statement. They should usually be
+of the form foo <- function(x, ...) UseMethod("foo", x). When UseMethod is
+called, it determines the appropriate method and then that method is invoked
+with the same arguments, in the same order as the call to the generic, as if
+the call had been made directly to the method.
+
+In order to determine the correct method the class attribute of the first
+argument to the generic is obtained and used to find the correct method. The 
+name of the generic function is combined with the first element of the class
+attribute into the form, generic.class and a function with that name is sought.
+If the function is found then it is used. If no such function is found then the
+second element of the class attribute is used, and so on until all the elements
+of the class attribute have been exhausted. If no method has been found at that
+point then the method generic.default is used. If the first argument to the
+generic function has no class attribute then generic.default is used. Since the
+introduction of namespaces the methods may not be accessible by their names
+(i.e. get("generic.class") may fail), but they will be accessible by
+getS3method("generic","class").
+
+Any object can have a class attribute. This attribute can have any number of
+elements. Each of these is a string that defines a class. When a generic
+function is invoked the class of its first argument is examined.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.4 UseMethod
+
+UseMethod is a special function and it behaves differently from other function
+calls. The syntax of a call to it is UseMethod(generic, object), where generic
+is the name of the generic function, object is the object used to determine
+which method should be chosen. UseMethod can only be called from the body of a
+function.
+
+UseMethod changes the evaluation model in two ways. First, when it is invoked
+it determines the next method (function) to be called. It then invokes that
+function using the current evaluation environment; this process will be
+described shortly. The second way in which UseMethod changes the evaluation
+environment is that it does not return control to the calling function. This
+means, that any statements after a call to UseMethod are guaranteed not to be
+executed.
+
+When UseMethod is invoked the generic function is the specified value in the
+call to UseMethod. The object to dispatch on is either the supplied second
+argument or the first argument to the current function. The class of the
+argument is determined and the first element of it is combined with the name of
+the generic to determine the appropriate method. So, if the generic had name
+foo and the class of the object is "bar", then R will search for a method named
+foo.bar. If no such method exists then the inheritance mechanism described
+above is used to locate an appropriate method.
+
+Once a method has been determined R invokes it in a special way. Rather than
+creating a new evaluation environment R uses the environment of the current
+function call (the call to the generic). Any assignments or evaluations that
+were made before the call to UseMethod will be in effect. The arguments that
+were used in the call to the generic are rematched to the formal arguments of
+the selected method.
+
+When the method is invoked it is called with arguments that are the same in
+number and have the same names as in the call to the generic. They are matched
+to the arguments of the method according to the standard R rules for argument
+matching. However the object, i.e. the first argument has been evaluated.
+
+The call to UseMethod has the effect of placing some special objects in the
+evaluation frame. They are .Class, .Generic and .Method. These special objects
+are used to by R to handle the method dispatch and inheritance. .Class is the
+class of the object, .Generic is the name of the generic function and .Method
+is the name of the method currently being invoked. If the method was invoked
+through one of the internal interfaces then there may also be an object called
+.Group. This will be described in Section Group methods. After the initial call
+to UseMethod these special variables, not the object itself, control the
+selection of subsequent methods.
+
+The body of the method is then evaluated in the standard fashion. In particular
+variable look-up in the body follows the rules for the method. So if the method
+has an associated environment then that is used. In effect we have replaced the
+call to the generic by a call to the method. Any local assignments in the frame
+of the generic will be carried forward into the call to the method. Use of this
+feature is discouraged. It is important to realize that control will never
+return to the generic and hence any expressions after a call to UseMethod will
+never be executed.
+
+Any arguments to the generic that were evaluated prior to the call to UseMethod
+remain evaluated.
+
+If the first argument to UseMethod is not supplied it is assumed to be the name
+of the current function. If two arguments are supplied to UseMethod then the
+first is the name of the method and the second is assumed to be the object that
+will be dispatched on. It is evaluated so that the required method can be
+determined. In this case the first argument in the call to the generic is not
+evaluated and is discarded. There is no way to change the other arguments in
+the call to the method; these remain as they were in the call to the generic.
+This is in contrast to NextMethod where the arguments in the call to the next
+method can be altered.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.5 NextMethod
+
+NextMethod is used to provide a simple inheritance mechanism.
+
+Methods invoked as a result of a call to NextMethod behave as if they had been
+invoked from the previous method. The arguments to the inherited method are in
+the same order and have the same names as the call to the current method. This
+means that they are the same as for the call to the generic. However, the
+expressions for the arguments are the names of the corresponding formal
+arguments of the current method. Thus the arguments will have values that
+correspond to their value at the time NextMethod was invoked.
+
+Unevaluated arguments remain unevaluated. Missing arguments remain missing.
+
+The syntax for a call to NextMethod is NextMethod(generic, object, ...). If the
+generic is not supplied the value of .Generic is used. If the object is not
+supplied the first argument in the call to the current method is used. Values
+in the ‘...’ argument are used to modify the arguments of the next method.
+
+It is important to realize that the choice of the next method depends on the
+current values of .Generic and .Class and not on the object. So changing the
+object in a call to NextMethod affects the arguments received by the next
+method but does not affect the choice of the next method.
+
+Methods can be called directly. If they are then there will be no .Generic,
+.Class or .Method. In this case the generic argument of NextMethod must be
+specified. The value of .Class is taken to be the class attribute of the object
+which is the first argument to the current function. The value of .Method is
+the name of the current function. These choices for default values ensure that
+the behaviour of a method doesn’t change depending on whether it is called
+directly or via a call to a generic.
+
+An issue for discussion is the behaviour of the ‘...’ argument to NextMethod.
+The White Book describes the behaviour as follows:
+
+- named arguments replace the corresponding arguments in the call to the
+current method. Unnamed arguments go at the start of the argument list.
+
+What I would like to do is:
+
+-first do the argument matching for NextMethod; -if the object or generic are
+changed fine -first if a named list element matches an argument (named or not)
+the list value replaces the argument value. - the first unnamed list element
+
+Values for lookup: Class: comes first from .Class, second from the first
+argument to the method and last from the object specified in the call to
+NextMethod
+
+Generic: comes first from .Generic, if nothing then from the first argument to
+the method and if it’s still missing from the call to NextMethod
+
+Method: this should just be the current function name.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.6 Group methods
+
+For several types of internal functions R provides a dispatching mechanism for
+operators. This means that operators such as == or < can have their behaviour
+modified for members of special classes. The functions and operators have been
+grouped into three categories and group methods can be written for each of
+these categories. There is currently no mechanism to add groups. It is possible
+to write methods specific to any function within a group.
+
+The following table lists the functions for the different Groups.
+
+‘Math’
+
+    abs, acos, acosh, asin, asinh, atan, atanh, ceiling, cos, cosh, cospi,
+    cumsum, exp, floor, gamma, lgamma, log, log10, round, signif, sin, sinh,
+    sinpi, tan, tanh, tanpi, trunc
+
+‘Summary’
+
+    all, any, max, min, prod, range, sum
+
+‘Ops’
+
+    +, -, *, /, ^, < , >, <=, >=, !=, ==, %%, %/%, &, |, !
+
+For operators in the Ops group a special method is invoked if the two operands
+taken together suggest a single method. Specifically, if both operands
+correspond to the same method or if one operand corresponds to a method that
+takes precedence over that of the other operand. If they do not suggest a
+single method then the default method is used. Either a group method or a class
+method dominates if the other operand has no corresponding method. A class
+method dominates a group method.
+
+When the group is Ops the special variable .Method is a string vector with two
+elements. The elements of .Method are set to the name of the method if the
+corresponding argument is a member of the class that was used to determine the
+method. Otherwise the corresponding element of .Method is set to the zero
+length string, "".
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.7 Writing methods
+
+Users can easily write their own methods and generic functions. A generic
+function is simply a function with a call to UseMethod. A method is simply a
+function that has been invoked via method dispatch. This can be as a result of
+a call to either UseMethod or NextMethod.
+
+It is worth remembering that methods can be called directly. That means that
+they can be entered without a call to UseMethod having been made and hence the
+special variables .Generic, .Class and .Method will not have been instantiated.
+In that case the default rules detailed above will be used to determine these.
+
+The most common use of generic functions is to provide print and summary
+methods for statistical objects, generally the output of some model fitting
+process. To do this, each model attaches a class attribute to its output and
+then provides a special method that takes that output and provides a nice
+readable version of it. The user then needs only remember that print or summary
+will provide nice output for the results of any analysis.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6 Computing on the language
+
+R belongs to a class of programming languages in which subroutines have the
+ability to modify or construct other subroutines and evaluate the result as an
+integral part of the language itself. This is similar to Lisp and Scheme and
+other languages of the “functional programming” variety, but in contrast to
+FORTRAN and the ALGOL family. The Lisp family takes this feature to the extreme
+by the “everything is a list” paradigm in which there is no distinction between
+programs and data.
+
+R presents a friendlier interface to programming than Lisp does, at least to
+someone used to mathematical formulas and C-like control structures, but the
+engine is really very Lisp-like. R allows direct access to parsed expressions
+and functions and allows you to alter and subsequently execute them, or create
+entirely new functions from scratch.
+
+There is a number of standard applications of this facility, such as
+calculation of analytical derivatives of expressions, or the generation of
+polynomial functions from a vector of coefficients. However, there are also
+uses that are much more fundamental to the workings of the interpreted part of
+R. Some of these are essential to the reuse of functions as components in other
+functions, as the (admittedly not very pretty) calls to model.frame that are
+constructed in several modeling and plotting routines. Other uses simply allow
+elegant interfaces to useful functionality. As an example, consider the curve
+function, which allows you to draw the graph of a function given as an
+expression like sin(x) or the facilities for plotting mathematical expressions.
+
+In this chapter, we give an introduction to the set of facilities that are
+available for computing on the language.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6.1 Direct manipulation of language objects
+
+There are three kinds of language objects that are available for modification,
+calls, expressions, and functions. At this point, we shall concentrate on the
+call objects. These are sometimes referred to as “unevaluated expressions”,
+although this terminology is somewhat confusing. The most direct method of
+obtaining a call object is to use quote with an expression argument, e.g.,
+
+> e1 <- quote(2 + 2)
+> e2 <- quote(plot(x, y))
+
+The arguments are not evaluated, the result is simply the parsed argument. The
+objects e1 and e2 may be evaluated later using eval, or simply manipulated as
+data. It is perhaps most immediately obvious why the e2 object has mode "call",
+since it involves a call to the plot function with some arguments. However, e1
+actually has exactly the same structure as a call to the binary operator + with
+two arguments, a fact that gets clearly displayed by the following
+
+> quote("+"(2, 2))
+2 + 2
+
+The components of a call object are accessed using a list-like syntax, and may
+in fact be converted to and from lists using as.list and as.call
+
+> e2[[1]]
+plot
+> e2[[2]]
+x
+> e2[[3]]
+y
+
+When keyword argument matching is used, the keywords can be used as list tags:
+
+> e3 <- quote(plot(x = age, y = weight))
+> e3$x
+age
+> e3$y
+weight
+
+All the components of the call object have mode "name" in the preceding
+examples. This is true for identifiers in calls, but the components of a call
+can also be constants—which can be of any type, although the first component
+had better be a function if the call is to be evaluated successfully—or other
+call objects, corresponding to subexpressions. Objects of mode name can be
+constructed from character strings using as.name, so one might modify the e2
+object as follows
+
+> e2[[1]] <- as.name("+")
+> e2
+x + y
+
+To illustrate the fact that subexpressions are simply components that are
+themselves calls, consider
+
+> e1[[2]] <- e2
+> e1
+x + y + 2
+
+All grouping parentheses in input are preserved in parsed expressions. They are
+represented as a function call with one argument, so that 4 - (2 - 2) becomes
+"-"(4, "(" ("-"(2, 2))) in prefix notation. In evaluations, the ‘(’ operator
+just returns its argument.
+
+This is a bit unfortunate, but it is not easy to write a parser/deparser
+combination that both preserves user input, stores it in minimal form and
+ensures that parsing a deparsed expression gives the same expression back.
+
+As it happens, R’s parser is not perfectly invertible, nor is its deparser, as
+the following examples show
+
+> str(quote(c(1,2)))
+ language c(1, 2)
+> str(c(1,2))
+ num [1:2] 1 2
+> deparse(quote(c(1,2)))
+[1] "c(1, 2)"
+> deparse(c(1,2))
+[1] "c(1, 2)"
+> quote("-"(2, 2))
+2 - 2
+> quote(2 - 2)
+2 - 2
+
+Deparsed expressions should, however, evaluate to an equivalent value to the
+original expression (up to rounding error).
+
+...internal storage of flow control constructs...note Splus incompatibility...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6.2 Substitutions
+
+It is in fact not often that one wants to modify the innards of an expression
+like in the previous section. More frequently, one wants to simply get at an
+expression in order to deparse it and use it for labeling plots, for instance.
+An example of this is seen at the beginning of plot.default:
+
+xlabel <- if (!missing(x))
+    deparse(substitute(x))
+
+This causes the variable or expression given as the x argument to plot to be
+used for labeling the x-axis later on.
+
+The function used to achieve this is substitute which takes the expression x
+and substitutes the expression that was passed through the formal argument x.
+Notice that for this to happen, x must carry information about the expression
+that creates its value. This is related to the lazy evaluation scheme of R (see
+Promise objects). A formal argument is really a promise, an object with three
+slots, one for the expression that defines it, one for the environment in which
+to evaluate that expression, and one for the value of that expression once
+evaluated. substitute will recognize a promise variable and substitute the
+value of its expression slot. If substitute is invoked inside a function, the
+local variables of the function are also subject to substitution.
+
+The argument to substitute does not have to be a simple identifier, it can be
+an expression involving several variables and substitution will occur for each
+of these. Also, substitute has an additional argument which can be an
+environment or a list in which the variables are looked up. For example:
+
+> substitute(a + b, list(a = 1, b = quote(x)))
+1 + x
+
+Notice that quoting was necessary to substitute the x. This kind of
+construction comes in handy in connection with the facilities for putting math
+expression in graphs, as the following case shows
+
+> plot(0)
+> for (i in 1:4)
++   text(1, 0.2 * i,
++        substitute(x[ix] == y, list(ix = i, y = pnorm(i))))
+
+It is important to realize that the substitutions are purely lexical; there is
+no checking that the resulting call objects make sense if they are evaluated.
+substitute(x <- x + 1, list(x = 2)) will happily return 2 <- 2 + 1. However,
+some parts of R make up their own rules for what makes sense and what does not
+and might actually have a use for such ill-formed expressions. For example,
+using the “math in graphs” feature often involves constructions that are
+syntactically correct, but which would be meaningless to evaluate, like ‘{}>=
+40*" years"’.
+
+Substitute will not evaluate its first argument. This leads to the puzzle of
+how to do substitutions on an object that is contained in a variable. The
+solution is to use substitute once more, like this
+
+> expr <- quote(x + y)
+> substitute(substitute(e, list(x = 3)), list(e = expr))
+substitute(x + y, list(x = 3))
+> eval(substitute(substitute(e, list(x = 3)), list(e = expr)))
+3 + y
+
+The exact rules for substitutions are as follows: Each symbol in the parse tree
+for the first is matched against the second argument, which can be a tagged
+list or an environment frame. If it is a simple local object, its value is
+inserted, except if matching against the global environment. If it is a promise
+(usually a function argument), the promise expression is substituted. If the
+symbol is not matched, it is left untouched. The special exception for
+substituting at the top level is admittedly peculiar. It has been inherited
+from S and the rationale is most likely that there is no control over which
+variables might be bound at that level so that it would be better to just make
+substitute act as quote.
+
+The rule of promise substitution is slightly different from that of S if the
+local variable is modified before substitute is used. R will then use the new
+value of the variable, whereas S will unconditionally use the argument
+expression—unless it was a constant, which has the curious consequence that f
+((1)) may be very different from f(1) in S. The R rule is considerably cleaner,
+although it does have consequences in connection with lazy evaluation that
+comes as a surprise to some. Consider
+
+logplot <- function(y, ylab = deparse(substitute(y))) {
+    y <- log(y)
+    plot(y, ylab = ylab)
+}
+
+This looks straightforward, but one will discover that the y label becomes an
+ugly c(...) expression. It happens because the rules of lazy evaluation cause
+the evaluation of the ylab expression to happen after y has been modified. The
+solution is to force ylab to be evaluated first, i.e.,
+
+logplot <- function(y, ylab = deparse(substitute(y))) {
+    ylab
+    y <- log(y)
+    plot(y, ylab = ylab)
+}
+
+Notice that one should not use eval(ylab) in this situation. If ylab is a
+language or expression object, then that would cause the object to be evaluated
+as well, which would not at all be desirable if a math expression like quote
+(log[e](y)) was being passed.
+
+A variant on substitute is bquote, which is used to replace some subexpressions
+with their values. The example from above
+
+> plot(0)
+> for (i in 1:4)
++   text(1, 0.2 * i,
++        substitute(x[ix] == y, list(ix = i, y = pnorm(i))))
+
+could be written more compactly as
+
+plot(0)
+for(i in 1:4)
+   text(1, 0.2*i, bquote( x[.(i)] == .(pnorm(i)) ))
+
+The expression is quoted except for the contents of .() subexpressions, which
+are replaced with their values. There is an optional argument to compute the
+values in a different environment. The syntax for bquote is borrowed from the
+LISP backquote macro.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6.3 More on evaluation
+
+The eval function was introduced earlier in this chapter as a means of
+evaluating call objects. However, this is not the full story. It is also
+possible to specify the environment in which the evaluation is to take place.
+By default this is the evaluation frame from which eval is called, but quite
+frequently it needs to be set to something else.
+
+Very often, the relevant evaluation frame is that of the parent of the current
+frame (cf. ???). In particular, when the object to evaluate is the result of a
+substitute operation of the function arguments, it will contain variables that
+make sense to the caller only (notice that there is no reason to expect that
+the variables of the caller are in the lexical scope of the callee). Since
+evaluation in the parent frame occurs frequently, an eval.parent function
+exists as a shorthand for eval(expr, sys.frame(sys.parent())).
+
+Another case that occurs frequently is evaluation in a list or a data frame.
+For instance, this happens in connection with the model.frame function when a
+data argument is given. Generally, the terms of the model formula need to be
+evaluated in data, but they may occasionally also contain references to items
+in the caller of model.frame. This is sometimes useful in connection with
+simulation studies. So for this purpose one needs not only to evaluate an
+expression in a list, but also to specify an enclosure into which the search
+continues if the variable is not in the list. Hence, the call has the form
+
+eval(expr, data, sys.frame(sys.parent()))
+
+Notice that evaluation in a given environment may actually change that
+environment, most obviously in cases involving the assignment operator, such as
+
+eval(quote(total <- 0), environment(robert$balance)) # rob Rob
+
+This is also true when evaluating in lists, but the original list does not
+change because one is really working on a copy.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6.4 Evaluation of expression objects
+
+Objects of mode "expression" are defined in Expression objects. They are very
+similar to lists of call objects.
+
+> ex <- expression(2 + 2, 3 + 4)
+> ex[[1]]
+2 + 2
+> ex[[2]]
+3 + 4
+> eval(ex)
+[1] 7
+
+Notice that evaluating an expression object evaluates each call in turn, but
+the final value is that of the last call. In this respect it behaves almost
+identically to the compound language object quote({2 + 2; 3 + 4}). However,
+there is a subtle difference: Call objects are indistinguishable from
+subexpressions in a parse tree. This means that they are automatically
+evaluated in the same way a subexpression would be. Expression objects can be
+recognized during evaluation and in a sense retain their quotedness. The
+evaluator will not evaluate an expression object recursively, only when it is
+passed directly to eval function as above. The difference can be seen like
+this:
+
+> eval(substitute(mode(x), list(x = quote(2 + 2))))
+[1] "numeric"
+> eval(substitute(mode(x), list(x = expression(2 + 2))))
+[1] "expression"
+
+The deparser represents an expression object by the call that creates it. This
+is similar to the way it handles numerical vectors and several other objects
+that do not have a specific external representation. However, it does lead to
+the following bit of confusion:
+
+> e <- quote(expression(2 + 2))
+> e
+expression(2 + 2)
+> mode(e)
+[1] "call"
+> ee <- expression(2 + 2)
+> ee
+expression(2 + 2)
+> mode(ee)
+[1] "expression"
+
+I.e., e and ee look identical when printed, but one is a call that generates an
+expression object and the other is the object itself.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6.5 Manipulation of function calls
+
+It is possible for a function to find out how it has been called by looking at
+the result of sys.call as in the following example of a function that simply
+returns its own call:
+
+> f <- function(x, y, ...) sys.call()
+> f(y = 1, 2, z = 3, 4)
+f(y = 1, 2, z = 3, 4)
+
+However, this is not really useful except for debugging because it requires the
+function to keep track of argument matching in order to interpret the call. For
+instance, it must be able to see that the 2nd actual argument gets matched to
+the first formal one (x in the above example).
+
+More often one requires the call with all actual arguments bound to the
+corresponding formals. To this end, the function match.call is used. Here’s a
+variant of the preceding example, a function that returns its own call with
+arguments matched
+
+> f <- function(x, y, ...) match.call()
+> f(y = 1, 2, z = 3, 4)
+f(x = 2, y = 1, z = 3, 4)
+
+Notice that the second argument now gets matched to x and appears in the
+corresponding position in the result.
+
+The primary use of this technique is to call another function with the same
+arguments, possibly deleting some and adding others. A typical application is
+seen at the start of the lm function:
+
+    mf <- cl <- match.call()
+    mf$singular.ok <- mf$model <- mf$method <- NULL
+    mf$x <- mf$y <- mf$qr <- mf$contrasts <- NULL
+    mf$drop.unused.levels <- TRUE
+    mf[[1]] <- as.name("model.frame")
+    mf <- eval(mf, sys.frame(sys.parent()))
+
+Notice that the resulting call is evaluated in the parent frame, in which one
+can be certain that the involved expressions make sense. The call can be
+treated as a list object where the first element is the name of the function
+and the remaining elements are the actual argument expressions, with the
+corresponding formal argument names as tags. Thus, the technique to eliminate
+undesired arguments is to assign NULL, as seen in lines 2 and 3, and to add an
+argument one uses tagged list assignment (here to pass drop.unused.levels =
+TRUE) as in line 4. To change the name of the function called, assign to the
+first element of the list and make sure that the value is a name, either using
+the as.name("model.frame") construction here or quote(model.frame).
+
+The match.call function has an expand.dots argument which is a switch which if
+set to FALSE lets all ‘...’ arguments be collected as a single argument with
+the tag ‘...’.
+
+> f <- function(x, y, ...) match.call(expand.dots = FALSE)
+> f(y = 1, 2, z = 3, 4)
+f(x = 2, y = 1, ... = list(z = 3, 4))
+
+The ‘...’ argument is a list (a pairlist to be precise), not a call to list
+like it is in S:
+
+> e1 <- f(y = 1, 2, z = 3, 4)$...
+> e1
+$z
+[1] 3
+
+[[2]]
+[1] 4
+
+One reason for using this form of match.call is simply to get rid of any ‘...’
+arguments in order not to be passing unspecified arguments on to functions that
+may not know them. Here’s an example paraphrased from plot.formula:
+
+m <- match.call(expand.dots = FALSE)
+m$... <- NULL
+m[[1]] <- "model.frame"
+
+A more elaborate application is in update.default where a set of optional extra
+arguments can add to, replace, or cancel those of the original call:
+
+extras <- match.call(expand.dots = FALSE)$...
+if (length(extras) > 0) {
+    existing <- !is.na(match(names(extras), names(call)))
+    for (a in names(extras)[existing]) call[[a]] <- extras[[a]]
+    if (any(!existing)) {
+        call <- c(as.list(call), extras[!existing])
+        call <- as.call(call)
+    }
+}
+
+Notice that care is taken to modify existing arguments individually in case
+extras[[a]] == NULL. Concatenation does not work on call objects without the
+coercion as shown; this is arguably a bug.
+
+Two further functions exist for the construction of function calls, namely call
+and do.call.
+
+The function call allows creation of a call object from the function name and
+the list of arguments
+
+> x <- 10.5
+> call("round", x)
+round(10.5)
+
+As seen, the value of x rather than the symbol is inserted in the call, so it
+is distinctly different from round(x). The form is used rather rarely, but is
+occasionally useful where the name of a function is available as a character
+variable.
+
+The function do.call is related, but evaluates the call immediately and takes
+the arguments from an object of mode "list" containing all the arguments. A
+natural use of this is when one wants to apply a function like cbind to all
+elements of a list or data frame.
+
+is.na.data.frame <- function (x) {
+    y <- do.call("cbind", lapply(x, "is.na"))
+    rownames(y) <- row.names(x)
+    y
+}
+
+Other uses include variations over constructions like do.call("f", list(...)).
+However, one should be aware that this involves evaluation of the arguments
+before the actual function call, which may defeat aspects of lazy evaluation
+and argument substitution in the function itself. A similar remark applies to
+the call function.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6.6 Manipulation of functions
+
+It is often useful to be able to manipulate the components of a function or
+closure. R provides a set of interface functions for this purpose.
+
+body
+
+    Returns the expression that is the body of the function.
+
+formals
+
+    Returns a list of the formal arguments to the function. This is a pairlist.
+
+environment
+   
+    Returns the environment associated with the function.
+
+body<-
+
+    This sets the body of the function to the supplied expression.
+
+formals<-
+
+    Sets the formal arguments of the function to the supplied list.
+
+environment<-
+
+    Sets the environment of the function to the specified environment.
+
+It is also possible to alter the bindings of different variables in the
+environment of the function, using code along the lines of evalq(x <- 5,
+environment(f)).
+
+It is also possible to convert a function to a list using as.list. The result
+is the concatenation of the list of formal arguments with the function body.
+Conversely such a list can be converted to a function using as.function. This
+functionality is mainly included for S compatibility. Notice that environment
+information is lost when as.list is used, whereas as.function has an argument
+that allows the environment to be set.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7 System and foreign language interfaces
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.1 Operating system access
+
+Access to the operating system shell is via the R function system. The details
+will differ by platform (see the on-line help), and about all that can safely
+be assumed is that the first argument will be a string command that will be
+passed for execution (not necessarily by a shell) and the second argument will
+be internal which if true will collect the output of the command into an R
+character vector.
+
+The functions system.time and proc.time are available for timing (although the
+information available may be limited on non-Unix-like platforms).
+
+Information from the operating system environment can be accessed and
+manipulated with
+
+    Sys.getenv     OS environment variables
+    Sys.putenv
+    Sys.getlocale  System locale
+    Sys.putlocale
+    Sys.localeconv
+    Sys.time       Current time
+    Sys.timezone   Time zone
+
+A uniform set of file access functions is provided on all platforms:
+
+    file.access   Ascertain File Accessibility
+    file.append   Concatenate files
+    file.choose   Prompt user for file name
+    file.copy     Copy files
+    file.create   Create or truncate a files
+    file.exists   Test for existence
+    file.info     Miscellaneous file information
+    file.remove   remove files
+    file.rename   rename files
+    file.show     Display a text file
+    unlink        Remove files or directories.
+
+There are also functions for manipulating file names and paths in a
+platform-independent way.
+
+    basename     File name without directory
+    dirname      Directory name
+    file.path    Construct path to file
+    path.expand  Expand ~ in Unix path
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.2 Foreign language interfaces
+
+See System and foreign language interfaces in Writing R Extensions for the
+details of adding functionality to R via compiled code.
+
+Functions .C and .Fortran provide a standard interface to compiled code that
+has been linked into R, either at build time or via dyn.load. They are
+primarily intended for compiled C and FORTRAN code respectively, but the .C
+function can be used with other languages which can generate C interfaces, for
+example C++.
+
+Functions .Call and .External provide interfaces which allow compiled code
+(primarily compiled C code) to manipulate R objects.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.3 .Internal and .Primitive
+
+The .Internal and .Primitive interfaces are used to call C code compiled into R
+at build time. See .Internal vs .Primitive in R Internals.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8 Exception handling
+
+The exception handling facilities in R are provided through two mechanisms.
+Functions such as stop or warning can be called directly or options such as
+"warn" can be used to control the handling of problems.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.1 stop
+
+A call to stop halts the evaluation of the current expression, prints the
+message argument and returns execution to top-level.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.2 warning
+
+The function warning takes a single argument that is a character string. The
+behaviour of a call to warning depends on the value of the option "warn". If
+"warn" is negative warnings are ignored. If it is zero, they are stored and
+printed after the top-level function has completed. If it is one, they are
+printed as they occur and if it is 2 (or larger) warnings are turned into
+errors.
+
+If "warn" is zero (the default), a variable last.warning is created and the
+messages associated with each call to warning are stored, sequentially, in this
+vector. If there are fewer than 10 warnings they are printed after the function
+has finished evaluating. If there are more than 10 then a message indicating
+how many warnings occurred is printed. In either case last.warning contains the
+vector of messages, and warnings provides a way to access and print it.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.3 on.exit
+
+A function can insert a call to on.exit at any point in the body of a function.
+The effect of a call to on.exit is to store the value of the body so that it
+will be executed when the function exits. This allows the function to change
+some system parameters and to ensure that they are reset to appropriate values
+when the function is finished. The on.exit is guaranteed to be executed when
+the function exits either directly or as the result of a warning.
+
+An error in the evaluation of the on.exit code causes an immediate jump to
+top-level without further processing of the on.exit code.
+
+on.exit takes a single argument which is an expression to be evaluated when the
+function is exited.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.4 Error options
+
+There are a number of options variables that can be used to control how R
+handles errors and warnings. They are listed in the table below.
+
+‘warn’
+
+    Controls the printing of warnings.
+
+‘warning.expression’
+
+    Sets an expression that is to be evaluated when a warning occurs. The
+    normal printing of warnings is suppressed if this option is set.
+
+‘error’
+
+    Installs an expression that will be evaluated when an error occurs. The
+    normal printing of error messages and warning messages precedes the
+    evaluation of the expression.
+
+Expressions installed by options("error") are evaluated before calls to on.exit
+are carried out.
+
+One can use options(error = expression(q("yes"))) to get R to quit when an
+error has been signalled. In this case an error will cause R to shut down and
+the global environment will be saved.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+9 Debugging
+
+Debugging code has always been a bit of an art. R provides several tools that
+help users find problems in their code. These tools halt execution at
+particular points in the code and the current state of the computation can be
+inspected.
+
+Most debugging takes place either through calls to browser or debug. Both of
+these functions rely on the same internal mechanism and both provide the user
+with a special prompt. Any command can be typed at the prompt. The evaluation 
+environment for the command is the currently active environment. This allows
+you to examine the current state of any variables etc.
+
+There are five special commands that R interprets differently. They are,
+
+‘RET’
+
+    Go to the next statement if the function is being debugged. Continue
+    execution if the browser was invoked.
+
+‘c’
+‘cont’
+
+    Continue the execution.
+
+‘n’
+
+    Execute the next statement in the function. This works from the browser as
+    well.
+
+‘where’
+
+    Show the call stack
+
+‘Q’
+
+    Halt execution and jump to the top-level immediately.
+
+If there is a local variable with the same name as one of the special commands
+listed above then its value can be accessed by using get. A call to get with
+the name in quotes will retrieve the value in the current environment.
+
+The debugger provides access only to interpreted expressions. If a function
+calls a foreign language (such as C) then no access to the statements in that
+language is provided. Execution will halt on the next statement that is
+evaluated in R. A symbolic debugger such as gdb can be used to debug compiled
+code.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+9.1 browser
+
+A call to the function browser causes R to halt execution at that point and to
+provide the user with a special prompt. Arguments to browser are ignored.
+
+> foo <- function(s) {
++ c <- 3
++ browser()
++ }
+> foo(4)
+Called from: foo(4)
+Browse[1]> s
+[1] 4
+Browse[1]> get("c")
+[1] 3
+Browse[1]>
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+9.2 debug/undebug
+
+The debugger can be invoked on any function by using the command debug(fun).
+Subsequently, each time that function is evaluated the debugger is invoked. The
+debugger allows you to control the evaluation of the statements in the body of
+the function. Before each statement is executed the statement is printed out
+and a special prompt provided. Any command can be given, those in the table
+above have special meaning.
+
+Debugging is turned off by a call to undebug with the function as an argument.
+
+> debug(mean.default)
+> mean(1:10)
+debugging in: mean.default(1:10)
+debug: {
+    if (na.rm)
+        x <- x[!is.na(x)]
+    trim <- trim[1]
+    n <- length(c(x, recursive = TRUE))
+    if (trim > 0) {
+        if (trim >= 0.5)
+            return(median(x, na.rm = FALSE))
+        lo <- floor(n * trim) + 1
+        hi <- n + 1 - lo
+        x <- sort(x, partial = unique(c(lo, hi)))[lo:hi]
+        n <- hi - lo + 1
+    }
+    sum(x)/n
+}
+Browse[1]>
+debug: if (na.rm) x <- x[!is.na(x)]
+Browse[1]>
+debug: trim <- trim[1]
+Browse[1]>
+debug: n <- length(c(x, recursive = TRUE))
+Browse[1]> c
+exiting from: mean.default(1:10)
+[1] 5.5
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+9.3 trace/untrace
+
+Another way of monitoring the behaviour of R is through the trace mechanism.
+trace is called with a single argument that is the name of the function you
+want to trace. The name does not need to be quoted but for some functions you
+will need to quote the name in order to avoid a syntax error.
+
+When trace has been invoked on a function then every time that function is
+evaluated the call to it is printed out. This mechanism is removed by calling
+untrace with the function as an argument.
+
+> trace("[<-")
+> x <- 1:10
+> x[3] <- 4
+trace: "[<-"(*tmp*, 3, value = 4)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+9.4 traceback
+
+When an error has caused a jump to top-level a special variable called
+.Traceback is placed into the base environment. .Traceback is a character
+vector with one entry for each function call that was active at the time the
+error occurred. An examination of .Traceback can be carried out by a call to
+traceback.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10 Parser
+
+The parser is what converts the textual representation of R code into an
+internal form which may then be passed to the R evaluator which causes the
+specified instructions to be carried out. The internal form is itself an R
+object and can be saved and otherwise manipulated within the R system.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.1 The parsing process
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.1.1 Modes of parsing
+
+Parsing in R occurs in three different variants:
+
+  • The read-eval-print loop
+  • Parsing of text files
+  • Parsing of character strings
+
+The read-eval-print loop forms the basic command line interface to R. Textual
+input is read until a complete R expression is available. Expressions may be
+split over several input lines. The primary prompt (by default ‘> ’) indicates
+that the parser is ready for a new expression, and a continuation prompt (by
+default ‘+ ’) indicates that the parser expects the remainder of an incomplete
+expression. The expression is converted to internal form during input and the
+parsed expression is passed to the evaluator and the result is printed (unless
+specifically made invisible). If the parser finds itself in a state which is
+incompatible with the language syntax, a “Syntax Error” is flagged and the
+parser resets itself and resumes input at the beginning of the next input line.
+
+Text files can be parsed using the parse function. In particular, this is done
+during execution of the source function, which allows commands to be stored in
+an external file and executed as if they had been typed at the keyboard. Note,
+though, that the entire file is parsed and syntax checked before any evaluation
+takes place.
+
+Character strings, or vectors thereof, can be parsed using the text= argument
+to parse. The strings are treated exactly as if they were the lines of an input
+file.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.1.2 Internal representation
+
+Parsed expressions are stored in an R object containing the parse tree. A
+fuller description of such objects can be found in Language objects and
+Expression objects. Briefly, every elementary R expression is stored in 
+function call form, as a list with the first element containing the function
+name and the remainder containing the arguments, which may in turn be further R
+expressions. The list elements can be named, corresponding to tagged matching
+of formal and actual arguments. Note that all R syntax elements are treated in
+this way, e.g. the assignment x <- 1 is encoded as "<-"(x, 1).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.1.3 Deparsing
+
+Any R object can be converted to an R expression using deparse. This is
+frequently used in connection with output of results, e.g. for labeling plots.
+Notice that only objects of mode "expression" can be expected to be unchanged
+by reparsing the output of deparsing. For instance, the numeric vector 1:5 will
+deparse as "c(1, 2, 3, 4, 5)", which will reparse as a call to the function c.
+As far as possible, evaluating the deparsed and reparsed expression gives the
+same result as evaluating the original, but there are a couple of awkward
+exceptions, mostly involving expressions that weren’t generated from a textual
+representation in the first place.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.2 Comments
+
+Comments in R are ignored by the parser. Any text from a # character to the end
+of the line is taken to be a comment, unless the # character is inside a quoted
+string. For example,
+
+> x <- 1  # This is a comment...
+> y <- "  #... but this is not."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.3 Tokens
+
+Tokens are the elementary building blocks of a programming language. They are
+recognised during lexical analysis which (conceptually, at least) takes place
+prior to the syntactic analysis performed by the parser itself.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.3.1 Constants
+
+There are five types of constants: integer, logical, numeric, complex and
+string.
+
+In addition, there are four special constants, NULL, NA, Inf, and NaN.
+
+NULL is used to indicate the empty object. NA is used for absent (“Not
+Available”) data values. Inf denotes infinity and NaN is not-a-number in the 
+IEEE floating point calculus (results of the operations respectively 1/0 and 0/
+0, for instance).
+
+Logical constants are either TRUE or FALSE.
+
+Numeric constants follow a similar syntax to that of the C language. They
+consist of an integer part consisting of zero or more digits, followed
+optionally by ‘.’ and a fractional part of zero or more digits optionally
+followed by an exponent part consisting of an ‘E’ or an ‘e’, an optional sign
+and a string of one or more digits. Either the fractional or the decimal part
+can be empty, but not both at once.
+
+Valid numeric constants: 1 10 0.1 .2 1e-7 1.2e+7
+
+Numeric constants can also be hexadecimal, starting with ‘0x’ or ‘0x’ followed
+by zero or more digits, ‘a-f’ or ‘A-F’. Hexadecimal floating point constants
+are supported using C99 syntax, e.g. ‘0x1.1p1’.
+
+There is now a separate class of integer constants. They are created by using
+the qualifier L at the end of the number. For example, 123L gives an integer
+value rather than a numeric value. The suffix L can be used to qualify any
+non-complex number with the intent of creating an integer. So it can be used
+with numbers given by hexadecimal or scientific notation. However, if the value
+is not a valid integer, a warning is emitted and the numeric value created. The
+following shows examples of valid integer constants, values which will generate
+a warning and give numeric constants and syntax errors.
+
+Valid integer constants:  1L, 0x10L, 1000000L, 1e6L
+Valid numeric constants:  1.1L, 1e-3L, 0x1.1p-2
+Syntax error:  12iL 0x1.1
+
+A warning is emitted for decimal values that contain an unnecessary decimal
+point, e.g. 1.L. It is an error to have a decimal point in a hexadecimal
+constant without the binary exponent.
+
+Note also that a preceding sign (+ or -) is treated as a unary operator, not as
+part of the constant.
+
+Up-to-date information on the currently accepted formats can be found by ?
+NumericConstants.
+
+Complex constants have the form of a decimal numeric constant followed by ‘i’.
+Notice that only purely imaginary numbers are actual constants, other complex
+numbers are parsed a unary or binary operations on numeric and imaginary
+numbers.
+
+Valid complex constants: 2i 4.1i 1e-2i
+
+String constants are delimited by a pair of single (‘'’) or double (‘"’) quotes
+and can contain all other printable characters. Quotes and other special
+characters within strings are specified using escape sequences:
+
+\' 
+
+    single quote
+
+\" 
+
+    double quote
+
+\n 
+
+    newline
+
+\r 
+
+    carriage return
+
+\t 
+
+    tab character
+
+\b 
+
+    backspace
+
+\a 
+
+    bell
+
+\f 
+
+    form feed
+
+\v 
+
+    vertical tab
+
+\\ 
+
+    backslash itself
+
+\nnn
+
+    character with given octal code – sequences of one, two or three digits in
+    the range 0 ... 7 are accepted.
+
+\xnn
+
+    character with given hex code – sequences of one or two hex digits (with
+    entries 0 ... 9 A ... F a ... f).
+
+\unnnn \u{nnnn}
+
+    (where multibyte locales are supported, otherwise an error). Unicode
+    character with given hex code – sequences of up to four hex digits. The
+    character needs to be valid in the current locale.
+
+\Unnnnnnnn \U{nnnnnnnn}
+
+    (where multibyte locales are supported and not on Windows, otherwise an
+    error). Unicode character with given hex code – sequences of up to eight
+    hex digits.
+
+A single quote may also be embedded directly in a double-quote delimited string
+and vice versa.
+
+As from R 2.8.0, a ‘nul’ (\0) is not allowed in a character string, so using \0
+in a string constant terminates the constant (usually with a warning): further
+characters up to the closing quote are scanned but ignored.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.3.2 Identifiers
+
+Identifiers consist of a sequence of letters, digits, the period (‘.’) and the
+underscore. They must not start with a digit or an underscore, or with a period
+followed by a digit.
+
+The definition of a letter depends on the current locale: the precise set of
+characters allowed is given by the C expression (isalnum(c) || c == '.' || c ==
+'_') and will include accented letters in many Western European locales.
+
+Notice that identifiers starting with a period are not by default listed by the
+ls function and that ‘...’ and ‘..1’, ‘..2’, etc. are special.
+
+Notice also that objects can have names that are not identifiers. These are
+generally accessed via get and assign, although they can also be represented by
+text strings in some limited circumstances when there is no ambiguity (e.g. "x"
+<- 1). As get and assign are not restricted to names that are identifiers they
+do not recognise subscripting operators or replacement functions. The following
+pairs are not equivalent
+
+    x$a<-1       assign("x$a",1)
+    x[[1]]       get("x[[1]]")
+    names(x)<-nm assign("names(x)",nm)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.3.3 Reserved words
+
+The following identifiers have a special meaning and cannot be used for object
+names
+
+if else repeat while function for in next break
+TRUE FALSE NULL Inf NaN
+NA NA_integer_ NA_real_ NA_complex_ NA_character_
+... ..1 ..2 etc.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.3.4 Special operators
+
+R allows user-defined infix operators. These have the form of a string of
+characters delimited by the ‘%’ character. The string can contain any printable
+character except ‘%’. The escape sequences for strings do not apply here.
+
+Note that the following operators are predefined
+
+%% %*% %/% %in% %o% %x%
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.3.5 Separators
+
+Although not strictly tokens, stretches of whitespace characters (spaces, tabs
+and formfeeds, on Windows and UTF-8 locales other Unicode whitespace characters
+^1) serve to delimit tokens in case of ambiguity, (compare x<-5 and x < -5).
+
+Newlines have a function which is a combination of token separator and
+expression terminator. If an expression can terminate at the end of the line
+the parser will assume it does so, otherwise the newline is treated as
+whitespace. Semicolons (‘;’) may be used to separate elementary expressions on
+the same line.
+
+Special rules apply to the else keyword: inside a compound expression, a
+newline before else is discarded, whereas at the outermost level, the newline
+terminates the if construction and a subsequent else causes a syntax error.
+This somewhat anomalous behaviour occurs because R should be usable in
+interactive mode and then it must decide whether the input expression is
+complete, incomplete, or invalid as soon as the user presses RET.
+
+The comma (‘,’) is used to separate function arguments and multiple indices.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.3.6 Operator tokens
+
+R uses the following operator tokens
+
+    + - * / %% ^    arithmetic
+    > >= < <= == != relational
+    ! & |           logical
+    ~               model formulae
+    -> <-           assignment
+    $               list indexing
+    :               sequence
+
+(Several of the operators have different meaning inside model formulas)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.3.7 Grouping
+
+Ordinary parentheses—‘(’ and ‘)’—are used for explicit grouping within
+expressions and to delimit the argument lists for function definitions and
+function calls.
+
+Braces—‘{’ and ‘}’—delimit blocks of expressions in function definitions,
+conditional expressions, and iterative constructs.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.3.8 Indexing tokens
+
+Indexing of arrays and vectors is performed using the single and double
+brackets, ‘[]’ and ‘[[]]’. Also, indexing tagged lists may be done using the
+‘$’ operator.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.4 Expressions
+
+An R program consists of a sequence of R expressions. An expression can be a
+simple expression consisting of only a constant or an identifier, or it can be
+a compound expression constructed from other parts (which may themselves be
+expressions).
+
+The following sections detail the various syntactical constructs that are
+available.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.4.1 Function calls
+
+A function call takes the form of a function reference followed by a
+comma-separated list of arguments within a set of parentheses.
+
+function_reference ( arg1, arg2, ...... , argn )
+
+The function reference can be either
+
+  • an identifier (the name of the function)
+  • a text string (ditto, but handy if the function has a name which is not a
+    valid identifier)
+  • an expression (which should evaluate to a function object)
+
+Each argument can be tagged (tag=expr), or just be a simple expression. It can
+also be empty or it can be one of the special tokens ‘...’, ‘..2’, etc.
+
+A tag can be an identifier or a text string.
+
+Examples:
+
+f(x)
+g(tag = value, , 5)
+"odd name"("strange tag" = 5, y)
+(function(x) x^2)(5)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.4.2 Infix and prefix operators
+
+The order of precedence (highest first) of the operators is
+
+::
+$ @
+^
+- +                (unary)
+:
+%xyz%
+* /
++ -                (binary)
+> >= < <= == !=
+!
+& &&
+| ||
+~                  (unary and binary)
+-> ->>
+=                  (as assignment)
+<- <<-
+
+Note that : precedes binary +/-, but not ^. Hence, 1:3-1 is 0 1 2, but 1:2^3 is
+1:8.
+
+The exponentiation operator ‘^’ and the left assignment plus minus operators ‘
+<- - = <<-’ group right to left, all other operators group left to right. That
+is, 2 ^ 2 ^ 3 is 2 ^ 8, not 4 ^ 3, whereas 1 - 1 - 1 is -1, not 1.
+
+Notice that the operators %% and %/% for integer remainder and divide have
+higher precedence than multiply and divide.
+
+Although it is not strictly an operator, it also needs mentioning that the ‘=’
+sign is used for tagging arguments in function calls and for assigning default
+values in function definitions.
+
+The ‘$’ sign is in some sense an operator, but does not allow arbitrary right
+hand sides and is discussed under Index constructions. It has higher precedence
+than any of the other operators.
+
+The parsed form of a unary or binary operation is completely equivalent to a
+function call with the operator as the function name and the operands as the
+function arguments.
+
+Parentheses are recorded as equivalent to a unary operator, with name "(", even
+in cases where the parentheses could be inferred from operator precedence
+(e.g., a * (b + c)).
+
+Notice that the assignment symbols are operators just like the arithmetic,
+relational, and logical ones. Any expression is allowed also on the target side
+of an assignment, as far as the parser is concerned (2 + 2 <- 5 is a valid
+expression as far as the parser is concerned. The evaluator will object,
+though). Similar comments apply to the model formula operator.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.4.3 Index constructions
+
+R has three indexing constructs, two of which are syntactically similar
+although with somewhat different semantics:
+
+object [ arg1, ...... , argn ]
+object [[ arg1, ...... , argn ]]
+
+The object can formally be any valid expression, but it is understood to denote
+or evaluate to a subsettable object. The arguments generally evaluate to
+numerical or character indices, but other kinds of arguments are possible
+(notably drop = FALSE).
+
+Internally, these index constructs are stored as function calls with function
+name "[" respectively "[[".
+
+The third index construction is
+
+object $ tag
+
+Here, object is as above, whereas tag is an identifier or a text string.
+Internally, it is stored as a function call with name "$"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.4.4 Compound expressions
+
+A compound expression is of the form
+
+{ expr1 ; expr2 ; ...... ; exprn }
+
+The semicolons may be replaced by newlines. Internally, this is stored as a
+function call with "{" as the function name and the expressions as arguments.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.4.5 Flow control elements
+
+R contains the following control structures as special syntactic constructs
+
+if ( cond ) expr
+if ( cond ) expr1 else expr2
+while ( cond ) expr
+repeat expr
+for ( var in list ) expr
+
+The expressions in these constructs will typically be compound expressions.
+
+Within the loop constructs (while, repeat, for), one may use break (to
+terminate the loop) and next (to skip to the next iteration).
+
+Internally, the constructs are stored as function calls:
+
+"if"(cond, expr)
+"if"(cond, expr1, expr2)
+"while"(cond, expr)
+"repeat"(expr)
+"for"(var, list, expr)
+"break"()
+"next"()
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.4.6 Function definitions
+
+A function definition is of the form
+
+function ( arglist ) body
+
+The function body is an expression, often a compound expression. The arglist is
+a comma-separated list of items each of which can be an identifier, or of the
+form ‘identifier = default’, or the special token ‘...’. The default can be any
+valid expression.
+
+Notice that function arguments unlike list tags, etc., cannot have “strange
+names” given as text strings.
+
+Internally, a function definition is stored as a function call with function
+name function and two arguments, the arglist and the body. The arglist is
+stored as a tagged pairlist where the tags are the argument names and the
+values are the default expressions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10.5 Directives
+
+The parser currently only supports one directive, #line. This is similar to the
+C-preprocessor directive of the same name. The syntax is
+
+#line nn [ "filename" ]
+
+where nn is an integer line number, and the optional filename (in required
+double quotes) names the source file.
+
+Unlike the C directive, #line must appear as the first five characters on a
+line. As in C, nn and "filename" entries may be separated from it by
+whitespace. And unlike C, any following text on the line will be treated as a
+comment and ignored.
+
+This directive tells the parser that the following line should be assumed to be
+line nn of file filename. (If the filename is not given, it is assumed to be
+the same as for the previous directive.) This is not typically used by users,
+but may be used by preprocessors so that diagnostic messages refer to the
+original file.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Function and Variable Index
+
+Jump to:   #   $   .   [  
+           A   B   D   E   F   G   I   M   N   O   P   Q   R   S   T   U   W  
+
+  Index Entry       Section
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+  #:                Comments
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+$
+  $:                Indexing
+  $:                Index constructions
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.
+  .C:               Foreign language interfaces
+  .Call:            Foreign language interfaces
+  .External:        Foreign language interfaces
+  .Fortran:         Foreign language interfaces
+  .Internal:        .Internal and .Primitive
+  .Primitive:       .Internal and .Primitive
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+  [:                Indexing
+  [:                Index constructions
+  [[:               Indexing
+  [[:               Index constructions
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+A
+  as.call:          Language objects
+  as.character:     Symbol objects
+  as.function:      Function objects
+  as.list:          Language objects
+  as.name:          Symbol objects
+  assign:           Identifiers
+  attr:             Attributes
+  attr<-:           Attributes
+  attributes:       Attributes
+  attributes<-:     Attributes
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+B
+  baseenv:          Environment objects
+  basename:         Operating system access
+  body:             Function objects
+  body:             Manipulation of functions
+  body<-:           Manipulation of functions
+  break:            Looping
+  browser:          browser
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+D
+  debug:            debug/undebug
+  dirname:          Operating system access
+  do.call:          Manipulation of function calls
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+E
+  emptyenv:         Environment objects
+  environment:      Function objects
+  environment:      Manipulation of functions
+  environment<-:    Manipulation of functions
+  eval:             More on evaluation
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+F
+  file.access:      Operating system access
+  file.append:      Operating system access
+  file.choose:      Operating system access
+  file.copy:        Operating system access
+  file.create:      Operating system access
+  file.exists:      Operating system access
+  file.info:        Operating system access
+  file.path:        Operating system access
+  file.remove:      Operating system access
+  file.rename:      Operating system access
+  file.show:        Operating system access
+  for:              for
+  formals:          Function objects
+  formals:          Manipulation of functions
+  formals<-:        Manipulation of functions
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+G
+  get:              Identifiers
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+I
+  is.na:            NA handling
+  is.nan:           NA handling
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+M
+  match.arg:        Argument matching
+  match.call:       Argument matching
+  match.call:       Manipulation of function calls
+  match.fun:        Argument matching
+  missing:          NA handling
+  mode:             Objects
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+N
+  NA:               NA handling
+  NA:               Indexing by vectors
+  names:            Names
+  names<-:          Names
+  NaN:              NA handling
+  new.env:          Environment objects
+  next:             Looping
+  NextMethod:       NextMethod
+  NULL:             NULL object
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+O
+  on.exit:          on.exit
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+P
+  pairlist:         Pairlist objects
+  path.expand:      Operating system access
+  proc.time:        Operating system access
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Q
+  quote:            Language objects
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+R
+  repeat:           repeat
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+S
+  stop:             stop
+  storage.mode:     Objects
+  substitute:       Substitutions
+  switch:           switch
+  Sys.getenv:       Operating system access
+  Sys.getlocale:    Operating system access
+  Sys.localeconv:   Operating system access
+  Sys.putenv:       Operating system access
+  Sys.putlocale:    Operating system access
+  Sys.time:         Operating system access
+  Sys.timezone:     Operating system access
+  system:           Operating system access
+  system.time:      Operating system access
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+T
+  trace:            trace/untrace
+  traceback:        traceback
+  typeof:           Objects
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+U
+  undebug:          debug/undebug
+  unlink:           Operating system access
+  untrace:          trace/untrace
+  UseMethod:        UseMethod
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+W
+  warning:          warning
+  warnings:         warning
+  while:            while
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Jump to:   #   $   .   [  
+           A   B   D   E   F   G   I   M   N   O   P   Q   R   S   T   U   W  
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Concept Index
+
+Jump to:   #   .  
+           A   B   C   E   F   I   M   N   O   P   S   T   V  
+
+  Index Entry                 Section
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+  #line:                      Directives
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.
+  .Internal:                  Builtin objects and special forms
+  .Primitive:                 Builtin objects and special forms
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+A
+  argument:                   Function objects
+  argument:                   Syntax and examples
+  argument, default values:   Arguments
+  assignment:                 Function objects
+  assignment:                 Function calls
+  assignment:                 Operators
+  assignment:                 Subset assignment
+  assignment:                 Global environment
+  assignment:                 Argument evaluation
+  assignment:                 Scope
+  assignment:                 UseMethod
+  assignment:                 UseMethod
+  assignment:                 More on evaluation
+  assignment:                 Manipulation of function calls
+  assignment:                 Infix and prefix operators
+  assignment:                 Infix and prefix operators
+  atomic:                     Vector objects
+  attributes:                 Attributes
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+B
+  binding:                    Scope
+  binding:                    Scope
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+C
+  call:                       Language objects
+  call stack:                 Stacks
+  coercion:                   Objects
+  coercion:                   Symbol objects
+  coercion:                   Any-type
+  coercion:                   Classes
+  coercion:                   NA handling
+  comments:                   Comments
+  complex assignment:         Subset assignment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+E
+  environment:                Function objects
+  environment:                Function objects
+  environment:                Promise objects
+  environment:                Environment objects
+  environment:                Global environment
+  environment:                Lexical environment
+  environment:                Stacks
+  environment:                Search path
+  environment:                Evaluation environment
+  environment:                Argument evaluation
+  environment:                Argument evaluation
+  environment:                Scope
+  environment:                UseMethod
+  environment:                UseMethod
+  environment:                More on evaluation
+  environment:                Manipulation of functions
+  environment:                Operating system access
+  environment:                Debugging
+  environment:                Debugging
+  environment, evaluation:    Lexical environment
+  environment, evaluation:    Lexical environment
+  environment, evaluation:    Argument evaluation
+  evaluation:                 Stacks
+  evaluation:                 Evaluation environment
+  evaluation:                 Argument evaluation
+  evaluation:                 Scope
+  evaluation:                 Inheritance
+  evaluation:                 UseMethod
+  evaluation:                 More on evaluation
+  evaluation:                 Manipulation of function calls
+  evaluation, argument:       Argument evaluation
+  evaluation, expression:     Expression objects
+  evaluation, expression:     Promise objects
+  evaluation, expression:     Arguments
+  evaluation, lazy:           Objects
+  evaluation, lazy:           Substitutions
+  evaluation, lazy:           Substitutions
+  evaluation, statement:      Control structures
+  evaluation, symbol:         Attributes
+  evaluation, symbol:         Symbol lookup
+  evaluation, symbol:         Scope
+  expression:                 Introduction
+  expression:                 Language objects
+  expression:                 Separators
+  expression object:          Expression objects
+  expression object:          Expression objects
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+F
+  frame:                      Lexical environment
+  function:                   Function objects
+  function:                   Function objects
+  function:                   Function objects
+  function:                   Builtin objects and special forms
+  function:                   Builtin objects and special forms
+  function:                   Promise objects
+  function:                   Dot-dot-dot
+  function:                   Function calls
+  function:                   Lexical environment
+  function:                   Lexical environment
+  function:                   Stacks
+  function:                   Writing functions
+  function:                   Syntax and examples
+  function:                   Syntax and examples
+  function:                   Arguments
+  function:                   Evaluation environment
+  function:                   Argument matching
+  function:                   Argument evaluation
+  function:                   Argument evaluation
+  function:                   Argument evaluation
+  function:                   Argument evaluation
+  function:                   Scope
+  function:                   Scope
+  function:                   Scope
+  function:                   Object-oriented programming
+  function:                   Definition
+  function:                   Manipulation of function calls
+  function:                   Manipulation of functions
+  function:                   Manipulation of functions
+  function:                   Internal representation
+  function:                   Function calls (expressions)
+  function:                   Function definitions
+  function argument:          Promise objects
+  function argument:          Dot-dot-dot
+  function arguments:         Function calls
+  function invocation:        Function calls
+  function, accessor:         Attributes
+  function, anonymous:        Syntax and examples
+  function, assignment:       Function calls
+  function, generic:          Object-oriented programming
+  function, generic:          Definition
+  function, generic:          Definition
+  function, generic:          Definition
+  function, generic:          Inheritance
+  function, generic:          Method dispatching
+  function, generic:          Writing methods
+  function, generic:          Writing methods
+  function, internal:         Argument evaluation
+  function, internal:         Group methods
+  function, modeling:         Factors
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+I
+  identifier:                 Identifiers
+  index:                      Vector objects
+  index:                      List objects
+  index:                      Indexing
+  index:                      Indexing by vectors
+  index:                      Indexing matrices and arrays
+  index:                      Indexing matrices and arrays
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+M
+  mode:                       Objects
+  mode:                       Vector objects
+  mode:                       Symbol objects
+  modeling function:          Factors
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+N
+  name:                       Language objects
+  name:                       Symbol objects
+  name:                       Symbol lookup
+  name:                       Propagation of names
+  name:                       Scope of variables
+  name:                       Arguments
+  name:                       Argument matching
+  name:                       Argument evaluation
+  name:                       Method dispatching
+  name:                       NextMethod
+  name:                       Direct manipulation of language objects
+  name:                       Debugging
+  namespace:                  Search path
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+O
+  object:                     Objects
+  object:                     Objects
+  object:                     Symbol objects
+  object:                     Attributes
+  object:                     Method dispatching
+  object-oriented:            Object-oriented programming
+  object-oriented:            Definition
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+P
+  parsing:                    Language objects
+  parsing:                    Symbol objects
+  parsing:                    Evaluation of expressions
+  parsing:                    Computing on the language
+  parsing:                    Direct manipulation of language objects
+  parsing:                    Substitutions
+  parsing:                    Parser
+  parsing:                    Internal representation
+  partial matching:           Indexing by vectors
+  promise:                    Promise objects
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+S
+  scope:                      Scope of variables
+  scope:                      Stacks
+  scope:                      Scope
+  scope:                      Scope
+  scope:                      Scope
+  scope:                      More on evaluation
+  search path:                Search path
+  statement:                  Language objects
+  symbol:                     Symbol objects
+  symbol:                     Symbol objects
+  symbol:                     Symbol lookup
+  symbol:                     Scope
+  symbol:                     Substitutions
+  symbol:                     Manipulation of function calls
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+T
+  token:                      Expression objects
+  type:                       Objects
+  type:                       Objects
+  type:                       Basic types
+  type:                       Vector objects
+  type:                       Names
+  type:                       NA handling
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+V
+  value:                      Symbol lookup
+  variable:                   Objects
+  vector:                     Vector objects
+  vector:                     Dimensions
+  vector:                     Operators
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Jump to:   #   .  
+           A   B   C   E   F   I   M   N   O   P   S   T   V  
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Appendix A References
+
+Richard A. Becker, John M. Chambers and Allan R. Wilks (1988), The New S
+Language. Chapman & Hall, New York. This book is often called the “Blue Book”.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Footnotes
+
+(1)
+
+such as U+A0, non-breaking space, and U+3000, ideographic space.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
